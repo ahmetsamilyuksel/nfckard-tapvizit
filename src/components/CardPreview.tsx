@@ -38,17 +38,42 @@ function isColorDark(hexColor: string): boolean {
 }
 
 // Helper function to format social media URLs
-function formatSocialUrl(url: string | undefined, platform: 'linkedin' | 'twitter' | 'instagram'): string {
+function formatSocialUrl(
+  url: string | undefined,
+  platform: 'linkedin' | 'twitter' | 'instagram' | 'whatsapp' | 'telegram' | 'vkontakte' | 'tiktok' | 'wechat' | 'youtube' | 'facebook' | 'snapchat'
+): string {
   if (!url) return '#';
+
+  // Special handling for WhatsApp - expects phone number
+  if (platform === 'whatsapp') {
+    const cleanPhone = url.replace(/[^\d+]/g, ''); // Keep only digits and +
+    return `https://wa.me/${cleanPhone}`;
+  }
+
+  // Special handling for WeChat - no direct URL, show username
+  if (platform === 'wechat') {
+    return `#wechat-${url}`;
+  }
+
   // If already a full URL, return as-is
   if (url.startsWith('http://') || url.startsWith('https://')) return url;
+
   // Otherwise, construct the full URL
   const baseUrls = {
     linkedin: 'https://linkedin.com/in/',
     twitter: 'https://twitter.com/',
-    instagram: 'https://instagram.com/'
+    instagram: 'https://instagram.com/',
+    telegram: 'https://t.me/',
+    vkontakte: 'https://vk.com/',
+    tiktok: 'https://tiktok.com/',
+    youtube: 'https://youtube.com/',
+    facebook: 'https://facebook.com/',
+    snapchat: 'https://snapchat.com/add/',
+    whatsapp: 'https://wa.me/',
+    wechat: '#'
   };
-  return baseUrls[platform] + url.replace('@', '');
+
+  return baseUrls[platform] + url.replace('@', '').replace(/^\//, '');
 }
 
 // Helper function to create radial gradient based on intensity
@@ -310,7 +335,7 @@ export default function CardPreview({ card, t, onPhotoClick, fullScreen = false 
         </div>
 
         {/* Social Links */}
-        {(card.linkedin || card.twitter || card.instagram) && (
+        {(card.linkedin || card.twitter || card.instagram || card.whatsapp || card.telegram || card.vkontakte || card.tiktok || card.wechat || card.youtube || card.facebook || card.snapchat) && (
           <>
             <div className={`border-t border-gray-200/30 mt-4 mb-4`} />
             <div className="flex gap-2">
@@ -345,6 +370,94 @@ export default function CardPreview({ card, t, onPhotoClick, fullScreen = false 
                   style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
                 >
                   <InstagramIcon />
+                </a>
+              )}
+              {card.whatsapp && (
+                <a
+                  href={formatSocialUrl(card.whatsapp, 'whatsapp')}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-9 h-9 rounded-lg flex items-center justify-center"
+                  style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
+                >
+                  <WhatsAppIcon />
+                </a>
+              )}
+              {card.telegram && (
+                <a
+                  href={formatSocialUrl(card.telegram, 'telegram')}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-9 h-9 rounded-lg flex items-center justify-center"
+                  style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
+                >
+                  <TelegramIcon />
+                </a>
+              )}
+              {card.vkontakte && (
+                <a
+                  href={formatSocialUrl(card.vkontakte, 'vkontakte')}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-9 h-9 rounded-lg flex items-center justify-center"
+                  style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
+                >
+                  <VKontakteIcon />
+                </a>
+              )}
+              {card.tiktok && (
+                <a
+                  href={formatSocialUrl(card.tiktok, 'tiktok')}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-9 h-9 rounded-lg flex items-center justify-center"
+                  style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
+                >
+                  <TikTokIcon />
+                </a>
+              )}
+              {card.wechat && (
+                <a
+                  href={formatSocialUrl(card.wechat, 'wechat')}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-9 h-9 rounded-lg flex items-center justify-center"
+                  style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
+                >
+                  <WeChatIcon />
+                </a>
+              )}
+              {card.youtube && (
+                <a
+                  href={formatSocialUrl(card.youtube, 'youtube')}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-9 h-9 rounded-lg flex items-center justify-center"
+                  style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
+                >
+                  <YouTubeIcon />
+                </a>
+              )}
+              {card.facebook && (
+                <a
+                  href={formatSocialUrl(card.facebook, 'facebook')}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-9 h-9 rounded-lg flex items-center justify-center"
+                  style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
+                >
+                  <FacebookIcon />
+                </a>
+              )}
+              {card.snapchat && (
+                <a
+                  href={formatSocialUrl(card.snapchat, 'snapchat')}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-9 h-9 rounded-lg flex items-center justify-center"
+                  style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
+                >
+                  <SnapchatIcon />
                 </a>
               )}
             </div>
@@ -485,7 +598,7 @@ function ModernLayout({ card, t, initials, onPhotoClick, textPrimaryColor, textS
         </div>
 
         {/* Social Links */}
-        {(card.linkedin || card.twitter || card.instagram) && (
+        {(card.linkedin || card.twitter || card.instagram || card.whatsapp || card.telegram || card.vkontakte || card.tiktok || card.wechat || card.youtube || card.facebook || card.snapchat) && (
           <>
             <div className={`border-t border-gray-200/30 mt-4 mb-4`} />
             <div className="flex gap-2">
@@ -520,6 +633,94 @@ function ModernLayout({ card, t, initials, onPhotoClick, textPrimaryColor, textS
                   style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
                 >
                   <InstagramIcon />
+                </a>
+              )}
+              {card.whatsapp && (
+                <a
+                  href={formatSocialUrl(card.whatsapp, 'whatsapp')}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-9 h-9 rounded-lg flex items-center justify-center"
+                  style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
+                >
+                  <WhatsAppIcon />
+                </a>
+              )}
+              {card.telegram && (
+                <a
+                  href={formatSocialUrl(card.telegram, 'telegram')}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-9 h-9 rounded-lg flex items-center justify-center"
+                  style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
+                >
+                  <TelegramIcon />
+                </a>
+              )}
+              {card.vkontakte && (
+                <a
+                  href={formatSocialUrl(card.vkontakte, 'vkontakte')}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-9 h-9 rounded-lg flex items-center justify-center"
+                  style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
+                >
+                  <VKontakteIcon />
+                </a>
+              )}
+              {card.tiktok && (
+                <a
+                  href={formatSocialUrl(card.tiktok, 'tiktok')}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-9 h-9 rounded-lg flex items-center justify-center"
+                  style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
+                >
+                  <TikTokIcon />
+                </a>
+              )}
+              {card.wechat && (
+                <a
+                  href={formatSocialUrl(card.wechat, 'wechat')}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-9 h-9 rounded-lg flex items-center justify-center"
+                  style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
+                >
+                  <WeChatIcon />
+                </a>
+              )}
+              {card.youtube && (
+                <a
+                  href={formatSocialUrl(card.youtube, 'youtube')}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-9 h-9 rounded-lg flex items-center justify-center"
+                  style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
+                >
+                  <YouTubeIcon />
+                </a>
+              )}
+              {card.facebook && (
+                <a
+                  href={formatSocialUrl(card.facebook, 'facebook')}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-9 h-9 rounded-lg flex items-center justify-center"
+                  style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
+                >
+                  <FacebookIcon />
+                </a>
+              )}
+              {card.snapchat && (
+                <a
+                  href={formatSocialUrl(card.snapchat, 'snapchat')}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-9 h-9 rounded-lg flex items-center justify-center"
+                  style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
+                >
+                  <SnapchatIcon />
                 </a>
               )}
             </div>
@@ -632,7 +833,7 @@ function SidebarLayout({ card, t, bgStyle, bgClass, initials, onPhotoClick, text
         </div>
 
         {/* Social Links */}
-        {(card.linkedin || card.twitter || card.instagram) && (
+        {(card.linkedin || card.twitter || card.instagram || card.whatsapp || card.telegram || card.vkontakte || card.tiktok || card.wechat || card.youtube || card.facebook || card.snapchat) && (
           <div className="flex gap-2 mt-4">
             {card.linkedin && (
               <a
@@ -753,7 +954,7 @@ function MinimalLayout({ card, t, bgStyle, bgClass, initials, onPhotoClick, text
         </div>
 
         {/* Social Links */}
-        {(card.linkedin || card.twitter || card.instagram) && (
+        {(card.linkedin || card.twitter || card.instagram || card.whatsapp || card.telegram || card.vkontakte || card.tiktok || card.wechat || card.youtube || card.facebook || card.snapchat) && (
           <div className="flex gap-3 mt-6">
             {card.linkedin && (
               <a href={formatSocialUrl(card.linkedin, 'linkedin')} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-lg flex items-center justify-center transition-transform hover:scale-110" style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}>
@@ -845,6 +1046,70 @@ function InstagramIcon() {
   );
 }
 
+function WhatsAppIcon() {
+  return (
+    <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+    </svg>
+  );
+}
+
+function TelegramIcon() {
+  return (
+    <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
+      <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z" />
+    </svg>
+  );
+}
+
+function VKontakteIcon() {
+  return (
+    <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
+      <path d="M15.684 0H8.316C1.592 0 0 1.592 0 8.316v7.368C0 22.408 1.592 24 8.316 24h7.368C22.408 24 24 22.408 24 15.684V8.316C24 1.592 22.391 0 15.684 0zm3.692 17.123h-1.744c-.66 0-.864-.525-2.05-1.727-1.033-1-1.49-1.135-1.744-1.135-.356 0-.458.102-.458.593v1.575c0 .424-.135.678-1.253.678-1.846 0-3.896-1.118-5.335-3.202C4.624 10.857 4.03 8.57 4.03 8.096c0-.254.102-.491.593-.491h1.744c.44 0 .61.203.78.677.863 2.49 2.303 4.675 2.896 4.675.22 0 .322-.102.322-.66V9.721c-.068-1.186-.695-1.287-.695-1.71 0-.203.17-.407.44-.407h2.744c.373 0 .508.203.508.643v3.473c0 .372.17.508.271.508.22 0 .407-.136.813-.542 1.254-1.406 2.151-3.574 2.151-3.574.119-.254.322-.491.763-.491h1.744c.525 0 .644.27.525.643-.22 1.017-2.354 4.031-2.354 4.031-.186.305-.254.44 0 .78.186.254.796.779 1.203 1.253.745.847 1.32 1.558 1.473 2.05.17.49-.085.744-.576.744z" />
+    </svg>
+  );
+}
+
+function TikTokIcon() {
+  return (
+    <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
+      <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z" />
+    </svg>
+  );
+}
+
+function WeChatIcon() {
+  return (
+    <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
+      <path d="M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 0 1 .213.665l-.39 1.478c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 0 0 .167-.054l1.903-1.114a.864.864 0 0 1 .717-.098 10.16 10.16 0 0 0 2.837.403c.276 0 .543-.027.811-.05-.857-2.578.157-4.972 1.932-6.446 1.703-1.415 3.882-1.98 5.853-1.838-.576-3.583-4.196-6.348-8.596-6.348zM5.785 5.991c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178A1.17 1.17 0 0 1 4.623 7.17c0-.651.52-1.18 1.162-1.18zm5.813 0c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178 1.17 1.17 0 0 1-1.162-1.178c0-.651.52-1.18 1.162-1.18zm5.34 2.867c-1.797-.052-3.746.512-5.28 1.786-1.72 1.428-2.687 3.72-1.78 6.22.942 2.453 3.666 4.229 6.884 4.229.826 0 1.622-.12 2.361-.336a.722.722 0 0 1 .598.082l1.584.926a.272.272 0 0 0 .14.047c.134 0 .24-.111.24-.247 0-.06-.023-.12-.038-.177l-.327-1.233a.582.582 0 0 1 .023-.156.49.49 0 0 1 .201-.398C23.024 18.48 24 16.82 24 14.98c0-3.21-2.931-5.837-6.656-6.088V8.89c-.135-.01-.27-.027-.407-.03zm-2.53 3.274c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.969-.982zm4.844 0c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.969-.982z" />
+    </svg>
+  );
+}
+
+function YouTubeIcon() {
+  return (
+    <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
+      <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+    </svg>
+  );
+}
+
+function FacebookIcon() {
+  return (
+    <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
+      <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+    </svg>
+  );
+}
+
+function SnapchatIcon() {
+  return (
+    <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
+      <path d="M12.206.793c.99 0 4.347.276 5.93 3.821.529 1.193.403 3.219.299 4.847l-.003.06c-.012.18-.022.345-.03.51.075.045.203.09.401.09.3-.016.659-.12 1.033-.301.165-.088.344-.104.464-.104.182 0 .359.029.509.09.45.149.734.479.734.838.015.449-.39.839-1.213 1.168-.089.029-.209.075-.344.119-.45.135-1.139.36-1.333.81-.09.224-.061.524.12.868l.015.015c.06.136 1.526 3.475 4.791 4.014.255.044.435.27.42.509 0 .075-.015.149-.045.225-.24.569-1.273.988-3.146 1.271-.059.091-.12.375-.164.57-.029.179-.074.36-.134.553-.076.271-.27.405-.555.405h-.03c-.135 0-.313-.031-.538-.074-.36-.075-.765-.135-1.273-.135-.3 0-.599.015-.913.074-.6.104-1.123.464-1.723.884-.853.599-1.826 1.288-3.294 1.288-.06 0-.119-.015-.18-.015h-.149c-1.468 0-2.427-.675-3.279-1.288-.599-.42-1.107-.779-1.707-.884-.314-.045-.629-.074-.928-.074-.54 0-.958.089-1.272.149-.211.043-.389.074-.54.074-.374 0-.523-.224-.583-.42-.061-.192-.09-.389-.135-.567-.046-.181-.105-.494-.166-.57-1.918-.222-2.95-.642-3.189-1.226-.031-.063-.052-.12-.064-.194-.017-.21.155-.479.42-.509 3.264-.54 4.73-3.879 4.791-4.02l.016-.029c.18-.345.224-.645.119-.869-.195-.434-.884-.658-1.332-.809-.121-.029-.24-.074-.346-.119-1.107-.435-1.257-.93-1.197-1.273.09-.479.674-.793 1.168-.793.146 0 .27.029.383.074.42.194.789.3 1.104.3.234 0 .384-.06.465-.105l-.046-.569c-.098-1.626-.225-3.651.307-4.837C7.392 1.077 10.739.807 11.727.807l.419-.015h.06z" />
+    </svg>
+  );
+}
+
 // LAYOUT 5: Bold - Large diagonal photo with overlapping content
 function BoldLayout({ card, t, initials, onPhotoClick, textPrimaryColor, textSecondaryColor, containerClass = "w-full max-w-lg mx-auto" }: LayoutProps) {
   const bgColor = card.backgroundColor || "#ffffff";
@@ -912,7 +1177,7 @@ function BoldLayout({ card, t, initials, onPhotoClick, textPrimaryColor, textSec
         </div>
 
         {/* Social Links */}
-        {(card.linkedin || card.twitter || card.instagram) && (
+        {(card.linkedin || card.twitter || card.instagram || card.whatsapp || card.telegram || card.vkontakte || card.tiktok || card.wechat || card.youtube || card.facebook || card.snapchat) && (
           <div className="flex gap-2 justify-center">
             {card.linkedin && (
               <a href={formatSocialUrl(card.linkedin, 'linkedin')} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full flex items-center justify-center" style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}>
@@ -1007,7 +1272,7 @@ function StylishLayout({ card, t, initials, onPhotoClick, textSecondaryColor, co
         </div>
 
         {/* Social Links */}
-        {(card.linkedin || card.twitter || card.instagram) && (
+        {(card.linkedin || card.twitter || card.instagram || card.whatsapp || card.telegram || card.vkontakte || card.tiktok || card.wechat || card.youtube || card.facebook || card.snapchat) && (
           <div className="flex gap-3 justify-center pt-4 border-t" style={{ borderColor: `${card.primaryColor}30` }}>
             {card.linkedin && (
               <a href={formatSocialUrl(card.linkedin, 'linkedin')} target="_blank" rel="noopener noreferrer" className="w-11 h-11 rounded-xl flex items-center justify-center shadow-md" style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}>
@@ -1102,7 +1367,7 @@ function ElegantLayout({ card, t, initials, onPhotoClick, textPrimaryColor, text
         </div>
 
         {/* Social Links - Horizontal bar */}
-        {(card.linkedin || card.twitter || card.instagram) && (
+        {(card.linkedin || card.twitter || card.instagram || card.whatsapp || card.telegram || card.vkontakte || card.tiktok || card.wechat || card.youtube || card.facebook || card.snapchat) && (
           <div className="flex gap-2 justify-center pt-4">
             {card.linkedin && (
               <a href={formatSocialUrl(card.linkedin, 'linkedin')} target="_blank" rel="noopener noreferrer" className="flex-1 h-12 rounded-xl flex items-center justify-center" style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}>
@@ -1198,7 +1463,7 @@ function CreativeLayout({ card, t, initials, onPhotoClick, textPrimaryColor, tex
         </div>
 
         {/* Social Links - Pills */}
-        {(card.linkedin || card.twitter || card.instagram) && (
+        {(card.linkedin || card.twitter || card.instagram || card.whatsapp || card.telegram || card.vkontakte || card.tiktok || card.wechat || card.youtube || card.facebook || card.snapchat) && (
           <div className="flex gap-2">
             {card.linkedin && (
               <a href={formatSocialUrl(card.linkedin, 'linkedin')} target="_blank" rel="noopener noreferrer" className="flex-1 h-10 rounded-full flex items-center justify-center" style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}>

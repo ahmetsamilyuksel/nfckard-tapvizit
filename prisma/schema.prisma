@@ -20,6 +20,14 @@ model Card {
   linkedin          String?
   twitter           String?
   instagram         String?
+  whatsapp          String?
+  telegram          String?
+  vkontakte         String?
+  tiktok            String?
+  wechat            String?
+  youtube           String?
+  facebook          String?
+  snapchat          String?
   address           String?
   bio               String?
   theme             String   @default("dark")

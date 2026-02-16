@@ -48,7 +48,7 @@ export default function CreateCardClient({ lang, t }: Props) {
   const [step, setStep] = useState<Step>("design");
   const [cardData, setCardData] = useState<CardFormData>({
     firstName: "", lastName: "", title: "", company: "", email: "", phone: "",
-    website: "", linkedin: "", twitter: "", instagram: "", address: "", bio: "",
+    website: "", linkedin: "", twitter: "", instagram: "", whatsapp: "", telegram: "", vkontakte: "", tiktok: "", wechat: "", youtube: "", facebook: "", snapchat: "", address: "", bio: "",
     theme: "dark", primaryColor: "#0ea5e9", backgroundColor: "#ffffff", gradientIntensity: 50, photoUrl: "", layout: "classic",
     photoZoom: 1, photoPosition: { x: 0, y: 0 }
   });
@@ -172,7 +172,7 @@ export default function CreateCardClient({ lang, t }: Props) {
     setStep("design");
     setCardData({
       firstName: "", lastName: "", title: "", company: "", email: "", phone: "",
-      website: "", linkedin: "", twitter: "", instagram: "", address: "", bio: "",
+      website: "", linkedin: "", twitter: "", instagram: "", whatsapp: "", telegram: "", vkontakte: "", tiktok: "", wechat: "", youtube: "", facebook: "", snapchat: "", address: "", bio: "",
       theme: "dark", primaryColor: "#0ea5e9", photoUrl: ""
     });
     setOrderData({
@@ -608,6 +608,94 @@ export default function CreateCardClient({ lang, t }: Props) {
                     onChange={(e) => handleCardChange("instagram", e.target.value)}
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent"
                     placeholder={t.placeholderInstagram}
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">{t.whatsapp}</label>
+                  <input
+                    type="text"
+                    value={cardData.whatsapp}
+                    onChange={(e) => handleCardChange("whatsapp", e.target.value)}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent"
+                    placeholder={t.placeholderWhatsapp}
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">{t.telegram}</label>
+                  <input
+                    type="text"
+                    value={cardData.telegram}
+                    onChange={(e) => handleCardChange("telegram", e.target.value)}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent"
+                    placeholder={t.placeholderTelegram}
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">{t.vkontakte}</label>
+                  <input
+                    type="text"
+                    value={cardData.vkontakte}
+                    onChange={(e) => handleCardChange("vkontakte", e.target.value)}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent"
+                    placeholder={t.placeholderVkontakte}
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">{t.tiktok}</label>
+                  <input
+                    type="text"
+                    value={cardData.tiktok}
+                    onChange={(e) => handleCardChange("tiktok", e.target.value)}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent"
+                    placeholder={t.placeholderTiktok}
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">{t.wechat}</label>
+                  <input
+                    type="text"
+                    value={cardData.wechat}
+                    onChange={(e) => handleCardChange("wechat", e.target.value)}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent"
+                    placeholder={t.placeholderWechat}
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">{t.youtube}</label>
+                  <input
+                    type="text"
+                    value={cardData.youtube}
+                    onChange={(e) => handleCardChange("youtube", e.target.value)}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent"
+                    placeholder={t.placeholderYoutube}
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">{t.facebook}</label>
+                  <input
+                    type="text"
+                    value={cardData.facebook}
+                    onChange={(e) => handleCardChange("facebook", e.target.value)}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent"
+                    placeholder={t.placeholderFacebook}
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">{t.snapchat}</label>
+                  <input
+                    type="text"
+                    value={cardData.snapchat}
+                    onChange={(e) => handleCardChange("snapchat", e.target.value)}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent"
+                    placeholder={t.placeholderSnapchat}
                   />
                 </div>
               </div>
