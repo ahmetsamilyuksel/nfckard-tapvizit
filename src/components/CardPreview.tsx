@@ -241,7 +241,7 @@ export default function CardPreview({ card, t, onPhotoClick }: Props) {
         )}
 
         {/* Divider */}
-        <div className={`border-t ${dividerColor} mb-4`} />
+        <div className={`border-t border-gray-200/30 mb-4`} />
 
         {/* Contact Info */}
         <div className="space-y-2.5">
@@ -294,7 +294,7 @@ export default function CardPreview({ card, t, onPhotoClick }: Props) {
         {/* Social Links */}
         {(card.linkedin || card.twitter || card.instagram) && (
           <>
-            <div className={`border-t ${dividerColor} mt-4 mb-4`} />
+            <div className={`border-t border-gray-200/30 mt-4 mb-4`} />
             <div className="flex gap-2">
               {card.linkedin && (
                 <div
@@ -405,7 +405,7 @@ function ModernLayout({ card, t, initials, onPhotoClick, textPrimaryColor, textS
         )}
 
         {/* Divider */}
-        <div className={`border-t ${dividerColor} mb-4`} />
+        <div className={`border-t border-gray-200/30 mb-4`} />
 
         {/* Contact Info */}
         <div className="space-y-2.5">
@@ -458,7 +458,7 @@ function ModernLayout({ card, t, initials, onPhotoClick, textPrimaryColor, textS
         {/* Social Links */}
         {(card.linkedin || card.twitter || card.instagram) && (
           <>
-            <div className={`border-t ${dividerColor} mt-4 mb-4`} />
+            <div className={`border-t border-gray-200/30 mt-4 mb-4`} />
             <div className="flex gap-2">
               {card.linkedin && (
                 <div
