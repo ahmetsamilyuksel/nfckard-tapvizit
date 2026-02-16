@@ -22,6 +22,7 @@ interface LayoutProps {
   onPhotoClick?: () => void;
   textPrimaryColor?: string;
   textSecondaryColor?: string;
+  containerClass?: string;
 }
 
 // Helper function to determine if a color is dark
@@ -158,31 +159,31 @@ export default function CardPreview({ card, t, onPhotoClick, fullScreen = false 
 
   // Render different layouts
   if (layout === "modern") {
-    return <ModernLayout card={card} t={t} initials={initials} onPhotoClick={onPhotoClick} textPrimaryColor={textPrimaryColor} textSecondaryColor={textSecondaryColor} />;
+    return <ModernLayout card={card} t={t} initials={initials} onPhotoClick={onPhotoClick} textPrimaryColor={textPrimaryColor} textSecondaryColor={textSecondaryColor} containerClass={containerClass} />;
   }
 
   if (layout === "sidebar") {
-    return <SidebarLayout card={card} t={t} bgStyle={bgStyle} bgClass={bgClass} initials={initials} onPhotoClick={onPhotoClick} textPrimaryColor={textPrimaryColor} textSecondaryColor={textSecondaryColor} />;
+    return <SidebarLayout card={card} t={t} bgStyle={bgStyle} bgClass={bgClass} initials={initials} onPhotoClick={onPhotoClick} textPrimaryColor={textPrimaryColor} textSecondaryColor={textSecondaryColor} containerClass={containerClass} />;
   }
 
   if (layout === "minimal") {
-    return <MinimalLayout card={card} t={t} bgStyle={bgStyle} bgClass={bgClass} initials={initials} onPhotoClick={onPhotoClick} textPrimaryColor={textPrimaryColor} textSecondaryColor={textSecondaryColor} />;
+    return <MinimalLayout card={card} t={t} bgStyle={bgStyle} bgClass={bgClass} initials={initials} onPhotoClick={onPhotoClick} textPrimaryColor={textPrimaryColor} textSecondaryColor={textSecondaryColor} containerClass={containerClass} />;
   }
 
   if (layout === "bold") {
-    return <BoldLayout card={card} t={t} initials={initials} onPhotoClick={onPhotoClick} textPrimaryColor={textPrimaryColor} textSecondaryColor={textSecondaryColor} />;
+    return <BoldLayout card={card} t={t} initials={initials} onPhotoClick={onPhotoClick} textPrimaryColor={textPrimaryColor} textSecondaryColor={textSecondaryColor} containerClass={containerClass} />;
   }
 
   if (layout === "stylish") {
-    return <StylishLayout card={card} t={t} initials={initials} onPhotoClick={onPhotoClick} textSecondaryColor={textSecondaryColor} />;
+    return <StylishLayout card={card} t={t} initials={initials} onPhotoClick={onPhotoClick} textSecondaryColor={textSecondaryColor} containerClass={containerClass} />;
   }
 
   if (layout === "elegant") {
-    return <ElegantLayout card={card} t={t} initials={initials} onPhotoClick={onPhotoClick} textPrimaryColor={textPrimaryColor} textSecondaryColor={textSecondaryColor} />;
+    return <ElegantLayout card={card} t={t} initials={initials} onPhotoClick={onPhotoClick} textPrimaryColor={textPrimaryColor} textSecondaryColor={textSecondaryColor} containerClass={containerClass} />;
   }
 
   if (layout === "creative") {
-    return <CreativeLayout card={card} t={t} initials={initials} onPhotoClick={onPhotoClick} textPrimaryColor={textPrimaryColor} textSecondaryColor={textSecondaryColor} />;
+    return <CreativeLayout card={card} t={t} initials={initials} onPhotoClick={onPhotoClick} textPrimaryColor={textPrimaryColor} textSecondaryColor={textSecondaryColor} containerClass={containerClass} />;
   }
 
   // Classic layout (default)
@@ -351,7 +352,7 @@ export default function CardPreview({ card, t, onPhotoClick, fullScreen = false 
 }
 
 // LAYOUT 2: Modern - Full width photo with elegant line
-function ModernLayout({ card, t, initials, onPhotoClick, textPrimaryColor, textSecondaryColor }: LayoutProps) {
+function ModernLayout({ card, t, initials, onPhotoClick, textPrimaryColor, textSecondaryColor, containerClass = "max-w-sm mx-auto" }: LayoutProps) {
   const bgColor = card.backgroundColor || "#ffffff";
   const bgGradient = createRadialGradient(bgColor, card.gradientIntensity || 50);
 
@@ -514,7 +515,7 @@ function ModernLayout({ card, t, initials, onPhotoClick, textPrimaryColor, textS
 }
 
 // LAYOUT 3: Sidebar - Photo on left, info on right
-function SidebarLayout({ card, t, bgStyle, bgClass, initials, onPhotoClick, textPrimaryColor, textSecondaryColor }: LayoutProps) {
+function SidebarLayout({ card, t, bgStyle, bgClass, initials, onPhotoClick, textPrimaryColor, textSecondaryColor, containerClass = "max-w-sm mx-auto" }: LayoutProps) {
   const finalBgStyle = card.backgroundColor
     ? { background: createRadialGradient(card.backgroundColor, card.gradientIntensity || 50) }
     : bgStyle;
@@ -628,7 +629,7 @@ function SidebarLayout({ card, t, bgStyle, bgClass, initials, onPhotoClick, text
 }
 
 // LAYOUT 4: Minimal - Small photo top left, ultra clean
-function MinimalLayout({ card, t, bgStyle, bgClass, initials, onPhotoClick, textPrimaryColor, textSecondaryColor }: LayoutProps) {
+function MinimalLayout({ card, t, bgStyle, bgClass, initials, onPhotoClick, textPrimaryColor, textSecondaryColor, containerClass = "max-w-sm mx-auto" }: LayoutProps) {
   const finalBgStyle = card.backgroundColor
     ? { background: createRadialGradient(card.backgroundColor, card.gradientIntensity || 50) }
     : bgStyle;
@@ -798,7 +799,7 @@ function InstagramIcon() {
 }
 
 // LAYOUT 5: Bold - Large diagonal photo with overlapping content
-function BoldLayout({ card, t, initials, onPhotoClick, textPrimaryColor, textSecondaryColor }: LayoutProps) {
+function BoldLayout({ card, t, initials, onPhotoClick, textPrimaryColor, textSecondaryColor, containerClass = "max-w-sm mx-auto" }: LayoutProps) {
   const bgColor = card.backgroundColor || "#ffffff";
   const bgGradient = createRadialGradient(bgColor, card.gradientIntensity || 50);
 
@@ -889,7 +890,7 @@ function BoldLayout({ card, t, initials, onPhotoClick, textPrimaryColor, textSec
 }
 
 // LAYOUT 6: Stylish - Magazine style with split photo
-function StylishLayout({ card, t, initials, onPhotoClick, textSecondaryColor }: LayoutProps) {
+function StylishLayout({ card, t, initials, onPhotoClick, textSecondaryColor, containerClass = "max-w-sm mx-auto" }: LayoutProps) {
   const bgColor = card.backgroundColor || "#ffffff";
   const bgGradient = createRadialGradient(bgColor, card.gradientIntensity || 50);
 
@@ -984,7 +985,7 @@ function StylishLayout({ card, t, initials, onPhotoClick, textSecondaryColor }: 
 }
 
 // LAYOUT 7: Elegant - Circular photo with arc design
-function ElegantLayout({ card, t, initials, onPhotoClick, textPrimaryColor, textSecondaryColor }: LayoutProps) {
+function ElegantLayout({ card, t, initials, onPhotoClick, textPrimaryColor, textSecondaryColor, containerClass = "max-w-sm mx-auto" }: LayoutProps) {
   const bgColor = card.backgroundColor || "#ffffff";
   const bgGradient = createRadialGradient(bgColor, card.gradientIntensity || 50);
 
@@ -1079,7 +1080,7 @@ function ElegantLayout({ card, t, initials, onPhotoClick, textPrimaryColor, text
 }
 
 // LAYOUT 8: Creative - Asymmetric photo with angled content
-function CreativeLayout({ card, t, initials, onPhotoClick, textPrimaryColor, textSecondaryColor }: LayoutProps) {
+function CreativeLayout({ card, t, initials, onPhotoClick, textPrimaryColor, textSecondaryColor, containerClass = "max-w-sm mx-auto" }: LayoutProps) {
   const bgColor = card.backgroundColor || "#ffffff";
   const bgGradient = createRadialGradient(bgColor, card.gradientIntensity || 50);
 
