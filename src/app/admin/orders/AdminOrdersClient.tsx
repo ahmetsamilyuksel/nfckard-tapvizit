@@ -175,6 +175,9 @@ export default function AdminOrdersClient({ orders: initialOrders }: { orders: O
                       <p className="text-xs text-gray-400 mt-0.5">
                         {new Date(order.createdAt).toLocaleDateString("tr-TR")}
                       </p>
+                      <p className="text-xs text-gray-500 font-medium">
+                        {new Date(order.createdAt).toLocaleTimeString("tr-TR", { hour: '2-digit', minute: '2-digit' })}
+                      </p>
                     </td>
                     <td className="py-4 px-4">
                       <p className="text-sm font-medium text-gray-900">{order.customerName}</p>
