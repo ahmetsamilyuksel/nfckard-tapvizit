@@ -225,7 +225,7 @@ export default function CardPreview({ card, t, onPhotoClick, fullScreen = false 
         {/* Photo - Centered and Large */}
         <div className="flex flex-col items-center mb-6">
           <div
-            className="w-32 h-32 rounded-full flex items-center justify-center text-white text-4xl font-bold mb-4 shadow-2xl ring-4 ring-white/20 overflow-hidden cursor-pointer hover:ring-6 transition-all"
+            className="w-40 h-40 rounded-full flex items-center justify-center text-white text-5xl font-bold mb-4 shadow-2xl ring-4 ring-white/20 overflow-hidden cursor-pointer hover:ring-6 transition-all"
             style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}cc 100%)` }}
             onClick={onPhotoClick}
           >
@@ -239,14 +239,14 @@ export default function CardPreview({ card, t, onPhotoClick, fullScreen = false 
 
           {/* Name and Title - Centered */}
           <div className="text-center">
-            <h2 className={`text-2xl font-bold mb-1 `} style={primaryStyle}>
+            <h2 className={`text-3xl font-bold mb-2 `} style={primaryStyle}>
               {card.firstName || t.previewFirstName} {card.lastName || t.previewLastName}
             </h2>
             {card.title && (
-              <p className={`text-base font-medium mb-1 `} style={secondaryStyle}>{card.title}</p>
+              <p className={`text-lg font-medium mb-2 `} style={secondaryStyle}>{card.title}</p>
             )}
             {card.company && (
-              <p className={`text-sm font-semibold`} style={{ color: card.primaryColor }}>
+              <p className={`text-base font-semibold`} style={{ color: card.primaryColor }}>
                 {card.company}
               </p>
             )}
@@ -255,7 +255,7 @@ export default function CardPreview({ card, t, onPhotoClick, fullScreen = false 
 
         {/* Bio */}
         {card.bio && (
-          <p className={`text-sm mb-4 leading-relaxed `} style={secondaryStyle}>{card.bio}</p>
+          <p className={`text-base mb-5 leading-relaxed `} style={secondaryStyle}>{card.bio}</p>
         )}
 
         {/* Divider */}
@@ -566,9 +566,9 @@ function SidebarLayout({ card, t, bgStyle, bgClass, initials, onPhotoClick, text
       style={finalBgStyle}
     >
       {/* Left sidebar - Photo */}
-      <div className="w-40 flex-shrink-0 flex items-center justify-center p-6" style={{ background: `linear-gradient(135deg, ${card.primaryColor}15 0%, ${card.primaryColor}08 100%)` }}>
+      <div className="w-48 flex-shrink-0 flex items-center justify-center p-6" style={{ background: `linear-gradient(135deg, ${card.primaryColor}15 0%, ${card.primaryColor}08 100%)` }}>
         <div
-          className="w-32 h-32 rounded-full flex items-center justify-center text-white text-4xl font-bold shadow-2xl ring-4 ring-white/20 overflow-hidden cursor-pointer hover:ring-6 transition-all"
+          className="w-40 h-40 rounded-full flex items-center justify-center text-white text-5xl font-bold shadow-2xl ring-4 ring-white/20 overflow-hidden cursor-pointer hover:ring-6 transition-all"
           style={{ backgroundColor: card.primaryColor }}
           onClick={onPhotoClick}
         >
@@ -585,14 +585,14 @@ function SidebarLayout({ card, t, bgStyle, bgClass, initials, onPhotoClick, text
       <div className="flex-1 p-6">
         {/* Name and Title */}
         <div className="mb-4">
-          <h2 className={`text-xl font-bold mb-1 `} style={primaryStyle}>
+          <h2 className={`text-2xl font-bold mb-2 `} style={primaryStyle}>
             {card.firstName || t.previewFirstName} {card.lastName || t.previewLastName}
           </h2>
           {card.title && (
-            <p className={`text-sm font-medium mb-1 `} style={secondaryStyle}>{card.title}</p>
+            <p className={`text-base font-medium mb-1 `} style={secondaryStyle}>{card.title}</p>
           )}
           {card.company && (
-            <p className={`text-xs font-semibold`} style={{ color: card.primaryColor }}>
+            <p className={`text-sm font-semibold`} style={{ color: card.primaryColor }}>
               {card.company}
             </p>
           )}
@@ -600,7 +600,7 @@ function SidebarLayout({ card, t, bgStyle, bgClass, initials, onPhotoClick, text
 
         {/* Bio */}
         {card.bio && (
-          <p className={`text-xs mb-3 leading-relaxed `} style={secondaryStyle}>{card.bio}</p>
+          <p className={`text-sm mb-4 leading-relaxed `} style={secondaryStyle}>{card.bio}</p>
         )}
 
         {/* Contact Info */}
@@ -692,7 +692,7 @@ function MinimalLayout({ card, t, bgStyle, bgClass, initials, onPhotoClick, text
         {/* Header with small photo and name */}
         <div className="flex items-start gap-4 mb-6">
           <div
-            className="w-16 h-16 rounded-xl flex items-center justify-center text-white text-xl font-bold shadow-lg flex-shrink-0 overflow-hidden cursor-pointer hover:shadow-xl transition-all"
+            className="w-24 h-24 rounded-xl flex items-center justify-center text-white text-3xl font-bold shadow-lg flex-shrink-0 overflow-hidden cursor-pointer hover:shadow-xl transition-all"
             style={{ backgroundColor: card.primaryColor }}
             onClick={onPhotoClick}
           >
@@ -705,14 +705,14 @@ function MinimalLayout({ card, t, bgStyle, bgClass, initials, onPhotoClick, text
           </div>
 
           <div className="flex-1">
-            <h2 className={`text-xl font-bold mb-0.5 `} style={primaryStyle}>
+            <h2 className={`text-2xl font-bold mb-1 `} style={primaryStyle}>
               {card.firstName || t.previewFirstName} {card.lastName || t.previewLastName}
             </h2>
             {card.title && (
-              <p className={`text-sm font-medium `} style={secondaryStyle}>{card.title}</p>
+              <p className={`text-base font-medium `} style={secondaryStyle}>{card.title}</p>
             )}
             {card.company && (
-              <p className={`text-xs font-semibold mt-1`} style={{ color: card.primaryColor }}>
+              <p className={`text-sm font-semibold mt-1`} style={{ color: card.primaryColor }}>
                 {card.company}
               </p>
             )}
@@ -721,7 +721,7 @@ function MinimalLayout({ card, t, bgStyle, bgClass, initials, onPhotoClick, text
 
         {/* Bio */}
         {card.bio && (
-          <p className={`text-sm mb-5 leading-relaxed `} style={secondaryStyle}>{card.bio}</p>
+          <p className={`text-base mb-5 leading-relaxed `} style={secondaryStyle}>{card.bio}</p>
         )}
 
         {/* Contact Info - Clean list */}
@@ -1049,7 +1049,7 @@ function ElegantLayout({ card, t, initials, onPhotoClick, textPrimaryColor, text
         {/* Large circular photo */}
         <div className="absolute top-8 left-1/2 transform -translate-x-1/2">
           <div
-            className="w-44 h-44 rounded-full flex items-center justify-center text-white text-6xl font-bold shadow-2xl ring-8 ring-white/20 overflow-hidden cursor-pointer hover:ring-white/40 transition-all"
+            className="w-52 h-52 rounded-full flex items-center justify-center text-white text-7xl font-bold shadow-2xl ring-8 ring-white/20 overflow-hidden cursor-pointer hover:ring-white/40 transition-all"
             style={{
               background: `linear-gradient(135deg, ${card.primaryColor}cc 0%, ${card.primaryColor} 100%)`,
               boxShadow: '0 20px 50px rgba(0, 0, 0, 0.2), 0 0 40px rgba(255, 255, 255, 0.1) inset'
@@ -1069,12 +1069,12 @@ function ElegantLayout({ card, t, initials, onPhotoClick, textPrimaryColor, text
       <div className="p-6 pt-4">
         {/* Name and title */}
         <div className="text-center mb-4">
-          <h2 className={`text-2xl font-bold mb-1 `} style={primaryStyle}>
+          <h2 className={`text-3xl font-bold mb-2 `} style={primaryStyle}>
             {card.firstName || t.previewFirstName} {card.lastName || t.previewLastName}
           </h2>
-          {card.title && <p className={`text-sm font-medium `} style={secondaryStyle}>{card.title}</p>}
+          {card.title && <p className={`text-lg font-medium `} style={secondaryStyle}>{card.title}</p>}
           {card.company && (
-            <p className="text-xs font-semibold mt-1" style={{ color: card.primaryColor }}>
+            <p className="text-base font-semibold mt-1" style={{ color: card.primaryColor }}>
               {card.company}
             </p>
           )}
@@ -1082,7 +1082,7 @@ function ElegantLayout({ card, t, initials, onPhotoClick, textPrimaryColor, text
 
         {/* Bio */}
         {card.bio && (
-          <p className={`text-sm mb-4 leading-relaxed text-center `} style={secondaryStyle}>{card.bio}</p>
+          <p className={`text-base mb-4 leading-relaxed text-center `} style={secondaryStyle}>{card.bio}</p>
         )}
 
         {/* Contact Info - Icon grid */}
