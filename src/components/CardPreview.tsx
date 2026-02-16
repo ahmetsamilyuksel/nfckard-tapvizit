@@ -355,7 +355,7 @@ export default function CardPreview({ card, t, onPhotoClick, fullScreen = false 
                   >
                     <LinkedInIcon />
                   </a>
-                  <span className="text-[9px] text-white/80 font-medium">LinkedIn</span>
+                  <span className="text-[9px] text-gray-800 font-medium">LinkedIn</span>
                 </div>
               )}
               {card.twitter && (
@@ -370,7 +370,7 @@ export default function CardPreview({ card, t, onPhotoClick, fullScreen = false 
                   >
                     <TwitterIcon />
                   </a>
-                  <span className="text-[9px] text-white/80 font-medium">Twitter</span>
+                  <span className="text-[9px] text-gray-800 font-medium">Twitter</span>
                 </div>
               )}
               {card.instagram && (
@@ -385,7 +385,7 @@ export default function CardPreview({ card, t, onPhotoClick, fullScreen = false 
                   >
                     <InstagramIcon />
                   </a>
-                  <span className="text-[9px] text-white/80 font-medium">Instagram</span>
+                  <span className="text-[9px] text-gray-800 font-medium">Instagram</span>
                 </div>
               )}
               {card.whatsapp && (
@@ -400,7 +400,7 @@ export default function CardPreview({ card, t, onPhotoClick, fullScreen = false 
                   >
                     <WhatsAppIcon />
                   </a>
-                  <span className="text-[9px] text-white/80 font-medium">WhatsApp</span>
+                  <span className="text-[9px] text-gray-800 font-medium">WhatsApp</span>
                 </div>
               )}
               {card.telegram && (
@@ -415,7 +415,7 @@ export default function CardPreview({ card, t, onPhotoClick, fullScreen = false 
                   >
                     <TelegramIcon />
                   </a>
-                  <span className="text-[9px] text-white/80 font-medium">Telegram</span>
+                  <span className="text-[9px] text-gray-800 font-medium">Telegram</span>
                 </div>
               )}
               {card.vkontakte && (
@@ -430,7 +430,7 @@ export default function CardPreview({ card, t, onPhotoClick, fullScreen = false 
                   >
                     <VKontakteIcon />
                   </a>
-                  <span className="text-[9px] text-white/80 font-medium">VK</span>
+                  <span className="text-[9px] text-gray-800 font-medium">VK</span>
                 </div>
               )}
               {card.tiktok && (
@@ -445,7 +445,7 @@ export default function CardPreview({ card, t, onPhotoClick, fullScreen = false 
                   >
                     <TikTokIcon />
                   </a>
-                  <span className="text-[9px] text-white/80 font-medium">TikTok</span>
+                  <span className="text-[9px] text-gray-800 font-medium">TikTok</span>
                 </div>
               )}
               {card.wechat && (
@@ -460,7 +460,7 @@ export default function CardPreview({ card, t, onPhotoClick, fullScreen = false 
                   >
                     <WeChatIcon />
                   </a>
-                  <span className="text-[9px] text-white/80 font-medium">WeChat</span>
+                  <span className="text-[9px] text-gray-800 font-medium">WeChat</span>
                 </div>
               )}
               {card.youtube && (
@@ -475,7 +475,7 @@ export default function CardPreview({ card, t, onPhotoClick, fullScreen = false 
                   >
                     <YouTubeIcon />
                   </a>
-                  <span className="text-[9px] text-white/80 font-medium">YouTube</span>
+                  <span className="text-[9px] text-gray-800 font-medium">YouTube</span>
                 </div>
               )}
               {card.facebook && (
@@ -490,7 +490,7 @@ export default function CardPreview({ card, t, onPhotoClick, fullScreen = false 
                   >
                     <FacebookIcon />
                   </a>
-                  <span className="text-[9px] text-white/80 font-medium">Facebook</span>
+                  <span className="text-[9px] text-gray-800 font-medium">Facebook</span>
                 </div>
               )}
               {card.snapchat && (
@@ -505,7 +505,7 @@ export default function CardPreview({ card, t, onPhotoClick, fullScreen = false 
                   >
                     <SnapchatIcon />
                   </a>
-                  <span className="text-[9px] text-white/80 font-medium">Snapchat</span>
+                  <span className="text-[9px] text-gray-800 font-medium">Snapchat</span>
                 </div>
               )}
               {card.vkmax && (
@@ -520,7 +520,7 @@ export default function CardPreview({ card, t, onPhotoClick, fullScreen = false 
                   >
                     <VKMaxIcon />
                   </a>
-                  <span className="text-[9px] text-white/80 font-medium">VK MAX</span>
+                  <span className="text-[9px] text-gray-800 font-medium">VK MAX</span>
                 </div>
               )}
               {card.wildberries && (
@@ -535,7 +535,7 @@ export default function CardPreview({ card, t, onPhotoClick, fullScreen = false 
                   >
                     <WildberriesIcon />
                   </a>
-                  <span className="text-[9px] text-white/80 font-medium">WB</span>
+                  <span className="text-[9px] text-gray-800 font-medium">WB</span>
                 </div>
               )}
               {card.ozon && (
@@ -550,7 +550,7 @@ export default function CardPreview({ card, t, onPhotoClick, fullScreen = false 
                   >
                     <OzonIcon />
                   </a>
-                  <span className="text-[9px] text-white/80 font-medium">Ozon</span>
+                  <span className="text-[9px] text-gray-800 font-medium">Ozon</span>
                 </div>
               )}
               {card.yandexmarket && (
@@ -565,7 +565,7 @@ export default function CardPreview({ card, t, onPhotoClick, fullScreen = false 
                   >
                     <YandexMarketIcon />
                   </a>
-                  <span className="text-[9px] text-white/80 font-medium">Yandex</span>
+                  <span className="text-[9px] text-gray-800 font-medium">Yandex</span>
                 </div>
               )}
             </div>
@@ -722,7 +722,7 @@ function ModernLayout({ card, t, initials, onPhotoClick, textPrimaryColor, textS
                   >
                     <LinkedInIcon />
                   </a>
-                  <span className="text-[9px] text-white/80 font-medium">LinkedIn</span>
+                  <span className="text-[9px] text-gray-800 font-medium">LinkedIn</span>
                 </div>
               )}
               {card.twitter && (
@@ -737,7 +737,7 @@ function ModernLayout({ card, t, initials, onPhotoClick, textPrimaryColor, textS
                   >
                     <TwitterIcon />
                   </a>
-                  <span className="text-[9px] text-white/80 font-medium">Twitter</span>
+                  <span className="text-[9px] text-gray-800 font-medium">Twitter</span>
                 </div>
               )}
               {card.instagram && (
@@ -752,7 +752,7 @@ function ModernLayout({ card, t, initials, onPhotoClick, textPrimaryColor, textS
                   >
                     <InstagramIcon />
                   </a>
-                  <span className="text-[9px] text-white/80 font-medium">Instagram</span>
+                  <span className="text-[9px] text-gray-800 font-medium">Instagram</span>
                 </div>
               )}
               {card.whatsapp && (
@@ -767,7 +767,7 @@ function ModernLayout({ card, t, initials, onPhotoClick, textPrimaryColor, textS
                   >
                     <WhatsAppIcon />
                   </a>
-                  <span className="text-[9px] text-white/80 font-medium">WhatsApp</span>
+                  <span className="text-[9px] text-gray-800 font-medium">WhatsApp</span>
                 </div>
               )}
               {card.telegram && (
@@ -782,7 +782,7 @@ function ModernLayout({ card, t, initials, onPhotoClick, textPrimaryColor, textS
                   >
                     <TelegramIcon />
                   </a>
-                  <span className="text-[9px] text-white/80 font-medium">Telegram</span>
+                  <span className="text-[9px] text-gray-800 font-medium">Telegram</span>
                 </div>
               )}
               {card.vkontakte && (
@@ -797,7 +797,7 @@ function ModernLayout({ card, t, initials, onPhotoClick, textPrimaryColor, textS
                   >
                     <VKontakteIcon />
                   </a>
-                  <span className="text-[9px] text-white/80 font-medium">VK</span>
+                  <span className="text-[9px] text-gray-800 font-medium">VK</span>
                 </div>
               )}
               {card.tiktok && (
@@ -812,7 +812,7 @@ function ModernLayout({ card, t, initials, onPhotoClick, textPrimaryColor, textS
                   >
                     <TikTokIcon />
                   </a>
-                  <span className="text-[9px] text-white/80 font-medium">TikTok</span>
+                  <span className="text-[9px] text-gray-800 font-medium">TikTok</span>
                 </div>
               )}
               {card.wechat && (
@@ -827,7 +827,7 @@ function ModernLayout({ card, t, initials, onPhotoClick, textPrimaryColor, textS
                   >
                     <WeChatIcon />
                   </a>
-                  <span className="text-[9px] text-white/80 font-medium">WeChat</span>
+                  <span className="text-[9px] text-gray-800 font-medium">WeChat</span>
                 </div>
               )}
               {card.youtube && (
@@ -842,7 +842,7 @@ function ModernLayout({ card, t, initials, onPhotoClick, textPrimaryColor, textS
                   >
                     <YouTubeIcon />
                   </a>
-                  <span className="text-[9px] text-white/80 font-medium">YouTube</span>
+                  <span className="text-[9px] text-gray-800 font-medium">YouTube</span>
                 </div>
               )}
               {card.facebook && (
@@ -857,7 +857,7 @@ function ModernLayout({ card, t, initials, onPhotoClick, textPrimaryColor, textS
                   >
                     <FacebookIcon />
                   </a>
-                  <span className="text-[9px] text-white/80 font-medium">Facebook</span>
+                  <span className="text-[9px] text-gray-800 font-medium">Facebook</span>
                 </div>
               )}
               {card.snapchat && (
@@ -872,7 +872,7 @@ function ModernLayout({ card, t, initials, onPhotoClick, textPrimaryColor, textS
                   >
                     <SnapchatIcon />
                   </a>
-                  <span className="text-[9px] text-white/80 font-medium">Snapchat</span>
+                  <span className="text-[9px] text-gray-800 font-medium">Snapchat</span>
                 </div>
               )}
               {card.vkmax && (
@@ -887,7 +887,7 @@ function ModernLayout({ card, t, initials, onPhotoClick, textPrimaryColor, textS
                   >
                     <VKMaxIcon />
                   </a>
-                  <span className="text-[9px] text-white/80 font-medium">VK MAX</span>
+                  <span className="text-[9px] text-gray-800 font-medium">VK MAX</span>
                 </div>
               )}
               {card.wildberries && (
@@ -902,7 +902,7 @@ function ModernLayout({ card, t, initials, onPhotoClick, textPrimaryColor, textS
                   >
                     <WildberriesIcon />
                   </a>
-                  <span className="text-[9px] text-white/80 font-medium">WB</span>
+                  <span className="text-[9px] text-gray-800 font-medium">WB</span>
                 </div>
               )}
               {card.ozon && (
@@ -917,7 +917,7 @@ function ModernLayout({ card, t, initials, onPhotoClick, textPrimaryColor, textS
                   >
                     <OzonIcon />
                   </a>
-                  <span className="text-[9px] text-white/80 font-medium">Ozon</span>
+                  <span className="text-[9px] text-gray-800 font-medium">Ozon</span>
                 </div>
               )}
               {card.yandexmarket && (
@@ -932,7 +932,7 @@ function ModernLayout({ card, t, initials, onPhotoClick, textPrimaryColor, textS
                   >
                     <YandexMarketIcon />
                   </a>
-                  <span className="text-[9px] text-white/80 font-medium">Yandex</span>
+                  <span className="text-[9px] text-gray-800 font-medium">Yandex</span>
                 </div>
               )}
             </div>
@@ -1332,24 +1332,29 @@ function VKMaxIcon() {
 
 function WildberriesIcon() {
   return (
-    <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
-      <path d="M2 4h3l2 8 1.5-8h2l1.5 8 2-8h3l-3.5 14h-2.5l-1.5-7-1.5 7h-2.5L2 4zm16 0h2v16h-2V4z"/>
+    <svg className="w-4 h-4" viewBox="0 0 48 48" fill="none">
+      <rect width="48" height="48" rx="8" fill="#CB11AB"/>
+      <path d="M8 12L14 36H18L22 18L26 36H30L36 12H32L28 30L24 12H20L16 30L12 12H8Z" fill="white"/>
     </svg>
   );
 }
 
 function OzonIcon() {
   return (
-    <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
-      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 16c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6zm0-10c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4z"/>
+    <svg className="w-4 h-4" viewBox="0 0 48 48" fill="none">
+      <rect width="48" height="48" rx="8" fill="#005BFF"/>
+      <path d="M24 10C16.268 10 10 16.268 10 24C10 31.732 16.268 38 24 38C31.732 38 38 31.732 38 24C38 16.268 31.732 10 24 10ZM24 34C18.477 34 14 29.523 14 24C14 18.477 18.477 14 24 14C29.523 14 34 18.477 34 24C34 29.523 29.523 34 24 34Z" fill="white"/>
+      <circle cx="24" cy="24" r="6" fill="white"/>
     </svg>
   );
 }
 
 function YandexMarketIcon() {
   return (
-    <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
-      <path d="M3 3h18v6h-4v-2H7v10h10v-2h4v6H3V3zm10 8v-1h8v8h-4v-4h-4v-3z"/>
+    <svg className="w-4 h-4" viewBox="0 0 48 48" fill="none">
+      <rect width="48" height="48" rx="8" fill="#FF0000"/>
+      <path d="M12 14C12 12.8954 12.8954 12 14 12H34C35.1046 12 36 12.8954 36 14V22H32V16H16V32H32V26H36V34C36 35.1046 35.1046 36 34 36H14C12.8954 36 12 35.1046 12 34V14Z" fill="white"/>
+      <path d="M28 22H40V30H36V26H28V22Z" fill="white"/>
     </svg>
   );
 }
