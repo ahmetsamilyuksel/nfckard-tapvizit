@@ -74,6 +74,13 @@ export async function POST(req: NextRequest) {
     });
   } catch (error) {
     console.error("Error creating card:", error);
-    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+    // Return detailed error in development, generic in production
+    const errorMessage = process.env.NODE_ENV === "development"
+      ? String(error)
+      : "Internal server error";
+    return NextResponse.json({
+      error: errorMessage,
+      details: error instanceof Error ? error.message : String(error)
+    }, { status: 500 });
   }
 }
