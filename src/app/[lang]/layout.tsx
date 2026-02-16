@@ -67,13 +67,6 @@ export default async function LangLayout({
                   </Link>
                 ))}
               </div>
-
-              <Link
-                href="/admin/orders"
-                className="text-sm text-gray-400 hover:text-gray-600 transition-colors"
-              >
-                {t.adminTitle}
-              </Link>
             </div>
           </div>
         </div>

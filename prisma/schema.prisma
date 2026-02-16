@@ -51,3 +51,11 @@ model Order {
   updatedAt       DateTime @updatedAt
   card            Card     @relation(fields: [cardId], references: [id])
 }
+
+model Admin {
+  id        String   @id @default(cuid())
+  username  String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

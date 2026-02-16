@@ -5,14 +5,36 @@ import { locales, defaultLocale } from "@/lib/i18n";
 export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
 
-  // Skip API routes, static files, admin
+  // Skip API routes and static files
   if (
     pathname.startsWith("/api") ||
-    pathname.startsWith("/admin") ||
     pathname.startsWith("/_next") ||
     pathname.startsWith("/favicon")
   ) {
     return NextResponse.next();
+  }
+
+  // Protect admin routes (except login)
+  if (pathname.startsWith("/admin") && !pathname.startsWith("/admin/login")) {
+    const sessionToken = request.cookies.get("admin_session");
+
+    if (!sessionToken) {
+      return NextResponse.redirect(new URL("/admin/login", request.url));
+    }
+  }
+
+  // Redirect to panel if already logged in and trying to access login
+  if (pathname === "/admin/login") {
+    const sessionToken = request.cookies.get("admin_session");
+
+    if (sessionToken) {
+      return NextResponse.redirect(new URL("/admin/panel", request.url));
+    }
+  }
+
+  // Redirect /admin to /admin/panel
+  if (pathname === "/admin") {
+    return NextResponse.redirect(new URL("/admin/panel", request.url));
   }
 
   // Check if pathname has valid locale

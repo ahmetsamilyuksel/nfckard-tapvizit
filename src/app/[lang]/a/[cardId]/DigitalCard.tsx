@@ -49,8 +49,62 @@ export default function DigitalCard({ card, lang, t }: Props) {
 
   const bgClass = isDark ? "bg-gray-900" : isGradient ? "" : "bg-gray-50";
 
-  const handleDownloadVCard = () => {
-    window.open(`/api/vcard/${card.slug}`, "_blank");
+  const handleDownloadVCard = async () => {
+    // Generate vCard content with proper line breaks for mobile compatibility
+    const vCardData = [
+      'BEGIN:VCARD',
+      'VERSION:3.0',
+      `FN:${card.firstName} ${card.lastName}`,
+      `N:${card.lastName};${card.firstName};;;`,
+      card.title ? `TITLE:${card.title}` : '',
+      card.company ? `ORG:${card.company}` : '',
+      card.email ? `EMAIL;TYPE=INTERNET:${card.email}` : '',
+      card.phone ? `TEL;TYPE=CELL:${card.phone}` : '',
+      card.website ? `URL:${card.website}` : '',
+      card.address ? `ADR;TYPE=WORK:;;${card.address};;;;` : '',
+      card.bio ? `NOTE:${card.bio}` : '',
+      card.linkedin ? `URL;TYPE=LinkedIn:${card.linkedin.startsWith('http') ? card.linkedin : `https://linkedin.com/in/${card.linkedin}`}` : '',
+      card.twitter ? `URL;TYPE=Twitter:${card.twitter.startsWith('http') ? card.twitter : `https://twitter.com/${card.twitter.replace('@', '')}`}` : '',
+      card.instagram ? `URL;TYPE=Instagram:${card.instagram.startsWith('http') ? card.instagram : `https://instagram.com/${card.instagram.replace('@', '')}`}` : '',
+      'END:VCARD'
+    ].filter(line => line !== '').join('\r\n');
+
+    // Create blob for better mobile support (iOS, Android, Chinese phones)
+    const blob = new Blob([vCardData], { type: 'text/vcard;charset=utf-8' });
+    const fileName = `${card.firstName}-${card.lastName}.vcf`;
+
+    // Try Web Share API first (works on modern mobile browsers)
+    if (navigator.share && navigator.canShare) {
+      try {
+        const file = new File([blob], fileName, { type: 'text/vcard' });
+        const shareData = { files: [file] };
+
+        if (navigator.canShare(shareData)) {
+          await navigator.share(shareData);
+          return; // Success! Exit early
+        }
+      } catch (error) {
+        // If share fails or is cancelled, fall back to download
+        console.log('Share failed, falling back to download');
+      }
+    }
+
+    // Fallback: Traditional download for desktop and older browsers
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = fileName;
+    link.setAttribute('target', '_blank');
+
+    // For iOS Safari - need to trigger in same execution context
+    document.body.appendChild(link);
+    link.click();
+
+    // Cleanup after a delay to ensure download starts
+    setTimeout(() => {
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    }, 100);
   };
 
   const handleShare = async () => {
