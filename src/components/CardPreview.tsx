@@ -1333,9 +1333,9 @@ function VKMaxIcon() {
 function WildberriesIcon() {
   return (
     <svg className="w-4 h-4" viewBox="0 0 48 48" fill="none">
-      <rect width="48" height="48" rx="6" fill="#CB11AB"/>
-      <path d="M10 14L13 28L15 14H18L20 28L23 14H26L22 34H18L16 20L14 34H10L6 14H10Z" fill="white"/>
-      <path d="M30 14H38C39.1 14 40 14.9 40 16V24H36V18H30V34H26V14H30Z" fill="white"/>
+      <rect width="48" height="48" rx="8" fill="#CB11AB"/>
+      <path d="M8 16L11 32L14 16H18L21 32L24 16H28L23 36H18L15 22L12 36H7L2 16H8Z" fill="white"/>
+      <path d="M30 16H36C38.2 16 40 17.8 40 20V28C40 30.2 38.2 32 36 32H30V36H26V16H30ZM30 20V28H36V20H30Z" fill="white"/>
     </svg>
   );
 }
@@ -1343,10 +1343,10 @@ function WildberriesIcon() {
 function OzonIcon() {
   return (
     <svg className="w-4 h-4" viewBox="0 0 48 48" fill="none">
-      <rect width="48" height="48" rx="6" fill="#005BFF"/>
-      <path d="M8 20C8 18.9 8.9 18 10 18H16C17.1 18 18 18.9 18 20V28C18 29.1 17.1 30 16 30H10C8.9 30 8 29.1 8 28V20Z" fill="white"/>
-      <path d="M19 30V26L30 18V22L19 30Z" fill="white"/>
-      <path d="M30 20C30 18.9 30.9 18 32 18H38C39.1 18 40 18.9 40 20V28C40 29.1 39.1 30 38 30H32C30.9 30 30 29.1 30 28V20Z" fill="white"/>
+      <circle cx="24" cy="24" r="22" fill="#005BFF"/>
+      <circle cx="24" cy="24" r="16" fill="none" stroke="white" strokeWidth="3"/>
+      <circle cx="24" cy="24" r="10" fill="none" stroke="white" strokeWidth="3"/>
+      <circle cx="24" cy="24" r="4" fill="white"/>
     </svg>
   );
 }
@@ -1354,9 +1354,11 @@ function OzonIcon() {
 function YandexMarketIcon() {
   return (
     <svg className="w-4 h-4" viewBox="0 0 48 48" fill="none">
-      <rect width="48" height="48" rx="6" fill="#FC3F1D"/>
-      <circle cx="24" cy="24" r="14" fill="#FFDB4D"/>
-      <path d="M24 12C17.4 12 12 17.4 12 24C12 30.6 17.4 36 24 36C30.6 36 36 30.6 36 24C36 17.4 30.6 12 24 12ZM24 34C18.5 34 14 29.5 14 24C14 18.5 18.5 14 24 14C29.5 14 34 18.5 34 24C34 29.5 29.5 34 24 34Z" fill="#FC3F1D"/>
+      <rect width="48" height="48" rx="8" fill="#FF0000"/>
+      <path d="M24 8L28 16L24 24L20 16L24 8Z" fill="#FFCC00"/>
+      <path d="M24 24L28 32L24 40L20 32L24 24Z" fill="#FFCC00"/>
+      <ellipse cx="24" cy="16" rx="4" ry="8" fill="#FF6600"/>
+      <ellipse cx="24" cy="32" rx="4" ry="8" fill="#FF6600"/>
     </svg>
   );
 }
