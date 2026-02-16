@@ -40,7 +40,7 @@ function isColorDark(hexColor: string): boolean {
 // Helper function to format social media URLs
 function formatSocialUrl(
   url: string | undefined,
-  platform: 'linkedin' | 'twitter' | 'instagram' | 'whatsapp' | 'telegram' | 'vkontakte' | 'tiktok' | 'wechat' | 'youtube' | 'facebook' | 'snapchat'
+  platform: 'linkedin' | 'twitter' | 'instagram' | 'whatsapp' | 'telegram' | 'vkontakte' | 'vkmax' | 'tiktok' | 'wechat' | 'youtube' | 'facebook' | 'snapchat' | 'wildberries' | 'ozon' | 'yandexmarket'
 ): string {
   if (!url) return '#';
 
@@ -65,10 +65,14 @@ function formatSocialUrl(
     instagram: 'https://instagram.com/',
     telegram: 'https://t.me/',
     vkontakte: 'https://vk.com/',
+    vkmax: 'https://vk.com/',
     tiktok: 'https://tiktok.com/',
     youtube: 'https://youtube.com/',
     facebook: 'https://facebook.com/',
     snapchat: 'https://snapchat.com/add/',
+    wildberries: 'https://www.wildberries.ru/seller/',
+    ozon: 'https://www.ozon.ru/seller/',
+    yandexmarket: 'https://market.yandex.ru/shop/',
     whatsapp: 'https://wa.me/',
     wechat: '#'
   };
@@ -335,7 +339,7 @@ export default function CardPreview({ card, t, onPhotoClick, fullScreen = false 
         </div>
 
         {/* Social Links */}
-        {(card.linkedin || card.twitter || card.instagram || card.whatsapp || card.telegram || card.vkontakte || card.tiktok || card.wechat || card.youtube || card.facebook || card.snapchat) && (
+        {(card.linkedin || card.twitter || card.instagram || card.whatsapp || card.telegram || card.vkontakte || card.vkmax || card.tiktok || card.wechat || card.youtube || card.facebook || card.snapchat || card.wildberries || card.ozon || card.yandexmarket) && (
           <>
             <div className={`border-t border-gray-200/30 mt-4 mb-4`} />
             <div className="flex gap-2">
@@ -458,6 +462,50 @@ export default function CardPreview({ card, t, onPhotoClick, fullScreen = false 
                   style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
                 >
                   <SnapchatIcon />
+                </a>
+              )}
+              {card.vkmax && (
+                <a
+                  href={formatSocialUrl(card.vkmax, 'vkmax')}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-9 h-9 rounded-lg flex items-center justify-center"
+                  style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
+                >
+                  <VKMaxIcon />
+                </a>
+              )}
+              {card.wildberries && (
+                <a
+                  href={formatSocialUrl(card.wildberries, 'wildberries')}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-9 h-9 rounded-lg flex items-center justify-center"
+                  style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
+                >
+                  <WildberriesIcon />
+                </a>
+              )}
+              {card.ozon && (
+                <a
+                  href={formatSocialUrl(card.ozon, 'ozon')}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-9 h-9 rounded-lg flex items-center justify-center"
+                  style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
+                >
+                  <OzonIcon />
+                </a>
+              )}
+              {card.yandexmarket && (
+                <a
+                  href={formatSocialUrl(card.yandexmarket, 'yandexmarket')}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-9 h-9 rounded-lg flex items-center justify-center"
+                  style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
+                >
+                  <YandexMarketIcon />
                 </a>
               )}
             </div>
@@ -598,7 +646,7 @@ function ModernLayout({ card, t, initials, onPhotoClick, textPrimaryColor, textS
         </div>
 
         {/* Social Links */}
-        {(card.linkedin || card.twitter || card.instagram || card.whatsapp || card.telegram || card.vkontakte || card.tiktok || card.wechat || card.youtube || card.facebook || card.snapchat) && (
+        {(card.linkedin || card.twitter || card.instagram || card.whatsapp || card.telegram || card.vkontakte || card.vkmax || card.tiktok || card.wechat || card.youtube || card.facebook || card.snapchat || card.wildberries || card.ozon || card.yandexmarket) && (
           <>
             <div className={`border-t border-gray-200/30 mt-4 mb-4`} />
             <div className="flex gap-2">
@@ -723,6 +771,50 @@ function ModernLayout({ card, t, initials, onPhotoClick, textPrimaryColor, textS
                   <SnapchatIcon />
                 </a>
               )}
+              {card.vkmax && (
+                <a
+                  href={formatSocialUrl(card.vkmax, 'vkmax')}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-9 h-9 rounded-lg flex items-center justify-center"
+                  style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
+                >
+                  <VKMaxIcon />
+                </a>
+              )}
+              {card.wildberries && (
+                <a
+                  href={formatSocialUrl(card.wildberries, 'wildberries')}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-9 h-9 rounded-lg flex items-center justify-center"
+                  style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
+                >
+                  <WildberriesIcon />
+                </a>
+              )}
+              {card.ozon && (
+                <a
+                  href={formatSocialUrl(card.ozon, 'ozon')}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-9 h-9 rounded-lg flex items-center justify-center"
+                  style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
+                >
+                  <OzonIcon />
+                </a>
+              )}
+              {card.yandexmarket && (
+                <a
+                  href={formatSocialUrl(card.yandexmarket, 'yandexmarket')}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-9 h-9 rounded-lg flex items-center justify-center"
+                  style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
+                >
+                  <YandexMarketIcon />
+                </a>
+              )}
             </div>
           </>
         )}
@@ -833,7 +925,7 @@ function SidebarLayout({ card, t, bgStyle, bgClass, initials, onPhotoClick, text
         </div>
 
         {/* Social Links */}
-        {(card.linkedin || card.twitter || card.instagram || card.whatsapp || card.telegram || card.vkontakte || card.tiktok || card.wechat || card.youtube || card.facebook || card.snapchat) && (
+        {(card.linkedin || card.twitter || card.instagram || card.whatsapp || card.telegram || card.vkontakte || card.vkmax || card.tiktok || card.wechat || card.youtube || card.facebook || card.snapchat || card.wildberries || card.ozon || card.yandexmarket) && (
           <div className="flex gap-2 mt-4">
             {card.linkedin && (
               <a
@@ -954,7 +1046,7 @@ function MinimalLayout({ card, t, bgStyle, bgClass, initials, onPhotoClick, text
         </div>
 
         {/* Social Links */}
-        {(card.linkedin || card.twitter || card.instagram || card.whatsapp || card.telegram || card.vkontakte || card.tiktok || card.wechat || card.youtube || card.facebook || card.snapchat) && (
+        {(card.linkedin || card.twitter || card.instagram || card.whatsapp || card.telegram || card.vkontakte || card.vkmax || card.tiktok || card.wechat || card.youtube || card.facebook || card.snapchat || card.wildberries || card.ozon || card.yandexmarket) && (
           <div className="flex gap-3 mt-6">
             {card.linkedin && (
               <a href={formatSocialUrl(card.linkedin, 'linkedin')} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-lg flex items-center justify-center transition-transform hover:scale-110" style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}>
@@ -1110,6 +1202,38 @@ function SnapchatIcon() {
   );
 }
 
+function VKMaxIcon() {
+  return (
+    <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
+      <path d="M15.684 0H8.316C1.592 0 0 1.592 0 8.316v7.368C0 22.408 1.592 24 8.316 24h7.368C22.408 24 24 22.408 24 15.684V8.316C24 1.592 22.391 0 15.684 0zM18.5 16.5h-1.5c-.711 0-.945-.563-2.25-1.875-1.125-1.125-1.594-1.266-1.875-1.266-.375 0-.484.094-.484.563v1.688c0 .469-.141.75-1.406.75-2.063 0-4.313-1.266-5.906-3.656C3.094 9.422 2.5 7.094 2.5 6.625c0-.281.094-.563.563-.563h1.5c.422 0 .563.188.75.656.938 2.625 2.531 4.922 3.187 4.922.234 0 .328-.094.328-.656V8.422c-.047-1.313-.75-1.406-.75-1.875 0-.234.188-.469.469-.469h2.344c.375 0 .516.188.516.609v3.047c0 .375.141.516.234.516.234 0 .422-.141.844-.562 1.313-1.5 2.25-3.75 2.25-3.75.141-.281.328-.563.75-.563h1.5c.469 0 .563.234.469.609-.234 1.078-2.438 4.266-2.438 4.266-.188.281-.234.422 0 .75.188.234.797.797 1.219 1.266.75.844 1.313 1.547 1.5 2.062.141.516-.094.75-.609.75z"/>
+    </svg>
+  );
+}
+
+function WildberriesIcon() {
+  return (
+    <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
+      <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm6.548 17.225l-1.087 1.087-5.461-5.461-5.461 5.461-1.087-1.087 5.461-5.461-5.461-5.461 1.087-1.087 5.461 5.461 5.461-5.461 1.087 1.087-5.461 5.461 5.461 5.461z"/>
+    </svg>
+  );
+}
+
+function OzonIcon() {
+  return (
+    <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
+      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/>
+    </svg>
+  );
+}
+
+function YandexMarketIcon() {
+  return (
+    <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
+      <path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12s4.477 10 10 10 10-4.477 10-10zm-10 8c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8zm1-13h-2v8l7 4.2.6-1L13 15V7z"/>
+    </svg>
+  );
+}
+
 // LAYOUT 5: Bold - Large diagonal photo with overlapping content
 function BoldLayout({ card, t, initials, onPhotoClick, textPrimaryColor, textSecondaryColor, containerClass = "w-full max-w-lg mx-auto" }: LayoutProps) {
   const bgColor = card.backgroundColor || "#ffffff";
@@ -1177,7 +1301,7 @@ function BoldLayout({ card, t, initials, onPhotoClick, textPrimaryColor, textSec
         </div>
 
         {/* Social Links */}
-        {(card.linkedin || card.twitter || card.instagram || card.whatsapp || card.telegram || card.vkontakte || card.tiktok || card.wechat || card.youtube || card.facebook || card.snapchat) && (
+        {(card.linkedin || card.twitter || card.instagram || card.whatsapp || card.telegram || card.vkontakte || card.vkmax || card.tiktok || card.wechat || card.youtube || card.facebook || card.snapchat || card.wildberries || card.ozon || card.yandexmarket) && (
           <div className="flex gap-2 justify-center">
             {card.linkedin && (
               <a href={formatSocialUrl(card.linkedin, 'linkedin')} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full flex items-center justify-center" style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}>
@@ -1272,7 +1396,7 @@ function StylishLayout({ card, t, initials, onPhotoClick, textSecondaryColor, co
         </div>
 
         {/* Social Links */}
-        {(card.linkedin || card.twitter || card.instagram || card.whatsapp || card.telegram || card.vkontakte || card.tiktok || card.wechat || card.youtube || card.facebook || card.snapchat) && (
+        {(card.linkedin || card.twitter || card.instagram || card.whatsapp || card.telegram || card.vkontakte || card.vkmax || card.tiktok || card.wechat || card.youtube || card.facebook || card.snapchat || card.wildberries || card.ozon || card.yandexmarket) && (
           <div className="flex gap-3 justify-center pt-4 border-t" style={{ borderColor: `${card.primaryColor}30` }}>
             {card.linkedin && (
               <a href={formatSocialUrl(card.linkedin, 'linkedin')} target="_blank" rel="noopener noreferrer" className="w-11 h-11 rounded-xl flex items-center justify-center shadow-md" style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}>
@@ -1367,7 +1491,7 @@ function ElegantLayout({ card, t, initials, onPhotoClick, textPrimaryColor, text
         </div>
 
         {/* Social Links - Horizontal bar */}
-        {(card.linkedin || card.twitter || card.instagram || card.whatsapp || card.telegram || card.vkontakte || card.tiktok || card.wechat || card.youtube || card.facebook || card.snapchat) && (
+        {(card.linkedin || card.twitter || card.instagram || card.whatsapp || card.telegram || card.vkontakte || card.vkmax || card.tiktok || card.wechat || card.youtube || card.facebook || card.snapchat || card.wildberries || card.ozon || card.yandexmarket) && (
           <div className="flex gap-2 justify-center pt-4">
             {card.linkedin && (
               <a href={formatSocialUrl(card.linkedin, 'linkedin')} target="_blank" rel="noopener noreferrer" className="flex-1 h-12 rounded-xl flex items-center justify-center" style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}>
@@ -1463,7 +1587,7 @@ function CreativeLayout({ card, t, initials, onPhotoClick, textPrimaryColor, tex
         </div>
 
         {/* Social Links - Pills */}
-        {(card.linkedin || card.twitter || card.instagram || card.whatsapp || card.telegram || card.vkontakte || card.tiktok || card.wechat || card.youtube || card.facebook || card.snapchat) && (
+        {(card.linkedin || card.twitter || card.instagram || card.whatsapp || card.telegram || card.vkontakte || card.vkmax || card.tiktok || card.wechat || card.youtube || card.facebook || card.snapchat || card.wildberries || card.ozon || card.yandexmarket) && (
           <div className="flex gap-2">
             {card.linkedin && (
               <a href={formatSocialUrl(card.linkedin, 'linkedin')} target="_blank" rel="noopener noreferrer" className="flex-1 h-10 rounded-full flex items-center justify-center" style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}>
