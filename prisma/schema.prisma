@@ -1,0 +1,50 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Card {
+  id           String   @id @default(cuid())
+  slug         String   @unique
+  firstName    String
+  lastName     String
+  title        String?
+  company      String?
+  email        String?
+  phone        String?
+  website      String?
+  linkedin     String?
+  twitter      String?
+  instagram    String?
+  address      String?
+  bio          String?
+  theme        String   @default("dark")
+  primaryColor String   @default("#0ea5e9")
+  photoUrl     String?
+  isActive     Boolean  @default(true)
+  viewCount    Int      @default(0)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  order        Order?
+}
+
+model Order {
+  id              String   @id @default(cuid())
+  cardId          String   @unique
+  card            Card     @relation(fields: [cardId], references: [id])
+  quantity        Int      @default(1)
+  cardType        String   @default("standard")
+  status          String   @default("PENDING")
+  totalPrice      Float
+  customerName    String
+  customerEmail   String
+  customerPhone   String?
+  shippingAddress String
+  notes           String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
