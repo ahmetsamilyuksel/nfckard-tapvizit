@@ -60,8 +60,8 @@ function createRadialGradient(color: string, intensity: number = 50): string {
 
 export default function CardPreview({ card, t, onPhotoClick, fullScreen = false }: Props) {
   const layout = card.layout || "classic";
-  // Mobile: full width, Desktop: centered with max-width for better UX
-  const containerClass = fullScreen ? "w-full sm:max-w-md sm:mx-auto lg:max-w-lg" : "max-w-sm mx-auto";
+  // Narrow and modern on all devices - mobile has padding, desktop centered
+  const containerClass = fullScreen ? "max-w-sm mx-auto" : "max-w-sm mx-auto";
 
   // Check if custom background color is dark
   const hasCustomBg = !!card.backgroundColor;

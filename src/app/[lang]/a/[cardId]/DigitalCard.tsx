@@ -101,8 +101,8 @@ export default function DigitalCard({ card, lang, t }: Props) {
       className={`min-h-screen ${bgClass} flex flex-col`}
       style={bgStyle}
     >
-      {/* Card Preview Component - Responsive padding */}
-      <div className="flex-1 flex items-center justify-center w-full px-0 sm:px-4 md:px-6 lg:px-8 py-4">
+      {/* Card Preview Component - Modern padding on all devices */}
+      <div className="flex-1 flex items-center justify-center w-full px-4 py-6 sm:px-6 md:px-8">
         <CardPreview
           card={cardFormData}
           lang={lang}
@@ -111,9 +111,9 @@ export default function DigitalCard({ card, lang, t }: Props) {
         />
       </div>
 
-      {/* Bottom Actions - Fixed at bottom, responsive max-width */}
+      {/* Bottom Actions - Compact and centered */}
       <div className="w-full px-4 pb-4 pt-2 bg-gradient-to-t from-black/10 to-transparent">
-        <div className="grid grid-cols-3 gap-2 max-w-md mx-auto lg:max-w-lg">
+        <div className="grid grid-cols-3 gap-2 max-w-sm mx-auto">
           <button
             onClick={handleDownloadVCard}
             className="col-span-3 flex items-center justify-center gap-2 py-3 rounded-xl text-white text-sm font-semibold transition-opacity hover:opacity-90 shadow-lg"
@@ -157,7 +157,7 @@ export default function DigitalCard({ card, lang, t }: Props) {
         </div>
 
         {/* Footer */}
-        <div className="mt-2 text-center max-w-md mx-auto lg:max-w-lg">
+        <div className="mt-2 text-center max-w-sm mx-auto">
           <a
             href={`/${lang}/create`}
             className={`text-[10px] opacity-60 hover:opacity-100 transition-opacity inline-block ${
