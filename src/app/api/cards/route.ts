@@ -45,6 +45,9 @@ export async function POST(req: NextRequest) {
         bio: cardData.bio?.trim() || null,
         theme: cardData.theme || "dark",
         primaryColor: cardData.primaryColor || "#0ea5e9",
+        backgroundColor: cardData.backgroundColor || null,
+        gradientIntensity: cardData.gradientIntensity || 50,
+        layout: cardData.layout || "classic",
         photoUrl: cardData.photoUrl || null,
         order: {
           create: {
