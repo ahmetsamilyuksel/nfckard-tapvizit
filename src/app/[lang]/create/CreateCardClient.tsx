@@ -132,7 +132,15 @@ export default function CreateCardClient({ lang, t }: Props) {
 
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.error || "Failed to create card");
+        // Handle validation errors with translated messages
+        if (errorData.error === "VALIDATION_ERROR" && errorData.message === "invalidFormat") {
+          alert(t.invalidFormat);
+        } else if (errorData.error === "SERVER_ERROR") {
+          alert(t.serverError);
+        } else {
+          alert(errorData.error || t.orderError);
+        }
+        return;
       }
 
       const result = await response.json();
@@ -140,7 +148,8 @@ export default function CreateCardClient({ lang, t }: Props) {
       setStep("success");
       window.scrollTo({ top: 0, behavior: "smooth" });
     } catch (error) {
-      alert(error instanceof Error ? error.message : "An error occurred");
+      console.error("Order error:", error);
+      alert(t.serverError);
     } finally {
       setLoading(false);
     }

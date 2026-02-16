@@ -74,13 +74,25 @@ export async function POST(req: NextRequest) {
     });
   } catch (error) {
     console.error("Error creating card:", error);
+
+    // Check for Prisma validation errors
+    const errorMessage = error instanceof Error ? error.message : String(error);
+
+    // Handle common validation errors with user-friendly messages
+    if (errorMessage.includes("Invalid") || errorMessage.includes("pattern") || errorMessage.includes("expected")) {
+      return NextResponse.json({
+        error: "VALIDATION_ERROR",
+        message: "invalidFormat"
+      }, { status: 400 });
+    }
+
     // Return detailed error in development, generic in production
-    const errorMessage = process.env.NODE_ENV === "development"
-      ? String(error)
+    const message = process.env.NODE_ENV === "development"
+      ? errorMessage
       : "Internal server error";
     return NextResponse.json({
-      error: errorMessage,
-      details: error instanceof Error ? error.message : String(error)
+      error: "SERVER_ERROR",
+      message: message
     }, { status: 500 });
   }
 }

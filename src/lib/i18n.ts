@@ -140,6 +140,8 @@ export const translations = {
     layoutStylish: "Şık",
     layoutElegant: "Zarif",
     layoutCreative: "Yaratıcı",
+    invalidFormat: "Lütfen e-posta ve telefon numaralarının doğru formatta olduğundan emin olun",
+    serverError: "Sunucu hatası. Lütfen tekrar deneyin.",
   },
   en: {
     siteName: "NFC Business Card",
@@ -272,6 +274,8 @@ export const translations = {
     layoutStylish: "Stylish",
     layoutElegant: "Elegant",
     layoutCreative: "Creative",
+    invalidFormat: "Please ensure email and phone numbers are in the correct format",
+    serverError: "Server error. Please try again.",
   },
   ru: {
     siteName: "NFC Визитка",
@@ -404,6 +408,8 @@ export const translations = {
     layoutStylish: "Стильный",
     layoutElegant: "Элегантный",
     layoutCreative: "Креативный",
+    invalidFormat: "Пожалуйста, убедитесь, что email и номера телефонов имеют правильный формат",
+    serverError: "Ошибка сервера. Пожалуйста, попробуйте снова.",
   },
 };
 
