@@ -62,6 +62,7 @@ export default function CreateCardClient({ lang, t }: Props) {
     notes: "",
   });
   const [createdSlug, setCreatedSlug] = useState("");
+  const [countryCode, setCountryCode] = useState("+7");
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [showCropper, setShowCropper] = useState(false);
@@ -542,13 +543,44 @@ export default function CreateCardClient({ lang, t }: Props) {
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">{t.phone}</label>
-                  <input
-                    type="tel"
-                    value={cardData.phone}
-                    onChange={(e) => handleCardChange("phone", e.target.value)}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent"
-                    placeholder={t.placeholderPhone}
-                  />
+                  <div className="flex gap-2">
+                    <select
+                      value={countryCode}
+                      onChange={(e) => setCountryCode(e.target.value)}
+                      className="w-24 px-2 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent"
+                    >
+                      <option value="+7">🇷🇺 +7</option>
+                      <option value="+90">🇹🇷 +90</option>
+                      <option value="+1">🇺🇸 +1</option>
+                      <option value="+44">🇬🇧 +44</option>
+                      <option value="+49">🇩🇪 +49</option>
+                      <option value="+33">🇫🇷 +33</option>
+                      <option value="+39">🇮🇹 +39</option>
+                      <option value="+34">🇪🇸 +34</option>
+                      <option value="+86">🇨🇳 +86</option>
+                      <option value="+81">🇯🇵 +81</option>
+                      <option value="+82">🇰🇷 +82</option>
+                      <option value="+91">🇮🇳 +91</option>
+                      <option value="+971">🇦🇪 +971</option>
+                      <option value="+966">🇸🇦 +966</option>
+                      <option value="+998">🇺🇿 +998</option>
+                      <option value="+380">🇺🇦 +380</option>
+                      <option value="+375">🇧🇾 +375</option>
+                      <option value="+374">🇦🇲 +374</option>
+                      <option value="+995">🇬🇪 +995</option>
+                      <option value="+994">🇦🇿 +994</option>
+                    </select>
+                    <input
+                      type="tel"
+                      value={cardData.phone}
+                      onChange={(e) => {
+                        const value = e.target.value.replace(/[^\d]/g, '');
+                        handleCardChange("phone", countryCode + value);
+                      }}
+                      className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent"
+                      placeholder={t.placeholderPhone}
+                    />
+                  </div>
                 </div>
 
                 <div>
