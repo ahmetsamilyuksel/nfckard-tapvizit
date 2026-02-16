@@ -59,7 +59,7 @@ function createRadialGradient(color: string, intensity: number = 50): string {
 
 export default function CardPreview({ card, t, onPhotoClick, fullScreen = false }: Props) {
   const layout = card.layout || "classic";
-  const containerClass = fullScreen ? "w-full h-full" : "${containerClass}";
+  const containerClass = fullScreen ? "w-full h-full" : "max-w-sm mx-auto";
 
   // Check if custom background color is dark
   const hasCustomBg = !!card.backgroundColor;
@@ -360,7 +360,7 @@ function ModernLayout({ card, t, initials, onPhotoClick, textPrimaryColor, textS
   const secondaryStyle = textSecondaryColor ? { color: textSecondaryColor } : {};
 
   return (
-    <div className="rounded-2xl overflow-hidden shadow-xl ${containerClass}" style={{ background: bgGradient }}>
+    <div className={`rounded-2xl overflow-hidden shadow-xl ${containerClass}`} style={{ background: bgGradient }}>
       {/* Full width photo */}
       <div className="relative h-64 w-full overflow-hidden cursor-pointer hover:opacity-95 transition-opacity rounded-t-2xl" onClick={onPhotoClick}>
         {card.photoUrl ? (
@@ -806,7 +806,7 @@ function BoldLayout({ card, t, initials, onPhotoClick, textPrimaryColor, textSec
   const secondaryStyle = textSecondaryColor ? { color: textSecondaryColor } : {};
 
   return (
-    <div className="rounded-2xl overflow-hidden shadow-2xl ${containerClass}" style={{ background: bgGradient }}>
+    <div className={`rounded-2xl overflow-hidden shadow-2xl ${containerClass}`} style={{ background: bgGradient }}>
       {/* Diagonal full-width photo */}
       <div className="relative h-72 w-full overflow-hidden cursor-pointer group rounded-t-2xl" onClick={onPhotoClick}>
         {card.photoUrl ? (
@@ -896,7 +896,7 @@ function StylishLayout({ card, t, initials, onPhotoClick, textSecondaryColor }: 
   const secondaryStyle = textSecondaryColor ? { color: textSecondaryColor } : {};
 
   return (
-    <div className="rounded-2xl overflow-hidden shadow-2xl ${containerClass}" style={{ background: bgGradient }}>
+    <div className={`rounded-2xl overflow-hidden shadow-2xl ${containerClass}`} style={{ background: bgGradient }}>
       {/* Magazine style with blended photo */}
       <div className="relative h-80 w-full rounded-t-2xl overflow-hidden">
         {/* Full-width photo as background */}
@@ -992,7 +992,7 @@ function ElegantLayout({ card, t, initials, onPhotoClick, textPrimaryColor, text
   const secondaryStyle = textSecondaryColor ? { color: textSecondaryColor } : {};
 
   return (
-    <div className="rounded-2xl overflow-hidden shadow-2xl ${containerClass}" style={{ background: bgGradient }}>
+    <div className={`rounded-2xl overflow-hidden shadow-2xl ${containerClass}`} style={{ background: bgGradient }}>
       {/* Arc background with centered circular photo */}
       <div className="relative h-72 w-full rounded-t-2xl" style={{ background: `linear-gradient(180deg, ${card.primaryColor} 0%, ${card.primaryColor}ee 60%, ${card.primaryColor}cc 85%, transparent 100%)` }}>
         {/* Decorative arc shape with blur effect */}
@@ -1087,7 +1087,7 @@ function CreativeLayout({ card, t, initials, onPhotoClick, textPrimaryColor, tex
   const secondaryStyle = textSecondaryColor ? { color: textSecondaryColor } : {};
 
   return (
-    <div className="rounded-2xl overflow-hidden shadow-2xl ${containerClass}" style={{ background: bgGradient }}>
+    <div className={`rounded-2xl overflow-hidden shadow-2xl ${containerClass}`} style={{ background: bgGradient }}>
       {/* Angled photo header with soft edges */}
       <div className="relative h-64 w-full overflow-hidden cursor-pointer group rounded-t-2xl" onClick={onPhotoClick}>
         {card.photoUrl ? (
