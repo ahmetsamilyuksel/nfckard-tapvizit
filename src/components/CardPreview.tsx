@@ -344,184 +344,229 @@ export default function CardPreview({ card, t, onPhotoClick, fullScreen = false 
             <div className={`border-t border-gray-200/30 mt-4 mb-4`} />
             <div className="flex gap-2">
               {card.linkedin && (
-                <a
-                  href={formatSocialUrl(card.linkedin, 'linkedin')}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  title="LinkedIn"
-                  className="w-9 h-9 rounded-lg flex items-center justify-center"
-                  style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
-                >
-                  <LinkedInIcon />
-                </a>
+                <div className="flex flex-col items-center gap-1">
+                  <a
+                    href={formatSocialUrl(card.linkedin, 'linkedin')}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title="LinkedIn"
+                    className="w-9 h-9 rounded-lg flex items-center justify-center"
+                    style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
+                  >
+                    <LinkedInIcon />
+                  </a>
+                  <span className="text-[9px] text-white/80 font-medium">LinkedIn</span>
+                </div>
               )}
               {card.twitter && (
-                <a
-                  href={formatSocialUrl(card.twitter, 'twitter')}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  title="Twitter / X"
-                  className="w-9 h-9 rounded-lg flex items-center justify-center"
-                  style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
-                >
-                  <TwitterIcon />
-                </a>
+                <div className="flex flex-col items-center gap-1">
+                  <a
+                    href={formatSocialUrl(card.twitter, 'twitter')}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title="Twitter / X"
+                    className="w-9 h-9 rounded-lg flex items-center justify-center"
+                    style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
+                  >
+                    <TwitterIcon />
+                  </a>
+                  <span className="text-[9px] text-white/80 font-medium">Twitter</span>
+                </div>
               )}
               {card.instagram && (
-                <a
-                  href={formatSocialUrl(card.instagram, 'instagram')}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  title="Instagram"
-                  className="w-9 h-9 rounded-lg flex items-center justify-center"
-                  style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
-                >
-                  <InstagramIcon />
-                </a>
+                <div className="flex flex-col items-center gap-1">
+                  <a
+                    href={formatSocialUrl(card.instagram, 'instagram')}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title="Instagram"
+                    className="w-9 h-9 rounded-lg flex items-center justify-center"
+                    style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
+                  >
+                    <InstagramIcon />
+                  </a>
+                  <span className="text-[9px] text-white/80 font-medium">Instagram</span>
+                </div>
               )}
               {card.whatsapp && (
-                <a
-                  href={formatSocialUrl(card.whatsapp, 'whatsapp')}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  title="WhatsApp"
-                  className="w-9 h-9 rounded-lg flex items-center justify-center"
-                  style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
-                >
-                  <WhatsAppIcon />
-                </a>
+                <div className="flex flex-col items-center gap-1">
+                  <a
+                    href={formatSocialUrl(card.whatsapp, 'whatsapp')}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title="WhatsApp"
+                    className="w-9 h-9 rounded-lg flex items-center justify-center"
+                    style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
+                  >
+                    <WhatsAppIcon />
+                  </a>
+                  <span className="text-[9px] text-white/80 font-medium">WhatsApp</span>
+                </div>
               )}
               {card.telegram && (
-                <a
-                  href={formatSocialUrl(card.telegram, 'telegram')}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  title="Telegram"
-                  className="w-9 h-9 rounded-lg flex items-center justify-center"
-                  style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
-                >
-                  <TelegramIcon />
-                </a>
+                <div className="flex flex-col items-center gap-1">
+                  <a
+                    href={formatSocialUrl(card.telegram, 'telegram')}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title="Telegram"
+                    className="w-9 h-9 rounded-lg flex items-center justify-center"
+                    style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
+                  >
+                    <TelegramIcon />
+                  </a>
+                  <span className="text-[9px] text-white/80 font-medium">Telegram</span>
+                </div>
               )}
               {card.vkontakte && (
-                <a
-                  href={formatSocialUrl(card.vkontakte, 'vkontakte')}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  title="VKontakte"
-                  className="w-9 h-9 rounded-lg flex items-center justify-center"
-                  style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
-                >
-                  <VKontakteIcon />
-                </a>
+                <div className="flex flex-col items-center gap-1">
+                  <a
+                    href={formatSocialUrl(card.vkontakte, 'vkontakte')}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title="VKontakte"
+                    className="w-9 h-9 rounded-lg flex items-center justify-center"
+                    style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
+                  >
+                    <VKontakteIcon />
+                  </a>
+                  <span className="text-[9px] text-white/80 font-medium">VK</span>
+                </div>
               )}
               {card.tiktok && (
-                <a
-                  href={formatSocialUrl(card.tiktok, 'tiktok')}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  title="TikTok"
-                  className="w-9 h-9 rounded-lg flex items-center justify-center"
-                  style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
-                >
-                  <TikTokIcon />
-                </a>
+                <div className="flex flex-col items-center gap-1">
+                  <a
+                    href={formatSocialUrl(card.tiktok, 'tiktok')}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title="TikTok"
+                    className="w-9 h-9 rounded-lg flex items-center justify-center"
+                    style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
+                  >
+                    <TikTokIcon />
+                  </a>
+                  <span className="text-[9px] text-white/80 font-medium">TikTok</span>
+                </div>
               )}
               {card.wechat && (
-                <a
-                  href={formatSocialUrl(card.wechat, 'wechat')}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  title="WeChat"
-                  className="w-9 h-9 rounded-lg flex items-center justify-center"
-                  style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
-                >
-                  <WeChatIcon />
-                </a>
+                <div className="flex flex-col items-center gap-1">
+                  <a
+                    href={formatSocialUrl(card.wechat, 'wechat')}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title="WeChat"
+                    className="w-9 h-9 rounded-lg flex items-center justify-center"
+                    style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
+                  >
+                    <WeChatIcon />
+                  </a>
+                  <span className="text-[9px] text-white/80 font-medium">WeChat</span>
+                </div>
               )}
               {card.youtube && (
-                <a
-                  href={formatSocialUrl(card.youtube, 'youtube')}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  title="YouTube"
-                  className="w-9 h-9 rounded-lg flex items-center justify-center"
-                  style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
-                >
-                  <YouTubeIcon />
-                </a>
+                <div className="flex flex-col items-center gap-1">
+                  <a
+                    href={formatSocialUrl(card.youtube, 'youtube')}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title="YouTube"
+                    className="w-9 h-9 rounded-lg flex items-center justify-center"
+                    style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
+                  >
+                    <YouTubeIcon />
+                  </a>
+                  <span className="text-[9px] text-white/80 font-medium">YouTube</span>
+                </div>
               )}
               {card.facebook && (
-                <a
-                  href={formatSocialUrl(card.facebook, 'facebook')}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  title="Facebook"
-                  className="w-9 h-9 rounded-lg flex items-center justify-center"
-                  style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
-                >
-                  <FacebookIcon />
-                </a>
+                <div className="flex flex-col items-center gap-1">
+                  <a
+                    href={formatSocialUrl(card.facebook, 'facebook')}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title="Facebook"
+                    className="w-9 h-9 rounded-lg flex items-center justify-center"
+                    style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
+                  >
+                    <FacebookIcon />
+                  </a>
+                  <span className="text-[9px] text-white/80 font-medium">Facebook</span>
+                </div>
               )}
               {card.snapchat && (
-                <a
-                  href={formatSocialUrl(card.snapchat, 'snapchat')}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  title="Snapchat"
-                  className="w-9 h-9 rounded-lg flex items-center justify-center"
-                  style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
-                >
-                  <SnapchatIcon />
-                </a>
+                <div className="flex flex-col items-center gap-1">
+                  <a
+                    href={formatSocialUrl(card.snapchat, 'snapchat')}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title="Snapchat"
+                    className="w-9 h-9 rounded-lg flex items-center justify-center"
+                    style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
+                  >
+                    <SnapchatIcon />
+                  </a>
+                  <span className="text-[9px] text-white/80 font-medium">Snapchat</span>
+                </div>
               )}
               {card.vkmax && (
-                <a
-                  href={formatSocialUrl(card.vkmax, 'vkmax')}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  title="VK MAX"
-                  className="w-9 h-9 rounded-lg flex items-center justify-center"
-                  style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
-                >
-                  <VKMaxIcon />
-                </a>
+                <div className="flex flex-col items-center gap-1">
+                  <a
+                    href={formatSocialUrl(card.vkmax, 'vkmax')}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title="VK MAX"
+                    className="w-9 h-9 rounded-lg flex items-center justify-center"
+                    style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
+                  >
+                    <VKMaxIcon />
+                  </a>
+                  <span className="text-[9px] text-white/80 font-medium">VK MAX</span>
+                </div>
               )}
               {card.wildberries && (
-                <a
-                  href={formatSocialUrl(card.wildberries, 'wildberries')}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  title="Wildberries"
-                  className="w-9 h-9 rounded-lg flex items-center justify-center"
-                  style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
-                >
-                  <WildberriesIcon />
-                </a>
+                <div className="flex flex-col items-center gap-1">
+                  <a
+                    href={formatSocialUrl(card.wildberries, 'wildberries')}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title="Wildberries"
+                    className="w-9 h-9 rounded-lg flex items-center justify-center"
+                    style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
+                  >
+                    <WildberriesIcon />
+                  </a>
+                  <span className="text-[9px] text-white/80 font-medium">WB</span>
+                </div>
               )}
               {card.ozon && (
-                <a
-                  href={formatSocialUrl(card.ozon, 'ozon')}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  title="Ozon"
-                  className="w-9 h-9 rounded-lg flex items-center justify-center"
-                  style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
-                >
-                  <OzonIcon />
-                </a>
+                <div className="flex flex-col items-center gap-1">
+                  <a
+                    href={formatSocialUrl(card.ozon, 'ozon')}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title="Ozon"
+                    className="w-9 h-9 rounded-lg flex items-center justify-center"
+                    style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
+                  >
+                    <OzonIcon />
+                  </a>
+                  <span className="text-[9px] text-white/80 font-medium">Ozon</span>
+                </div>
               )}
               {card.yandexmarket && (
-                <a
-                  href={formatSocialUrl(card.yandexmarket, 'yandexmarket')}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  title="Yandex Market"
-                  className="w-9 h-9 rounded-lg flex items-center justify-center"
-                  style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
-                >
-                  <YandexMarketIcon />
-                </a>
+                <div className="flex flex-col items-center gap-1">
+                  <a
+                    href={formatSocialUrl(card.yandexmarket, 'yandexmarket')}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title="Yandex Market"
+                    className="w-9 h-9 rounded-lg flex items-center justify-center"
+                    style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
+                  >
+                    <YandexMarketIcon />
+                  </a>
+                  <span className="text-[9px] text-white/80 font-medium">Yandex</span>
+                </div>
               )}
             </div>
           </>
@@ -666,184 +711,229 @@ function ModernLayout({ card, t, initials, onPhotoClick, textPrimaryColor, textS
             <div className={`border-t border-gray-200/30 mt-4 mb-4`} />
             <div className="flex gap-2">
               {card.linkedin && (
-                <a
-                  href={formatSocialUrl(card.linkedin, 'linkedin')}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  title="LinkedIn"
-                  className="w-9 h-9 rounded-lg flex items-center justify-center"
-                  style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
-                >
-                  <LinkedInIcon />
-                </a>
+                <div className="flex flex-col items-center gap-1">
+                  <a
+                    href={formatSocialUrl(card.linkedin, 'linkedin')}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title="LinkedIn"
+                    className="w-9 h-9 rounded-lg flex items-center justify-center"
+                    style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
+                  >
+                    <LinkedInIcon />
+                  </a>
+                  <span className="text-[9px] text-white/80 font-medium">LinkedIn</span>
+                </div>
               )}
               {card.twitter && (
-                <a
-                  href={formatSocialUrl(card.twitter, 'twitter')}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  title="Twitter / X"
-                  className="w-9 h-9 rounded-lg flex items-center justify-center"
-                  style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
-                >
-                  <TwitterIcon />
-                </a>
+                <div className="flex flex-col items-center gap-1">
+                  <a
+                    href={formatSocialUrl(card.twitter, 'twitter')}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title="Twitter / X"
+                    className="w-9 h-9 rounded-lg flex items-center justify-center"
+                    style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
+                  >
+                    <TwitterIcon />
+                  </a>
+                  <span className="text-[9px] text-white/80 font-medium">Twitter</span>
+                </div>
               )}
               {card.instagram && (
-                <a
-                  href={formatSocialUrl(card.instagram, 'instagram')}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  title="Instagram"
-                  className="w-9 h-9 rounded-lg flex items-center justify-center"
-                  style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
-                >
-                  <InstagramIcon />
-                </a>
+                <div className="flex flex-col items-center gap-1">
+                  <a
+                    href={formatSocialUrl(card.instagram, 'instagram')}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title="Instagram"
+                    className="w-9 h-9 rounded-lg flex items-center justify-center"
+                    style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
+                  >
+                    <InstagramIcon />
+                  </a>
+                  <span className="text-[9px] text-white/80 font-medium">Instagram</span>
+                </div>
               )}
               {card.whatsapp && (
-                <a
-                  href={formatSocialUrl(card.whatsapp, 'whatsapp')}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  title="WhatsApp"
-                  className="w-9 h-9 rounded-lg flex items-center justify-center"
-                  style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
-                >
-                  <WhatsAppIcon />
-                </a>
+                <div className="flex flex-col items-center gap-1">
+                  <a
+                    href={formatSocialUrl(card.whatsapp, 'whatsapp')}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title="WhatsApp"
+                    className="w-9 h-9 rounded-lg flex items-center justify-center"
+                    style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
+                  >
+                    <WhatsAppIcon />
+                  </a>
+                  <span className="text-[9px] text-white/80 font-medium">WhatsApp</span>
+                </div>
               )}
               {card.telegram && (
-                <a
-                  href={formatSocialUrl(card.telegram, 'telegram')}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  title="Telegram"
-                  className="w-9 h-9 rounded-lg flex items-center justify-center"
-                  style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
-                >
-                  <TelegramIcon />
-                </a>
+                <div className="flex flex-col items-center gap-1">
+                  <a
+                    href={formatSocialUrl(card.telegram, 'telegram')}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title="Telegram"
+                    className="w-9 h-9 rounded-lg flex items-center justify-center"
+                    style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
+                  >
+                    <TelegramIcon />
+                  </a>
+                  <span className="text-[9px] text-white/80 font-medium">Telegram</span>
+                </div>
               )}
               {card.vkontakte && (
-                <a
-                  href={formatSocialUrl(card.vkontakte, 'vkontakte')}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  title="VKontakte"
-                  className="w-9 h-9 rounded-lg flex items-center justify-center"
-                  style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
-                >
-                  <VKontakteIcon />
-                </a>
+                <div className="flex flex-col items-center gap-1">
+                  <a
+                    href={formatSocialUrl(card.vkontakte, 'vkontakte')}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title="VKontakte"
+                    className="w-9 h-9 rounded-lg flex items-center justify-center"
+                    style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
+                  >
+                    <VKontakteIcon />
+                  </a>
+                  <span className="text-[9px] text-white/80 font-medium">VK</span>
+                </div>
               )}
               {card.tiktok && (
-                <a
-                  href={formatSocialUrl(card.tiktok, 'tiktok')}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  title="TikTok"
-                  className="w-9 h-9 rounded-lg flex items-center justify-center"
-                  style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
-                >
-                  <TikTokIcon />
-                </a>
+                <div className="flex flex-col items-center gap-1">
+                  <a
+                    href={formatSocialUrl(card.tiktok, 'tiktok')}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title="TikTok"
+                    className="w-9 h-9 rounded-lg flex items-center justify-center"
+                    style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
+                  >
+                    <TikTokIcon />
+                  </a>
+                  <span className="text-[9px] text-white/80 font-medium">TikTok</span>
+                </div>
               )}
               {card.wechat && (
-                <a
-                  href={formatSocialUrl(card.wechat, 'wechat')}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  title="WeChat"
-                  className="w-9 h-9 rounded-lg flex items-center justify-center"
-                  style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
-                >
-                  <WeChatIcon />
-                </a>
+                <div className="flex flex-col items-center gap-1">
+                  <a
+                    href={formatSocialUrl(card.wechat, 'wechat')}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title="WeChat"
+                    className="w-9 h-9 rounded-lg flex items-center justify-center"
+                    style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
+                  >
+                    <WeChatIcon />
+                  </a>
+                  <span className="text-[9px] text-white/80 font-medium">WeChat</span>
+                </div>
               )}
               {card.youtube && (
-                <a
-                  href={formatSocialUrl(card.youtube, 'youtube')}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  title="YouTube"
-                  className="w-9 h-9 rounded-lg flex items-center justify-center"
-                  style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
-                >
-                  <YouTubeIcon />
-                </a>
+                <div className="flex flex-col items-center gap-1">
+                  <a
+                    href={formatSocialUrl(card.youtube, 'youtube')}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title="YouTube"
+                    className="w-9 h-9 rounded-lg flex items-center justify-center"
+                    style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
+                  >
+                    <YouTubeIcon />
+                  </a>
+                  <span className="text-[9px] text-white/80 font-medium">YouTube</span>
+                </div>
               )}
               {card.facebook && (
-                <a
-                  href={formatSocialUrl(card.facebook, 'facebook')}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  title="Facebook"
-                  className="w-9 h-9 rounded-lg flex items-center justify-center"
-                  style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
-                >
-                  <FacebookIcon />
-                </a>
+                <div className="flex flex-col items-center gap-1">
+                  <a
+                    href={formatSocialUrl(card.facebook, 'facebook')}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title="Facebook"
+                    className="w-9 h-9 rounded-lg flex items-center justify-center"
+                    style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
+                  >
+                    <FacebookIcon />
+                  </a>
+                  <span className="text-[9px] text-white/80 font-medium">Facebook</span>
+                </div>
               )}
               {card.snapchat && (
-                <a
-                  href={formatSocialUrl(card.snapchat, 'snapchat')}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  title="Snapchat"
-                  className="w-9 h-9 rounded-lg flex items-center justify-center"
-                  style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
-                >
-                  <SnapchatIcon />
-                </a>
+                <div className="flex flex-col items-center gap-1">
+                  <a
+                    href={formatSocialUrl(card.snapchat, 'snapchat')}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title="Snapchat"
+                    className="w-9 h-9 rounded-lg flex items-center justify-center"
+                    style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
+                  >
+                    <SnapchatIcon />
+                  </a>
+                  <span className="text-[9px] text-white/80 font-medium">Snapchat</span>
+                </div>
               )}
               {card.vkmax && (
-                <a
-                  href={formatSocialUrl(card.vkmax, 'vkmax')}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  title="VK MAX"
-                  className="w-9 h-9 rounded-lg flex items-center justify-center"
-                  style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
-                >
-                  <VKMaxIcon />
-                </a>
+                <div className="flex flex-col items-center gap-1">
+                  <a
+                    href={formatSocialUrl(card.vkmax, 'vkmax')}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title="VK MAX"
+                    className="w-9 h-9 rounded-lg flex items-center justify-center"
+                    style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
+                  >
+                    <VKMaxIcon />
+                  </a>
+                  <span className="text-[9px] text-white/80 font-medium">VK MAX</span>
+                </div>
               )}
               {card.wildberries && (
-                <a
-                  href={formatSocialUrl(card.wildberries, 'wildberries')}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  title="Wildberries"
-                  className="w-9 h-9 rounded-lg flex items-center justify-center"
-                  style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
-                >
-                  <WildberriesIcon />
-                </a>
+                <div className="flex flex-col items-center gap-1">
+                  <a
+                    href={formatSocialUrl(card.wildberries, 'wildberries')}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title="Wildberries"
+                    className="w-9 h-9 rounded-lg flex items-center justify-center"
+                    style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
+                  >
+                    <WildberriesIcon />
+                  </a>
+                  <span className="text-[9px] text-white/80 font-medium">WB</span>
+                </div>
               )}
               {card.ozon && (
-                <a
-                  href={formatSocialUrl(card.ozon, 'ozon')}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  title="Ozon"
-                  className="w-9 h-9 rounded-lg flex items-center justify-center"
-                  style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
-                >
-                  <OzonIcon />
-                </a>
+                <div className="flex flex-col items-center gap-1">
+                  <a
+                    href={formatSocialUrl(card.ozon, 'ozon')}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title="Ozon"
+                    className="w-9 h-9 rounded-lg flex items-center justify-center"
+                    style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
+                  >
+                    <OzonIcon />
+                  </a>
+                  <span className="text-[9px] text-white/80 font-medium">Ozon</span>
+                </div>
               )}
               {card.yandexmarket && (
-                <a
-                  href={formatSocialUrl(card.yandexmarket, 'yandexmarket')}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  title="Yandex Market"
-                  className="w-9 h-9 rounded-lg flex items-center justify-center"
-                  style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
-                >
-                  <YandexMarketIcon />
-                </a>
+                <div className="flex flex-col items-center gap-1">
+                  <a
+                    href={formatSocialUrl(card.yandexmarket, 'yandexmarket')}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title="Yandex Market"
+                    className="w-9 h-9 rounded-lg flex items-center justify-center"
+                    style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
+                  >
+                    <YandexMarketIcon />
+                  </a>
+                  <span className="text-[9px] text-white/80 font-medium">Yandex</span>
+                </div>
               )}
             </div>
           </>
@@ -1242,30 +1332,24 @@ function VKMaxIcon() {
 
 function WildberriesIcon() {
   return (
-    <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none">
-      <rect width="24" height="24" rx="4" fill="#CB11AB"/>
-      <path d="M6 7L8.5 14L10 7H11.5L13 14L15.5 7H17L14 17H12.5L11 10.5L9.5 17H8L5 7H6Z" fill="white"/>
-      <path d="M18 7H19.5V12H21V13.5H19.5V17H18V7Z" fill="white" opacity="0.9"/>
+    <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
+      <path d="M2 4h3l2 8 1.5-8h2l1.5 8 2-8h3l-3.5 14h-2.5l-1.5-7-1.5 7h-2.5L2 4zm16 0h2v16h-2V4z"/>
     </svg>
   );
 }
 
 function OzonIcon() {
   return (
-    <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none">
-      <rect width="24" height="24" rx="4" fill="#005BFF"/>
-      <circle cx="12" cy="12" r="7" fill="white"/>
-      <circle cx="12" cy="12" r="5" fill="#005BFF"/>
-      <path d="M9 12C9 10.34 10.34 9 12 9C13.66 9 15 10.34 15 12C15 13.66 13.66 15 12 15C10.34 15 9 13.66 9 12Z" fill="white"/>
+    <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
+      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 16c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6zm0-10c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4z"/>
     </svg>
   );
 }
 
 function YandexMarketIcon() {
   return (
-    <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none">
-      <rect width="24" height="24" rx="4" fill="#FF0000"/>
-      <path d="M7 8C7 7.44772 7.44772 7 8 7H16C16.5523 7 17 7.44772 17 8V12H15V9H9V15H15V13H17V16C17 16.5523 16.5523 17 16 17H8C7.44772 17 7 16.5523 7 16V8Z" fill="white"/>
+    <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
+      <path d="M3 3h18v6h-4v-2H7v10h10v-2h4v6H3V3zm10 8v-1h8v8h-4v-4h-4v-3z"/>
     </svg>
   );
 }
