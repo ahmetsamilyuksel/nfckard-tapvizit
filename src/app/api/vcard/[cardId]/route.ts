@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { formatSocialLink } from "@/lib/linkUtils";
 
 export async function GET(
   _req: NextRequest,
@@ -36,22 +37,18 @@ export async function GET(
   if (card.email) lines.push(`EMAIL:${card.email}`);
   if (card.phone) lines.push(`TEL;TYPE=CELL:${card.phone}`);
   if (card.website) {
-    const url = card.website.startsWith("http") ? card.website : `https://${card.website}`;
-    lines.push(`URL:${url}`);
+    lines.push(`URL:${formatSocialLink("website", card.website)}`);
   }
   if (card.address) lines.push(`ADR;TYPE=WORK:;;${card.address};;;;`);
 
   if (card.linkedin) {
-    const handle = card.linkedin.replace("@", "");
-    lines.push(`X-SOCIALPROFILE;type=linkedin:https://linkedin.com/in/${handle}`);
+    lines.push(`X-SOCIALPROFILE;type=linkedin:${formatSocialLink("linkedin", card.linkedin)}`);
   }
   if (card.twitter) {
-    const handle = card.twitter.replace("@", "");
-    lines.push(`X-SOCIALPROFILE;type=twitter:https://twitter.com/${handle}`);
+    lines.push(`X-SOCIALPROFILE;type=twitter:${formatSocialLink("twitter", card.twitter)}`);
   }
   if (card.instagram) {
-    const handle = card.instagram.replace("@", "");
-    lines.push(`X-SOCIALPROFILE;type=instagram:https://instagram.com/${handle}`);
+    lines.push(`X-SOCIALPROFILE;type=instagram:${formatSocialLink("instagram", card.instagram)}`);
   }
 
   if (card.bio) {

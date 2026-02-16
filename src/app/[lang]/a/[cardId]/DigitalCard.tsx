@@ -5,6 +5,7 @@ import { type translations } from "@/lib/i18n";
 import type { CardFormData, CardLayout, CardTheme } from "@/types";
 import CardPreview from "@/components/CardPreview";
 import QRModal from "@/components/QRModal";
+import { formatSocialLink } from "@/lib/linkUtils";
 
 type T = (typeof translations)["tr"];
 
@@ -60,12 +61,12 @@ export default function DigitalCard({ card, lang, t }: Props) {
       card.company ? `ORG:${card.company}` : '',
       card.email ? `EMAIL;TYPE=INTERNET:${card.email}` : '',
       card.phone ? `TEL;TYPE=CELL:${card.phone}` : '',
-      card.website ? `URL:${card.website}` : '',
+      card.website ? `URL:${formatSocialLink("website", card.website)}` : '',
       card.address ? `ADR;TYPE=WORK:;;${card.address};;;;` : '',
       card.bio ? `NOTE:${card.bio}` : '',
-      card.linkedin ? `URL;TYPE=LinkedIn:${card.linkedin.startsWith('http') ? card.linkedin : `https://linkedin.com/in/${card.linkedin}`}` : '',
-      card.twitter ? `URL;TYPE=Twitter:${card.twitter.startsWith('http') ? card.twitter : `https://twitter.com/${card.twitter.replace('@', '')}`}` : '',
-      card.instagram ? `URL;TYPE=Instagram:${card.instagram.startsWith('http') ? card.instagram : `https://instagram.com/${card.instagram.replace('@', '')}`}` : '',
+      card.linkedin ? `URL;TYPE=LinkedIn:${formatSocialLink("linkedin", card.linkedin)}` : '',
+      card.twitter ? `URL;TYPE=Twitter:${formatSocialLink("twitter", card.twitter)}` : '',
+      card.instagram ? `URL;TYPE=Instagram:${formatSocialLink("instagram", card.instagram)}` : '',
       'END:VCARD'
     ].filter(line => line !== '').join('\r\n');
 
