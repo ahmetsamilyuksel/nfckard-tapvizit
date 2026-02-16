@@ -20,45 +20,63 @@ interface Props {
 }
 
 async function getCroppedImg(imageSrc: string, pixelCrop: Area, isRect: boolean = false): Promise<string> {
-  const image = await createImageBitmap(await (await fetch(imageSrc)).blob());
-  const canvas = document.createElement("canvas");
+  return new Promise((resolve, reject) => {
+    const image = new Image();
+    image.crossOrigin = "anonymous";
 
-  if (isRect) {
-    // For rectangular crops (modern layout), keep original aspect ratio
-    canvas.width = pixelCrop.width;
-    canvas.height = pixelCrop.height;
-    const ctx = canvas.getContext("2d")!;
-    ctx.drawImage(
-      image,
-      pixelCrop.x,
-      pixelCrop.y,
-      pixelCrop.width,
-      pixelCrop.height,
-      0,
-      0,
-      pixelCrop.width,
-      pixelCrop.height
-    );
-  } else {
-    // For round crops (classic, sidebar, minimal), make it square
-    const size = Math.min(pixelCrop.width, pixelCrop.height);
-    canvas.width = size;
-    canvas.height = size;
-    const ctx = canvas.getContext("2d")!;
-    ctx.drawImage(
-      image,
-      pixelCrop.x,
-      pixelCrop.y,
-      pixelCrop.width,
-      pixelCrop.height,
-      0,
-      0,
-      size,
-      size
-    );
-  }
+    image.onload = () => {
+      const canvas = document.createElement("canvas");
 
-  return canvas.toDataURL("image/jpeg", 0.85);
+      if (isRect) {
+        // For rectangular crops (modern layout), keep original aspect ratio
+        canvas.width = pixelCrop.width;
+        canvas.height = pixelCrop.height;
+        const ctx = canvas.getContext("2d")!;
+        // Fill with white background first (for transparent images)
+        ctx.fillStyle = "#ffffff";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(
+          image,
+          pixelCrop.x,
+          pixelCrop.y,
+          pixelCrop.width,
+          pixelCrop.height,
+          0,
+          0,
+          pixelCrop.width,
+          pixelCrop.height
+        );
+      } else {
+        // For round crops (classic, sidebar, minimal), make it square
+        const size = Math.min(pixelCrop.width, pixelCrop.height);
+        canvas.width = size;
+        canvas.height = size;
+        const ctx = canvas.getContext("2d")!;
+        // Fill with white background first (for transparent images)
+        ctx.fillStyle = "#ffffff";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(
+          image,
+          pixelCrop.x,
+          pixelCrop.y,
+          pixelCrop.width,
+          pixelCrop.height,
+          0,
+          0,
+          size,
+          size
+        );
+      }
+
+      resolve(canvas.toDataURL("image/jpeg", 0.9));
+    };
+
+    image.onerror = () => {
+      reject(new Error("Failed to load image"));
+    };
+
+    image.src = imageSrc;
+  });
 }
 
 export default function PhotoCropper({ onPhotoSaved, onClose, labelUpload, labelCrop, labelDone, labelCancel, initialZoom = 1, initialPosition = { x: 0, y: 0 }, existingPhoto, existingOriginalPhoto, layout = "classic" }: Props) {
@@ -126,7 +144,8 @@ export default function PhotoCropper({ onPhotoSaved, onClose, labelUpload, label
             <input
               ref={fileRef}
               type="file"
-              accept="image/*"
+              accept="image/jpeg,image/jpg,image/png,image/webp,image/heic,image/heif"
+              capture="environment"
               className="hidden"
               onChange={onFileChange}
             />
