@@ -40,7 +40,7 @@ function isColorDark(hexColor: string): boolean {
 // Helper function to format social media URLs
 function formatSocialUrl(
   url: string | undefined,
-  platform: 'linkedin' | 'twitter' | 'instagram' | 'whatsapp' | 'telegram' | 'vkontakte' | 'vkmax' | 'tiktok' | 'wechat' | 'youtube' | 'facebook' | 'snapchat' | 'wildberries' | 'ozon' | 'yandexmarket'
+  platform: 'linkedin' | 'twitter' | 'instagram' | 'whatsapp' | 'telegram' | 'vkontakte' | 'vkmax' | 'tiktok' | 'wechat' | 'youtube' | 'facebook' | 'snapchat'
 ): string {
   if (!url) return '#';
 
@@ -70,9 +70,6 @@ function formatSocialUrl(
     youtube: 'https://youtube.com/',
     facebook: 'https://facebook.com/',
     snapchat: 'https://snapchat.com/add/',
-    wildberries: 'https://www.wildberries.ru/seller/',
-    ozon: 'https://www.ozon.ru/seller/',
-    yandexmarket: 'https://market.yandex.ru/shop/',
     whatsapp: 'https://wa.me/',
     wechat: '#'
   };
@@ -339,7 +336,7 @@ export default function CardPreview({ card, t, onPhotoClick, fullScreen = false 
         </div>
 
         {/* Social Links */}
-        {(card.linkedin || card.twitter || card.instagram || card.whatsapp || card.telegram || card.vkontakte || card.vkmax || card.tiktok || card.wechat || card.youtube || card.facebook || card.snapchat || card.wildberries || card.ozon || card.yandexmarket) && (
+        {(card.linkedin || card.twitter || card.instagram || card.whatsapp || card.telegram || card.vkontakte || card.vkmax || card.tiktok || card.wechat || card.youtube || card.facebook || card.snapchat) && (
           <>
             <div className={`border-t border-gray-200/30 mt-4 mb-4`} />
             <div className="flex gap-2">
@@ -521,51 +518,6 @@ export default function CardPreview({ card, t, onPhotoClick, fullScreen = false 
                     <VKMaxIcon />
                   </a>
                   <span className="text-[9px] text-gray-800 font-medium">VK MAX</span>
-                </div>
-              )}
-              {card.wildberries && (
-                <div className="flex flex-col items-center gap-1">
-                  <a
-                    href={formatSocialUrl(card.wildberries, 'wildberries')}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    title="Wildberries"
-                    className="w-9 h-9 rounded-lg flex items-center justify-center"
-                    style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
-                  >
-                    <WildberriesIcon />
-                  </a>
-                  <span className="text-[9px] text-gray-800 font-medium">WB</span>
-                </div>
-              )}
-              {card.ozon && (
-                <div className="flex flex-col items-center gap-1">
-                  <a
-                    href={formatSocialUrl(card.ozon, 'ozon')}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    title="Ozon"
-                    className="w-9 h-9 rounded-lg flex items-center justify-center"
-                    style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
-                  >
-                    <OzonIcon />
-                  </a>
-                  <span className="text-[9px] text-gray-800 font-medium">Ozon</span>
-                </div>
-              )}
-              {card.yandexmarket && (
-                <div className="flex flex-col items-center gap-1">
-                  <a
-                    href={formatSocialUrl(card.yandexmarket, 'yandexmarket')}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    title="Yandex Market"
-                    className="w-9 h-9 rounded-lg flex items-center justify-center"
-                    style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
-                  >
-                    <YandexMarketIcon />
-                  </a>
-                  <span className="text-[9px] text-gray-800 font-medium">Yandex</span>
                 </div>
               )}
             </div>
@@ -706,7 +658,7 @@ function ModernLayout({ card, t, initials, onPhotoClick, textPrimaryColor, textS
         </div>
 
         {/* Social Links */}
-        {(card.linkedin || card.twitter || card.instagram || card.whatsapp || card.telegram || card.vkontakte || card.vkmax || card.tiktok || card.wechat || card.youtube || card.facebook || card.snapchat || card.wildberries || card.ozon || card.yandexmarket) && (
+        {(card.linkedin || card.twitter || card.instagram || card.whatsapp || card.telegram || card.vkontakte || card.vkmax || card.tiktok || card.wechat || card.youtube || card.facebook || card.snapchat) && (
           <>
             <div className={`border-t border-gray-200/30 mt-4 mb-4`} />
             <div className="flex gap-2">
@@ -890,51 +842,6 @@ function ModernLayout({ card, t, initials, onPhotoClick, textPrimaryColor, textS
                   <span className="text-[9px] text-gray-800 font-medium">VK MAX</span>
                 </div>
               )}
-              {card.wildberries && (
-                <div className="flex flex-col items-center gap-1">
-                  <a
-                    href={formatSocialUrl(card.wildberries, 'wildberries')}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    title="Wildberries"
-                    className="w-9 h-9 rounded-lg flex items-center justify-center"
-                    style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
-                  >
-                    <WildberriesIcon />
-                  </a>
-                  <span className="text-[9px] text-gray-800 font-medium">WB</span>
-                </div>
-              )}
-              {card.ozon && (
-                <div className="flex flex-col items-center gap-1">
-                  <a
-                    href={formatSocialUrl(card.ozon, 'ozon')}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    title="Ozon"
-                    className="w-9 h-9 rounded-lg flex items-center justify-center"
-                    style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
-                  >
-                    <OzonIcon />
-                  </a>
-                  <span className="text-[9px] text-gray-800 font-medium">Ozon</span>
-                </div>
-              )}
-              {card.yandexmarket && (
-                <div className="flex flex-col items-center gap-1">
-                  <a
-                    href={formatSocialUrl(card.yandexmarket, 'yandexmarket')}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    title="Yandex Market"
-                    className="w-9 h-9 rounded-lg flex items-center justify-center"
-                    style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
-                  >
-                    <YandexMarketIcon />
-                  </a>
-                  <span className="text-[9px] text-gray-800 font-medium">Yandex</span>
-                </div>
-              )}
             </div>
           </>
         )}
@@ -1045,7 +952,7 @@ function SidebarLayout({ card, t, bgStyle, bgClass, initials, onPhotoClick, text
         </div>
 
         {/* Social Links */}
-        {(card.linkedin || card.twitter || card.instagram || card.whatsapp || card.telegram || card.vkontakte || card.vkmax || card.tiktok || card.wechat || card.youtube || card.facebook || card.snapchat || card.wildberries || card.ozon || card.yandexmarket) && (
+        {(card.linkedin || card.twitter || card.instagram || card.whatsapp || card.telegram || card.vkontakte || card.vkmax || card.tiktok || card.wechat || card.youtube || card.facebook || card.snapchat) && (
           <div className="flex gap-2 mt-4">
             {card.linkedin && (
               <a
@@ -1166,7 +1073,7 @@ function MinimalLayout({ card, t, bgStyle, bgClass, initials, onPhotoClick, text
         </div>
 
         {/* Social Links */}
-        {(card.linkedin || card.twitter || card.instagram || card.whatsapp || card.telegram || card.vkontakte || card.vkmax || card.tiktok || card.wechat || card.youtube || card.facebook || card.snapchat || card.wildberries || card.ozon || card.yandexmarket) && (
+        {(card.linkedin || card.twitter || card.instagram || card.whatsapp || card.telegram || card.vkontakte || card.vkmax || card.tiktok || card.wechat || card.youtube || card.facebook || card.snapchat) && (
           <div className="flex gap-3 mt-6">
             {card.linkedin && (
               <a href={formatSocialUrl(card.linkedin, 'linkedin')} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-lg flex items-center justify-center transition-transform hover:scale-110" style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}>
@@ -1330,38 +1237,6 @@ function VKMaxIcon() {
   );
 }
 
-function WildberriesIcon() {
-  return (
-    <svg className="w-4 h-4" viewBox="0 0 48 48" fill="none">
-      <rect width="48" height="48" rx="8" fill="#CB11AB"/>
-      <path d="M8 16L11 32L14 16H18L21 32L24 16H28L23 36H18L15 22L12 36H7L2 16H8Z" fill="white"/>
-      <path d="M30 16H36C38.2 16 40 17.8 40 20V28C40 30.2 38.2 32 36 32H30V36H26V16H30ZM30 20V28H36V20H30Z" fill="white"/>
-    </svg>
-  );
-}
-
-function OzonIcon() {
-  return (
-    <svg className="w-4 h-4" viewBox="0 0 48 48" fill="none">
-      <circle cx="24" cy="24" r="22" fill="#005BFF"/>
-      <circle cx="24" cy="24" r="16" fill="none" stroke="white" strokeWidth="3"/>
-      <circle cx="24" cy="24" r="10" fill="none" stroke="white" strokeWidth="3"/>
-      <circle cx="24" cy="24" r="4" fill="white"/>
-    </svg>
-  );
-}
-
-function YandexMarketIcon() {
-  return (
-    <svg className="w-4 h-4" viewBox="0 0 48 48" fill="none">
-      <rect width="48" height="48" rx="8" fill="#FF0000"/>
-      <path d="M24 8L28 16L24 24L20 16L24 8Z" fill="#FFCC00"/>
-      <path d="M24 24L28 32L24 40L20 32L24 24Z" fill="#FFCC00"/>
-      <ellipse cx="24" cy="16" rx="4" ry="8" fill="#FF6600"/>
-      <ellipse cx="24" cy="32" rx="4" ry="8" fill="#FF6600"/>
-    </svg>
-  );
-}
 
 // LAYOUT 5: Bold - Large diagonal photo with overlapping content
 function BoldLayout({ card, t, initials, onPhotoClick, textPrimaryColor, textSecondaryColor, containerClass = "w-full max-w-lg mx-auto" }: LayoutProps) {
@@ -1430,7 +1305,7 @@ function BoldLayout({ card, t, initials, onPhotoClick, textPrimaryColor, textSec
         </div>
 
         {/* Social Links */}
-        {(card.linkedin || card.twitter || card.instagram || card.whatsapp || card.telegram || card.vkontakte || card.vkmax || card.tiktok || card.wechat || card.youtube || card.facebook || card.snapchat || card.wildberries || card.ozon || card.yandexmarket) && (
+        {(card.linkedin || card.twitter || card.instagram || card.whatsapp || card.telegram || card.vkontakte || card.vkmax || card.tiktok || card.wechat || card.youtube || card.facebook || card.snapchat) && (
           <div className="flex gap-2 justify-center">
             {card.linkedin && (
               <a href={formatSocialUrl(card.linkedin, 'linkedin')} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full flex items-center justify-center" style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}>
@@ -1525,7 +1400,7 @@ function StylishLayout({ card, t, initials, onPhotoClick, textSecondaryColor, co
         </div>
 
         {/* Social Links */}
-        {(card.linkedin || card.twitter || card.instagram || card.whatsapp || card.telegram || card.vkontakte || card.vkmax || card.tiktok || card.wechat || card.youtube || card.facebook || card.snapchat || card.wildberries || card.ozon || card.yandexmarket) && (
+        {(card.linkedin || card.twitter || card.instagram || card.whatsapp || card.telegram || card.vkontakte || card.vkmax || card.tiktok || card.wechat || card.youtube || card.facebook || card.snapchat) && (
           <div className="flex gap-3 justify-center pt-4 border-t" style={{ borderColor: `${card.primaryColor}30` }}>
             {card.linkedin && (
               <a href={formatSocialUrl(card.linkedin, 'linkedin')} target="_blank" rel="noopener noreferrer" className="w-11 h-11 rounded-xl flex items-center justify-center shadow-md" style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}>
@@ -1620,7 +1495,7 @@ function ElegantLayout({ card, t, initials, onPhotoClick, textPrimaryColor, text
         </div>
 
         {/* Social Links - Horizontal bar */}
-        {(card.linkedin || card.twitter || card.instagram || card.whatsapp || card.telegram || card.vkontakte || card.vkmax || card.tiktok || card.wechat || card.youtube || card.facebook || card.snapchat || card.wildberries || card.ozon || card.yandexmarket) && (
+        {(card.linkedin || card.twitter || card.instagram || card.whatsapp || card.telegram || card.vkontakte || card.vkmax || card.tiktok || card.wechat || card.youtube || card.facebook || card.snapchat) && (
           <div className="flex gap-2 justify-center pt-4">
             {card.linkedin && (
               <a href={formatSocialUrl(card.linkedin, 'linkedin')} target="_blank" rel="noopener noreferrer" className="flex-1 h-12 rounded-xl flex items-center justify-center" style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}>
@@ -1716,7 +1591,7 @@ function CreativeLayout({ card, t, initials, onPhotoClick, textPrimaryColor, tex
         </div>
 
         {/* Social Links - Pills */}
-        {(card.linkedin || card.twitter || card.instagram || card.whatsapp || card.telegram || card.vkontakte || card.vkmax || card.tiktok || card.wechat || card.youtube || card.facebook || card.snapchat || card.wildberries || card.ozon || card.yandexmarket) && (
+        {(card.linkedin || card.twitter || card.instagram || card.whatsapp || card.telegram || card.vkontakte || card.vkmax || card.tiktok || card.wechat || card.youtube || card.facebook || card.snapchat) && (
           <div className="flex gap-2">
             {card.linkedin && (
               <a href={formatSocialUrl(card.linkedin, 'linkedin')} target="_blank" rel="noopener noreferrer" className="flex-1 h-10 rounded-full flex items-center justify-center" style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}>
