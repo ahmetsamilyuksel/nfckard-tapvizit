@@ -74,8 +74,8 @@ function createRadialGradient(color: string, intensity: number = 50): string {
 
 export default function CardPreview({ card, t, onPhotoClick, fullScreen = false }: Props) {
   const layout = card.layout || "classic";
-  // Wider cards with comfortable side margins - mobile friendly
-  const containerClass = fullScreen ? "w-full max-w-lg mx-auto px-4" : "w-full max-w-lg mx-auto px-4";
+  // Wider cards with comfortable margins - no extra padding (cards already have internal padding)
+  const containerClass = fullScreen ? "w-full max-w-lg mx-auto" : "w-full max-w-lg mx-auto";
 
   // Check if custom background color is dark
   const hasCustomBg = !!card.backgroundColor;
@@ -378,7 +378,7 @@ export default function CardPreview({ card, t, onPhotoClick, fullScreen = false 
 }
 
 // LAYOUT 2: Modern - Full width photo with elegant line
-function ModernLayout({ card, t, initials, onPhotoClick, textPrimaryColor, textSecondaryColor, containerClass = "w-full max-w-lg mx-auto px-4" }: LayoutProps) {
+function ModernLayout({ card, t, initials, onPhotoClick, textPrimaryColor, textSecondaryColor, containerClass = "w-full max-w-lg mx-auto" }: LayoutProps) {
   const bgColor = card.backgroundColor || "#ffffff";
   const bgGradient = createRadialGradient(bgColor, card.gradientIntensity || 50);
 
@@ -552,7 +552,7 @@ function ModernLayout({ card, t, initials, onPhotoClick, textPrimaryColor, textS
 }
 
 // LAYOUT 3: Sidebar - Photo on left, info on right
-function SidebarLayout({ card, t, bgStyle, bgClass, initials, onPhotoClick, textPrimaryColor, textSecondaryColor, containerClass = "w-full max-w-lg mx-auto px-4" }: LayoutProps) {
+function SidebarLayout({ card, t, bgStyle, bgClass, initials, onPhotoClick, textPrimaryColor, textSecondaryColor, containerClass = "w-full max-w-lg mx-auto" }: LayoutProps) {
   const finalBgStyle = card.backgroundColor
     ? { background: createRadialGradient(card.backgroundColor, card.gradientIntensity || 50) }
     : bgStyle;
@@ -675,7 +675,7 @@ function SidebarLayout({ card, t, bgStyle, bgClass, initials, onPhotoClick, text
 }
 
 // LAYOUT 4: Minimal - Small photo top left, ultra clean
-function MinimalLayout({ card, t, bgStyle, bgClass, initials, onPhotoClick, textPrimaryColor, textSecondaryColor, containerClass = "w-full max-w-lg mx-auto px-4" }: LayoutProps) {
+function MinimalLayout({ card, t, bgStyle, bgClass, initials, onPhotoClick, textPrimaryColor, textSecondaryColor, containerClass = "w-full max-w-lg mx-auto" }: LayoutProps) {
   const finalBgStyle = card.backgroundColor
     ? { background: createRadialGradient(card.backgroundColor, card.gradientIntensity || 50) }
     : bgStyle;
@@ -846,7 +846,7 @@ function InstagramIcon() {
 }
 
 // LAYOUT 5: Bold - Large diagonal photo with overlapping content
-function BoldLayout({ card, t, initials, onPhotoClick, textPrimaryColor, textSecondaryColor, containerClass = "w-full max-w-lg mx-auto px-4" }: LayoutProps) {
+function BoldLayout({ card, t, initials, onPhotoClick, textPrimaryColor, textSecondaryColor, containerClass = "w-full max-w-lg mx-auto" }: LayoutProps) {
   const bgColor = card.backgroundColor || "#ffffff";
   const bgGradient = createRadialGradient(bgColor, card.gradientIntensity || 50);
 
@@ -937,7 +937,7 @@ function BoldLayout({ card, t, initials, onPhotoClick, textPrimaryColor, textSec
 }
 
 // LAYOUT 6: Stylish - Magazine style with split photo
-function StylishLayout({ card, t, initials, onPhotoClick, textSecondaryColor, containerClass = "w-full max-w-lg mx-auto px-4" }: LayoutProps) {
+function StylishLayout({ card, t, initials, onPhotoClick, textSecondaryColor, containerClass = "w-full max-w-lg mx-auto" }: LayoutProps) {
   const bgColor = card.backgroundColor || "#ffffff";
   const bgGradient = createRadialGradient(bgColor, card.gradientIntensity || 50);
 
@@ -1032,7 +1032,7 @@ function StylishLayout({ card, t, initials, onPhotoClick, textSecondaryColor, co
 }
 
 // LAYOUT 7: Elegant - Circular photo with arc design
-function ElegantLayout({ card, t, initials, onPhotoClick, textPrimaryColor, textSecondaryColor, containerClass = "w-full max-w-lg mx-auto px-4" }: LayoutProps) {
+function ElegantLayout({ card, t, initials, onPhotoClick, textPrimaryColor, textSecondaryColor, containerClass = "w-full max-w-lg mx-auto" }: LayoutProps) {
   const bgColor = card.backgroundColor || "#ffffff";
   const bgGradient = createRadialGradient(bgColor, card.gradientIntensity || 50);
 
@@ -1127,7 +1127,7 @@ function ElegantLayout({ card, t, initials, onPhotoClick, textPrimaryColor, text
 }
 
 // LAYOUT 8: Creative - Asymmetric photo with angled content
-function CreativeLayout({ card, t, initials, onPhotoClick, textPrimaryColor, textSecondaryColor, containerClass = "w-full max-w-lg mx-auto px-4" }: LayoutProps) {
+function CreativeLayout({ card, t, initials, onPhotoClick, textPrimaryColor, textSecondaryColor, containerClass = "w-full max-w-lg mx-auto" }: LayoutProps) {
   const bgColor = card.backgroundColor || "#ffffff";
   const bgGradient = createRadialGradient(bgColor, card.gradientIntensity || 50);
 
