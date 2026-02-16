@@ -1212,8 +1212,8 @@ function VKMaxIcon() {
 
 function WildberriesIcon() {
   return (
-    <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
-      <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm6.548 17.225l-1.087 1.087-5.461-5.461-5.461 5.461-1.087-1.087 5.461-5.461-5.461-5.461 1.087-1.087 5.461 5.461 5.461-5.461 1.087 1.087-5.461 5.461 5.461 5.461z"/>
+    <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 512 512">
+      <path d="M0 256C0 114.6 114.6 0 256 0s256 114.6 256 256-114.6 256-256 256S0 397.4 0 256zm256 192c106 0 192-86 192-192S362 64 256 64 64 150 64 256s86 192 192 192zm-80-280h32l32 80 32-80h32l-48 120v56h-32v-56l-48-120zm80 120v-24l64-96h32v96h16v24h-16v32h-32v-32h-64zm64-24v-48l-32 48h32z"/>
     </svg>
   );
 }
@@ -1221,7 +1221,7 @@ function WildberriesIcon() {
 function OzonIcon() {
   return (
     <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
-      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/>
+      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 15c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
     </svg>
   );
 }
@@ -1229,7 +1229,8 @@ function OzonIcon() {
 function YandexMarketIcon() {
   return (
     <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
-      <path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12s4.477 10 10 10 10-4.477 10-10zm-10 8c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8zm1-13h-2v8l7 4.2.6-1L13 15V7z"/>
+      <circle cx="12" cy="12" r="10"/>
+      <path fill="#FFE000" d="M12 7l-4 6h3v4h2v-4h3z"/>
     </svg>
   );
 }
