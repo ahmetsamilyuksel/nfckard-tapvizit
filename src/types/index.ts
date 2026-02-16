@@ -21,6 +21,9 @@ export interface CardFormData {
   youtube?: string;
   facebook?: string;
   snapchat?: string;
+  wildberries?: string;
+  ozon?: string;
+  yandexmarket?: string;
   address?: string;
   bio?: string;
   theme: CardTheme;
@@ -74,6 +77,9 @@ export interface CardWithOrder {
   youtube?: string | null;
   facebook?: string | null;
   snapchat?: string | null;
+  wildberries?: string | null;
+  ozon?: string | null;
+  yandexmarket?: string | null;
   address?: string | null;
   bio?: string | null;
   theme: string;

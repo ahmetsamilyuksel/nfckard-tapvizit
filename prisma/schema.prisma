@@ -29,6 +29,9 @@ model Card {
   youtube           String?
   facebook          String?
   snapchat          String?
+  wildberries       String?
+  ozon              String?
+  yandexmarket      String?
   address           String?
   bio               String?
   theme             String   @default("dark")
