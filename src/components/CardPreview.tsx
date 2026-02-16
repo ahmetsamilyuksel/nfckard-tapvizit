@@ -37,6 +37,20 @@ function isColorDark(hexColor: string): boolean {
   return luminance < 0.55; // Slightly increased threshold for better contrast
 }
 
+// Helper function to format social media URLs
+function formatSocialUrl(url: string | undefined, platform: 'linkedin' | 'twitter' | 'instagram'): string {
+  if (!url) return '#';
+  // If already a full URL, return as-is
+  if (url.startsWith('http://') || url.startsWith('https://')) return url;
+  // Otherwise, construct the full URL
+  const baseUrls = {
+    linkedin: 'https://linkedin.com/in/',
+    twitter: 'https://twitter.com/',
+    instagram: 'https://instagram.com/'
+  };
+  return baseUrls[platform] + url.replace('@', '');
+}
+
 // Helper function to create radial gradient based on intensity
 // intensity: 0-100 (0=very soft/nearly white, 100=very sharp/full color)
 function createRadialGradient(color: string, intensity: number = 50): string {
@@ -250,7 +264,7 @@ export default function CardPreview({ card, t, onPhotoClick, fullScreen = false 
         {/* Contact Info */}
         <div className="space-y-2.5">
           {card.phone && (
-            <div className="flex items-center gap-3">
+            <a href={`tel:${card.phone}`} className="flex items-center gap-3">
               <div
                 className={`w-8 h-8 rounded-lg flex items-center justify-center bg-white/10`}
                 style={{ background: `linear-gradient(135deg, ${card.primaryColor}22 0%, ${card.primaryColor}11 100%)` }}
@@ -258,10 +272,10 @@ export default function CardPreview({ card, t, onPhotoClick, fullScreen = false 
                 <PhoneIcon color={card.primaryColor} />
               </div>
               <span className={`text-sm `} style={secondaryStyle}>{card.phone}</span>
-            </div>
+            </a>
           )}
           {card.email && (
-            <div className="flex items-center gap-3">
+            <a href={`mailto:${card.email}`} className="flex items-center gap-3">
               <div
                 className={`w-8 h-8 rounded-lg flex items-center justify-center bg-white/10`}
                 style={{ background: `linear-gradient(135deg, ${card.primaryColor}22 0%, ${card.primaryColor}11 100%)` }}
@@ -269,10 +283,10 @@ export default function CardPreview({ card, t, onPhotoClick, fullScreen = false 
                 <EmailIcon color={card.primaryColor} />
               </div>
               <span className={`text-sm  truncate`} style={secondaryStyle}>{card.email}</span>
-            </div>
+            </a>
           )}
           {card.website && (
-            <div className="flex items-center gap-3">
+            <a href={card.website?.startsWith('http') ? card.website : `https://${card.website}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3">
               <div
                 className={`w-8 h-8 rounded-lg flex items-center justify-center bg-white/10`}
                 style={{ background: `linear-gradient(135deg, ${card.primaryColor}22 0%, ${card.primaryColor}11 100%)` }}
@@ -280,7 +294,7 @@ export default function CardPreview({ card, t, onPhotoClick, fullScreen = false 
                 <WebIcon color={card.primaryColor} />
               </div>
               <span className={`text-sm  truncate`} style={secondaryStyle}>{card.website}</span>
-            </div>
+            </a>
           )}
           {card.address && (
             <div className="flex items-center gap-3">
@@ -301,28 +315,37 @@ export default function CardPreview({ card, t, onPhotoClick, fullScreen = false 
             <div className={`border-t border-gray-200/30 mt-4 mb-4`} />
             <div className="flex gap-2">
               {card.linkedin && (
-                <div
+                <a
+                  href={formatSocialUrl(card.linkedin, 'linkedin')}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="w-9 h-9 rounded-lg flex items-center justify-center"
                   style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
                 >
                   <LinkedInIcon />
-                </div>
+                </a>
               )}
               {card.twitter && (
-                <div
+                <a
+                  href={formatSocialUrl(card.twitter, 'twitter')}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="w-9 h-9 rounded-lg flex items-center justify-center"
                   style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
                 >
                   <TwitterIcon />
-                </div>
+                </a>
               )}
               {card.instagram && (
-                <div
+                <a
+                  href={formatSocialUrl(card.instagram, 'instagram')}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="w-9 h-9 rounded-lg flex items-center justify-center"
                   style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
                 >
                   <InstagramIcon />
-                </div>
+                </a>
               )}
             </div>
           </>
@@ -331,20 +354,22 @@ export default function CardPreview({ card, t, onPhotoClick, fullScreen = false 
         {/* Action Buttons - Gradient */}
         <div className="flex gap-2 mt-5">
           {card.phone && (
-            <button
-              className="flex-1 py-2 rounded-xl text-white text-sm font-semibold shadow-md hover:shadow-lg transition-shadow"
+            <a
+              href={`tel:${card.phone}`}
+              className="flex-1 py-2 rounded-xl text-white text-sm font-semibold shadow-md hover:shadow-lg transition-shadow text-center"
               style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
             >
               {t.previewCall}
-            </button>
+            </a>
           )}
           {card.email && (
-            <button
-              className="flex-1 py-2 rounded-xl text-sm font-semibold border border-white/30 text-white shadow-md hover:shadow-lg transition-shadow"
+            <a
+              href={`mailto:${card.email}`}
+              className="flex-1 py-2 rounded-xl text-sm font-semibold border border-white/30 text-white shadow-md hover:shadow-lg transition-shadow text-center"
               style={{ background: `linear-gradient(135deg, ${card.primaryColor}33 0%, ${card.primaryColor}22 100%)` }}
             >
               {t.previewEmail}
-            </button>
+            </a>
           )}
         </div>
       </div>
@@ -414,7 +439,7 @@ function ModernLayout({ card, t, initials, onPhotoClick, textPrimaryColor, textS
         {/* Contact Info */}
         <div className="space-y-2.5">
           {card.phone && (
-            <div className="flex items-center gap-3">
+            <a href={`tel:${card.phone}`} className="flex items-center gap-3">
               <div
                 className={`w-8 h-8 rounded-lg flex items-center justify-center bg-white/10`}
                 style={{ background: `linear-gradient(135deg, ${card.primaryColor}22 0%, ${card.primaryColor}11 100%)` }}
@@ -422,10 +447,10 @@ function ModernLayout({ card, t, initials, onPhotoClick, textPrimaryColor, textS
                 <PhoneIcon color={card.primaryColor} />
               </div>
               <span className={`text-sm `} style={secondaryStyle}>{card.phone}</span>
-            </div>
+            </a>
           )}
           {card.email && (
-            <div className="flex items-center gap-3">
+            <a href={`mailto:${card.email}`} className="flex items-center gap-3">
               <div
                 className={`w-8 h-8 rounded-lg flex items-center justify-center bg-white/10`}
                 style={{ background: `linear-gradient(135deg, ${card.primaryColor}22 0%, ${card.primaryColor}11 100%)` }}
@@ -433,10 +458,10 @@ function ModernLayout({ card, t, initials, onPhotoClick, textPrimaryColor, textS
                 <EmailIcon color={card.primaryColor} />
               </div>
               <span className={`text-sm  truncate`} style={secondaryStyle}>{card.email}</span>
-            </div>
+            </a>
           )}
           {card.website && (
-            <div className="flex items-center gap-3">
+            <a href={card.website?.startsWith('http') ? card.website : `https://${card.website}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3">
               <div
                 className={`w-8 h-8 rounded-lg flex items-center justify-center bg-white/10`}
                 style={{ background: `linear-gradient(135deg, ${card.primaryColor}22 0%, ${card.primaryColor}11 100%)` }}
@@ -444,7 +469,7 @@ function ModernLayout({ card, t, initials, onPhotoClick, textPrimaryColor, textS
                 <WebIcon color={card.primaryColor} />
               </div>
               <span className={`text-sm  truncate`} style={secondaryStyle}>{card.website}</span>
-            </div>
+            </a>
           )}
           {card.address && (
             <div className="flex items-center gap-3">
@@ -465,28 +490,37 @@ function ModernLayout({ card, t, initials, onPhotoClick, textPrimaryColor, textS
             <div className={`border-t border-gray-200/30 mt-4 mb-4`} />
             <div className="flex gap-2">
               {card.linkedin && (
-                <div
+                <a
+                  href={formatSocialUrl(card.linkedin, 'linkedin')}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="w-9 h-9 rounded-lg flex items-center justify-center"
                   style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
                 >
                   <LinkedInIcon />
-                </div>
+                </a>
               )}
               {card.twitter && (
-                <div
+                <a
+                  href={formatSocialUrl(card.twitter, 'twitter')}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="w-9 h-9 rounded-lg flex items-center justify-center"
                   style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
                 >
                   <TwitterIcon />
-                </div>
+                </a>
               )}
               {card.instagram && (
-                <div
+                <a
+                  href={formatSocialUrl(card.instagram, 'instagram')}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="w-9 h-9 rounded-lg flex items-center justify-center"
                   style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
                 >
                   <InstagramIcon />
-                </div>
+                </a>
               )}
             </div>
           </>
@@ -495,19 +529,21 @@ function ModernLayout({ card, t, initials, onPhotoClick, textPrimaryColor, textS
         {/* Action Buttons */}
         <div className="flex gap-2 mt-5">
           {card.phone && (
-            <button
-              className="flex-1 py-2.5 rounded-xl text-white text-sm font-semibold shadow-lg hover:shadow-xl transition-shadow"
+            <a
+              href={`tel:${card.phone}`}
+              className="flex-1 py-2.5 rounded-xl text-white text-sm font-semibold shadow-lg hover:shadow-xl transition-shadow text-center"
               style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
             >
               {t.previewCall}
-            </button>
+            </a>
           )}
           {card.email && (
-            <button
-              className="flex-1 py-2.5 rounded-xl text-sm font-semibold border-2 border-gray-200 text-gray-700 bg-white hover:bg-gray-50"
+            <a
+              href={`mailto:${card.email}`}
+              className="flex-1 py-2.5 rounded-xl text-sm font-semibold border-2 border-gray-200 text-gray-700 bg-white hover:bg-gray-50 text-center"
             >
               {t.previewEmail}
-            </button>
+            </a>
           )}
         </div>
       </div>
@@ -570,28 +606,28 @@ function SidebarLayout({ card, t, bgStyle, bgClass, initials, onPhotoClick, text
         {/* Contact Info */}
         <div className="space-y-2">
           {card.phone && (
-            <div className="flex items-center gap-2">
+            <a href={`tel:${card.phone}`} className="flex items-center gap-2">
               <div className={`w-6 h-6 rounded flex items-center justify-center bg-white/10`}>
                 <PhoneIcon color={card.primaryColor} />
               </div>
               <span className={`text-xs `} style={secondaryStyle}>{card.phone}</span>
-            </div>
+            </a>
           )}
           {card.email && (
-            <div className="flex items-center gap-2">
+            <a href={`mailto:${card.email}`} className="flex items-center gap-2">
               <div className={`w-6 h-6 rounded flex items-center justify-center bg-white/10`}>
                 <EmailIcon color={card.primaryColor} />
               </div>
               <span className={`text-xs  truncate`} style={secondaryStyle}>{card.email}</span>
-            </div>
+            </a>
           )}
           {card.website && (
-            <div className="flex items-center gap-2">
+            <a href={card.website?.startsWith('http') ? card.website : `https://${card.website}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
               <div className={`w-6 h-6 rounded flex items-center justify-center bg-white/10`}>
                 <WebIcon color={card.primaryColor} />
               </div>
               <span className={`text-xs  truncate`} style={secondaryStyle}>{card.website}</span>
-            </div>
+            </a>
           )}
         </div>
 
@@ -599,28 +635,37 @@ function SidebarLayout({ card, t, bgStyle, bgClass, initials, onPhotoClick, text
         {(card.linkedin || card.twitter || card.instagram) && (
           <div className="flex gap-2 mt-4">
             {card.linkedin && (
-              <div
+              <a
+                href={formatSocialUrl(card.linkedin, 'linkedin')}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-7 h-7 rounded flex items-center justify-center"
                 style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
               >
                 <LinkedInIcon />
-              </div>
+              </a>
             )}
             {card.twitter && (
-              <div
+              <a
+                href={formatSocialUrl(card.twitter, 'twitter')}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-7 h-7 rounded flex items-center justify-center"
                 style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
               >
                 <TwitterIcon />
-              </div>
+              </a>
             )}
             {card.instagram && (
-              <div
+              <a
+                href={formatSocialUrl(card.instagram, 'instagram')}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-7 h-7 rounded flex items-center justify-center"
                 style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
               >
                 <InstagramIcon />
-              </div>
+              </a>
             )}
           </div>
         )}
@@ -682,22 +727,22 @@ function MinimalLayout({ card, t, bgStyle, bgClass, initials, onPhotoClick, text
         {/* Contact Info - Clean list */}
         <div className="space-y-3">
           {card.email && (
-            <div className="flex items-center gap-3">
+            <a href={`mailto:${card.email}`} className="flex items-center gap-3">
               <EmailIcon color={card.primaryColor} />
               <span className={`text-sm  truncate`} style={secondaryStyle}>{card.email}</span>
-            </div>
+            </a>
           )}
           {card.phone && (
-            <div className="flex items-center gap-3">
+            <a href={`tel:${card.phone}`} className="flex items-center gap-3">
               <PhoneIcon color={card.primaryColor} />
               <span className={`text-sm `} style={secondaryStyle}>{card.phone}</span>
-            </div>
+            </a>
           )}
           {card.website && (
-            <div className="flex items-center gap-3">
+            <a href={card.website?.startsWith('http') ? card.website : `https://${card.website}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3">
               <WebIcon color={card.primaryColor} />
               <span className={`text-sm  truncate`} style={secondaryStyle}>{card.website}</span>
-            </div>
+            </a>
           )}
           {card.address && (
             <div className="flex items-center gap-3">
@@ -711,17 +756,17 @@ function MinimalLayout({ card, t, bgStyle, bgClass, initials, onPhotoClick, text
         {(card.linkedin || card.twitter || card.instagram) && (
           <div className="flex gap-3 mt-6">
             {card.linkedin && (
-              <a href={card.linkedin} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-lg flex items-center justify-center transition-transform hover:scale-110" style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}>
+              <a href={formatSocialUrl(card.linkedin, 'linkedin')} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-lg flex items-center justify-center transition-transform hover:scale-110" style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}>
                 <LinkedInIcon />
               </a>
             )}
             {card.twitter && (
-              <a href={card.twitter} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-lg flex items-center justify-center transition-transform hover:scale-110" style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}>
+              <a href={formatSocialUrl(card.twitter, 'twitter')} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-lg flex items-center justify-center transition-transform hover:scale-110" style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}>
                 <TwitterIcon />
               </a>
             )}
             {card.instagram && (
-              <a href={card.instagram} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-lg flex items-center justify-center transition-transform hover:scale-110" style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}>
+              <a href={formatSocialUrl(card.instagram, 'instagram')} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-lg flex items-center justify-center transition-transform hover:scale-110" style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}>
                 <InstagramIcon />
               </a>
             )}
@@ -730,12 +775,13 @@ function MinimalLayout({ card, t, bgStyle, bgClass, initials, onPhotoClick, text
 
         {/* Minimal action button */}
         {card.phone && (
-          <button
-            className="w-full mt-6 py-3 rounded-xl text-white text-sm font-semibold shadow-lg transition-all hover:scale-105 hover:shadow-xl"
+          <a
+            href={`tel:${card.phone}`}
+            className="block w-full mt-6 py-3 rounded-xl text-white text-sm font-semibold shadow-lg transition-all hover:scale-105 hover:shadow-xl text-center"
             style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
           >
             {t.previewCall}
-          </button>
+          </a>
         )}
       </div>
     </div>
@@ -852,16 +898,16 @@ function BoldLayout({ card, t, initials, onPhotoClick, textPrimaryColor, textSec
         {/* Contact Info Grid */}
         <div className="grid grid-cols-2 gap-3 mb-4">
           {card.phone && (
-            <div className="flex items-center gap-2 p-3 rounded-xl" style={{ background: `linear-gradient(135deg, ${card.primaryColor}15 0%, ${card.primaryColor}08 100%)` }}>
+            <a href={`tel:${card.phone}`} className="flex items-center gap-2 p-3 rounded-xl" style={{ background: `linear-gradient(135deg, ${card.primaryColor}15 0%, ${card.primaryColor}08 100%)` }}>
               <PhoneIcon color={card.primaryColor} />
               <span className={`text-xs `} style={secondaryStyle}>{card.phone}</span>
-            </div>
+            </a>
           )}
           {card.email && (
-            <div className="flex items-center gap-2 p-3 rounded-xl" style={{ background: `linear-gradient(135deg, ${card.primaryColor}15 0%, ${card.primaryColor}08 100%)` }}>
+            <a href={`mailto:${card.email}`} className="flex items-center gap-2 p-3 rounded-xl" style={{ background: `linear-gradient(135deg, ${card.primaryColor}15 0%, ${card.primaryColor}08 100%)` }}>
               <EmailIcon color={card.primaryColor} />
               <span className={`text-xs  truncate`} style={secondaryStyle}>{card.email}</span>
-            </div>
+            </a>
           )}
         </div>
 
@@ -869,19 +915,19 @@ function BoldLayout({ card, t, initials, onPhotoClick, textPrimaryColor, textSec
         {(card.linkedin || card.twitter || card.instagram) && (
           <div className="flex gap-2 justify-center">
             {card.linkedin && (
-              <div className="w-10 h-10 rounded-full flex items-center justify-center" style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}>
+              <a href={formatSocialUrl(card.linkedin, 'linkedin')} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full flex items-center justify-center" style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}>
                 <LinkedInIcon />
-              </div>
+              </a>
             )}
             {card.twitter && (
-              <div className="w-10 h-10 rounded-full flex items-center justify-center" style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}>
+              <a href={formatSocialUrl(card.twitter, 'twitter')} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full flex items-center justify-center" style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}>
                 <TwitterIcon />
-              </div>
+              </a>
             )}
             {card.instagram && (
-              <div className="w-10 h-10 rounded-full flex items-center justify-center" style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}>
+              <a href={formatSocialUrl(card.instagram, 'instagram')} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full flex items-center justify-center" style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}>
                 <InstagramIcon />
-              </div>
+              </a>
             )}
           </div>
         )}
@@ -947,16 +993,16 @@ function StylishLayout({ card, t, initials, onPhotoClick, textSecondaryColor, co
         {/* Contact Info - Vertical list */}
         <div className="space-y-2 mb-4">
           {card.email && (
-            <div className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-50 transition-colors">
+            <a href={`mailto:${card.email}`} className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-50 transition-colors">
               <EmailIcon color={card.primaryColor} />
               <span className={`text-sm  truncate`} style={secondaryStyle}>{card.email}</span>
-            </div>
+            </a>
           )}
           {card.phone && (
-            <div className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-50 transition-colors">
+            <a href={`tel:${card.phone}`} className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-50 transition-colors">
               <PhoneIcon color={card.primaryColor} />
               <span className={`text-sm `} style={secondaryStyle}>{card.phone}</span>
-            </div>
+            </a>
           )}
         </div>
 
@@ -964,19 +1010,19 @@ function StylishLayout({ card, t, initials, onPhotoClick, textSecondaryColor, co
         {(card.linkedin || card.twitter || card.instagram) && (
           <div className="flex gap-3 justify-center pt-4 border-t" style={{ borderColor: `${card.primaryColor}30` }}>
             {card.linkedin && (
-              <div className="w-11 h-11 rounded-xl flex items-center justify-center shadow-md" style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}>
+              <a href={formatSocialUrl(card.linkedin, 'linkedin')} target="_blank" rel="noopener noreferrer" className="w-11 h-11 rounded-xl flex items-center justify-center shadow-md" style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}>
                 <LinkedInIcon />
-              </div>
+              </a>
             )}
             {card.twitter && (
-              <div className="w-11 h-11 rounded-xl flex items-center justify-center shadow-md" style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}>
+              <a href={formatSocialUrl(card.twitter, 'twitter')} target="_blank" rel="noopener noreferrer" className="w-11 h-11 rounded-xl flex items-center justify-center shadow-md" style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}>
                 <TwitterIcon />
-              </div>
+              </a>
             )}
             {card.instagram && (
-              <div className="w-11 h-11 rounded-xl flex items-center justify-center shadow-md" style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}>
+              <a href={formatSocialUrl(card.instagram, 'instagram')} target="_blank" rel="noopener noreferrer" className="w-11 h-11 rounded-xl flex items-center justify-center shadow-md" style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}>
                 <InstagramIcon />
-              </div>
+              </a>
             )}
           </div>
         )}
@@ -1042,16 +1088,16 @@ function ElegantLayout({ card, t, initials, onPhotoClick, textPrimaryColor, text
         {/* Contact Info - Icon grid */}
         <div className="grid grid-cols-2 gap-3 mb-4">
           {card.email && (
-            <div className="flex flex-col items-center gap-2 p-3 rounded-xl" style={{ background: `linear-gradient(135deg, ${card.primaryColor}15 0%, ${card.primaryColor}08 100%)` }}>
+            <a href={`mailto:${card.email}`} className="flex flex-col items-center gap-2 p-3 rounded-xl" style={{ background: `linear-gradient(135deg, ${card.primaryColor}15 0%, ${card.primaryColor}08 100%)` }}>
               <EmailIcon color={card.primaryColor} />
               <span className={`text-xs  truncate w-full text-center`} style={secondaryStyle}>{card.email}</span>
-            </div>
+            </a>
           )}
           {card.phone && (
-            <div className="flex flex-col items-center gap-2 p-3 rounded-xl" style={{ background: `linear-gradient(135deg, ${card.primaryColor}15 0%, ${card.primaryColor}08 100%)` }}>
+            <a href={`tel:${card.phone}`} className="flex flex-col items-center gap-2 p-3 rounded-xl" style={{ background: `linear-gradient(135deg, ${card.primaryColor}15 0%, ${card.primaryColor}08 100%)` }}>
               <PhoneIcon color={card.primaryColor} />
               <span className={`text-xs `} style={secondaryStyle}>{card.phone}</span>
-            </div>
+            </a>
           )}
         </div>
 
@@ -1059,19 +1105,19 @@ function ElegantLayout({ card, t, initials, onPhotoClick, textPrimaryColor, text
         {(card.linkedin || card.twitter || card.instagram) && (
           <div className="flex gap-2 justify-center pt-4">
             {card.linkedin && (
-              <div className="flex-1 h-12 rounded-xl flex items-center justify-center" style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}>
+              <a href={formatSocialUrl(card.linkedin, 'linkedin')} target="_blank" rel="noopener noreferrer" className="flex-1 h-12 rounded-xl flex items-center justify-center" style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}>
                 <LinkedInIcon />
-              </div>
+              </a>
             )}
             {card.twitter && (
-              <div className="flex-1 h-12 rounded-xl flex items-center justify-center" style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}>
+              <a href={formatSocialUrl(card.twitter, 'twitter')} target="_blank" rel="noopener noreferrer" className="flex-1 h-12 rounded-xl flex items-center justify-center" style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}>
                 <TwitterIcon />
-              </div>
+              </a>
             )}
             {card.instagram && (
-              <div className="flex-1 h-12 rounded-xl flex items-center justify-center" style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}>
+              <a href={formatSocialUrl(card.instagram, 'instagram')} target="_blank" rel="noopener noreferrer" className="flex-1 h-12 rounded-xl flex items-center justify-center" style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}>
                 <InstagramIcon />
-              </div>
+              </a>
             )}
           </div>
         )}
@@ -1134,20 +1180,20 @@ function CreativeLayout({ card, t, initials, onPhotoClick, textPrimaryColor, tex
         {/* Contact buttons */}
         <div className="space-y-2 mb-4">
           {card.email && (
-            <button className="w-full flex items-center gap-3 p-3 rounded-xl text-left hover:shadow-md transition-shadow" style={{ background: `linear-gradient(135deg, ${card.primaryColor}20 0%, ${card.primaryColor}10 100%)` }}>
+            <a href={`mailto:${card.email}`} className="w-full flex items-center gap-3 p-3 rounded-xl text-left hover:shadow-md transition-shadow" style={{ background: `linear-gradient(135deg, ${card.primaryColor}20 0%, ${card.primaryColor}10 100%)` }}>
               <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}>
                 <EmailIcon color="#ffffff" />
               </div>
               <span className={`text-sm font-medium  truncate`} style={secondaryStyle}>{card.email}</span>
-            </button>
+            </a>
           )}
           {card.phone && (
-            <button className="w-full flex items-center gap-3 p-3 rounded-xl text-left hover:shadow-md transition-shadow" style={{ background: `linear-gradient(135deg, ${card.primaryColor}20 0%, ${card.primaryColor}10 100%)` }}>
+            <a href={`tel:${card.phone}`} className="w-full flex items-center gap-3 p-3 rounded-xl text-left hover:shadow-md transition-shadow" style={{ background: `linear-gradient(135deg, ${card.primaryColor}20 0%, ${card.primaryColor}10 100%)` }}>
               <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}>
                 <PhoneIcon color="#ffffff" />
               </div>
               <span className={`text-sm font-medium `} style={secondaryStyle}>{card.phone}</span>
-            </button>
+            </a>
           )}
         </div>
 
@@ -1155,19 +1201,19 @@ function CreativeLayout({ card, t, initials, onPhotoClick, textPrimaryColor, tex
         {(card.linkedin || card.twitter || card.instagram) && (
           <div className="flex gap-2">
             {card.linkedin && (
-              <div className="flex-1 h-10 rounded-full flex items-center justify-center" style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}>
+              <a href={formatSocialUrl(card.linkedin, 'linkedin')} target="_blank" rel="noopener noreferrer" className="flex-1 h-10 rounded-full flex items-center justify-center" style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}>
                 <LinkedInIcon />
-              </div>
+              </a>
             )}
             {card.twitter && (
-              <div className="flex-1 h-10 rounded-full flex items-center justify-center" style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}>
+              <a href={formatSocialUrl(card.twitter, 'twitter')} target="_blank" rel="noopener noreferrer" className="flex-1 h-10 rounded-full flex items-center justify-center" style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}>
                 <TwitterIcon />
-              </div>
+              </a>
             )}
             {card.instagram && (
-              <div className="flex-1 h-10 rounded-full flex items-center justify-center" style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}>
+              <a href={formatSocialUrl(card.instagram, 'instagram')} target="_blank" rel="noopener noreferrer" className="flex-1 h-10 rounded-full flex items-center justify-center" style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}>
                 <InstagramIcon />
-              </div>
+              </a>
             )}
           </div>
         )}
