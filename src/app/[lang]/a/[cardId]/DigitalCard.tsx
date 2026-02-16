@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { type translations } from "@/lib/i18n";
-import type { CardFormData } from "@/types";
+import type { CardFormData, CardLayout, CardTheme } from "@/types";
 import CardPreview from "@/components/CardPreview";
 import QRModal from "@/components/QRModal";
 
@@ -88,12 +88,12 @@ export default function DigitalCard({ card, lang, t }: Props) {
     instagram: card.instagram || undefined,
     address: card.address || undefined,
     bio: card.bio || undefined,
-    theme: (card.theme as "light" | "dark") || "light",
+    theme: (card.theme as CardTheme) || "light",
     primaryColor: card.primaryColor,
     backgroundColor: card.backgroundColor || undefined,
     gradientIntensity: card.gradientIntensity || 50,
     photoUrl: card.photoUrl || undefined,
-    layout: (card.layout as "classic" | "modern" | "sidebar" | "minimal" | "bold" | "stylish" | "elegant" | "creative") || "classic",
+    layout: (card.layout as CardLayout | undefined) || "classic",
   };
 
   return (
