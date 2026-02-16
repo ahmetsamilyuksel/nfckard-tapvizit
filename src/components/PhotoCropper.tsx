@@ -91,15 +91,41 @@ export default function PhotoCropper({ onPhotoSaved, onClose, labelUpload, label
   const cropShape = layout === "modern" ? "rect" : "round";
   const aspectRatio = layout === "modern" ? 16 / 9 : 1;
 
-  const onFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
-    const reader = new FileReader();
-    reader.onload = () => {
-      setImageSrc(reader.result as string);
-      setStep("crop");
-    };
-    reader.readAsDataURL(file);
+
+    // Check file size (max 10MB)
+    if (file.size > 10 * 1024 * 1024) {
+      alert("Fotoğraf çok büyük! Maksimum 10MB olmalı.");
+      return;
+    }
+
+    try {
+      // For HEIC/HEIF files, show message
+      if (file.type === "image/heic" || file.type === "image/heif" || file.name.toLowerCase().endsWith('.heic') || file.name.toLowerCase().endsWith('.heif')) {
+        alert("iPhone HEIC formatı tespit edildi. Lütfen iPhone'unuzun ayarlarından Kamera > Formatlar > En Uyumlu seçeneğini işaretleyin ve tekrar deneyin.");
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const result = event.target?.result as string;
+        if (result && result.startsWith('data:image/')) {
+          setImageSrc(result);
+          setStep("crop");
+        } else {
+          alert("Fotoğraf yüklenemedi. Lütfen farklı bir fotoğraf deneyin.");
+        }
+      };
+      reader.onerror = () => {
+        alert("Fotoğraf okuma hatası. Lütfen tekrar deneyin.");
+      };
+      reader.readAsDataURL(file);
+    } catch (error) {
+      console.error("Photo upload error:", error);
+      alert("Fotoğraf yüklenirken bir hata oluştu.");
+    }
   };
 
   const onCropComplete = useCallback((_: Area, croppedPixels: Area) => {
