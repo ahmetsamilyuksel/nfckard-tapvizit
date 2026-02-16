@@ -1333,8 +1333,9 @@ function VKMaxIcon() {
 function WildberriesIcon() {
   return (
     <svg className="w-4 h-4" viewBox="0 0 48 48" fill="none">
-      <rect width="48" height="48" rx="8" fill="#CB11AB"/>
-      <path d="M8 12L14 36H18L22 18L26 36H30L36 12H32L28 30L24 12H20L16 30L12 12H8Z" fill="white"/>
+      <rect width="48" height="48" rx="6" fill="#CB11AB"/>
+      <path d="M10 14L13 28L15 14H18L20 28L23 14H26L22 34H18L16 20L14 34H10L6 14H10Z" fill="white"/>
+      <path d="M30 14H38C39.1 14 40 14.9 40 16V24H36V18H30V34H26V14H30Z" fill="white"/>
     </svg>
   );
 }
@@ -1342,9 +1343,10 @@ function WildberriesIcon() {
 function OzonIcon() {
   return (
     <svg className="w-4 h-4" viewBox="0 0 48 48" fill="none">
-      <rect width="48" height="48" rx="8" fill="#005BFF"/>
-      <path d="M24 10C16.268 10 10 16.268 10 24C10 31.732 16.268 38 24 38C31.732 38 38 31.732 38 24C38 16.268 31.732 10 24 10ZM24 34C18.477 34 14 29.523 14 24C14 18.477 18.477 14 24 14C29.523 14 34 18.477 34 24C34 29.523 29.523 34 24 34Z" fill="white"/>
-      <circle cx="24" cy="24" r="6" fill="white"/>
+      <rect width="48" height="48" rx="6" fill="#005BFF"/>
+      <path d="M8 20C8 18.9 8.9 18 10 18H16C17.1 18 18 18.9 18 20V28C18 29.1 17.1 30 16 30H10C8.9 30 8 29.1 8 28V20Z" fill="white"/>
+      <path d="M19 30V26L30 18V22L19 30Z" fill="white"/>
+      <path d="M30 20C30 18.9 30.9 18 32 18H38C39.1 18 40 18.9 40 20V28C40 29.1 39.1 30 38 30H32C30.9 30 30 29.1 30 28V20Z" fill="white"/>
     </svg>
   );
 }
@@ -1352,9 +1354,9 @@ function OzonIcon() {
 function YandexMarketIcon() {
   return (
     <svg className="w-4 h-4" viewBox="0 0 48 48" fill="none">
-      <rect width="48" height="48" rx="8" fill="#FF0000"/>
-      <path d="M12 14C12 12.8954 12.8954 12 14 12H34C35.1046 12 36 12.8954 36 14V22H32V16H16V32H32V26H36V34C36 35.1046 35.1046 36 34 36H14C12.8954 36 12 35.1046 12 34V14Z" fill="white"/>
-      <path d="M28 22H40V30H36V26H28V22Z" fill="white"/>
+      <rect width="48" height="48" rx="6" fill="#FC3F1D"/>
+      <circle cx="24" cy="24" r="14" fill="#FFDB4D"/>
+      <path d="M24 12C17.4 12 12 17.4 12 24C12 30.6 17.4 36 24 36C30.6 36 36 30.6 36 24C36 17.4 30.6 12 24 12ZM24 34C18.5 34 14 29.5 14 24C14 18.5 18.5 14 24 14C29.5 14 34 18.5 34 24C34 29.5 29.5 34 24 34Z" fill="#FC3F1D"/>
     </svg>
   );
 }
