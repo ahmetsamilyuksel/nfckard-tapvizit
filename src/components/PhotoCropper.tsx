@@ -5,42 +5,72 @@ import Cropper from "react-easy-crop";
 import type { Area, Point } from "react-easy-crop";
 
 interface Props {
-  onPhotoSaved: (dataUrl: string) => void;
+  onPhotoSaved: (croppedDataUrl: string, originalDataUrl: string, zoom: number, position: { x: number; y: number }) => void;
   onClose: () => void;
   labelUpload: string;
   labelCrop: string;
   labelDone: string;
   labelCancel: string;
+  initialZoom?: number;
+  initialPosition?: { x: number; y: number };
+  existingPhoto?: string;
+  existingOriginalPhoto?: string;
+  layout?: "classic" | "modern" | "sidebar" | "minimal";
 }
 
-async function getCroppedImg(imageSrc: string, pixelCrop: Area): Promise<string> {
+async function getCroppedImg(imageSrc: string, pixelCrop: Area, isRect: boolean = false): Promise<string> {
   const image = await createImageBitmap(await (await fetch(imageSrc)).blob());
   const canvas = document.createElement("canvas");
-  const size = Math.min(pixelCrop.width, pixelCrop.height);
-  canvas.width = size;
-  canvas.height = size;
-  const ctx = canvas.getContext("2d")!;
-  ctx.drawImage(
-    image,
-    pixelCrop.x,
-    pixelCrop.y,
-    pixelCrop.width,
-    pixelCrop.height,
-    0,
-    0,
-    size,
-    size
-  );
+
+  if (isRect) {
+    // For rectangular crops (modern layout), keep original aspect ratio
+    canvas.width = pixelCrop.width;
+    canvas.height = pixelCrop.height;
+    const ctx = canvas.getContext("2d")!;
+    ctx.drawImage(
+      image,
+      pixelCrop.x,
+      pixelCrop.y,
+      pixelCrop.width,
+      pixelCrop.height,
+      0,
+      0,
+      pixelCrop.width,
+      pixelCrop.height
+    );
+  } else {
+    // For round crops (classic, sidebar, minimal), make it square
+    const size = Math.min(pixelCrop.width, pixelCrop.height);
+    canvas.width = size;
+    canvas.height = size;
+    const ctx = canvas.getContext("2d")!;
+    ctx.drawImage(
+      image,
+      pixelCrop.x,
+      pixelCrop.y,
+      pixelCrop.width,
+      pixelCrop.height,
+      0,
+      0,
+      size,
+      size
+    );
+  }
+
   return canvas.toDataURL("image/jpeg", 0.85);
 }
 
-export default function PhotoCropper({ onPhotoSaved, onClose, labelUpload, labelCrop, labelDone, labelCancel }: Props) {
-  const [imageSrc, setImageSrc] = useState<string | null>(null);
-  const [crop, setCrop] = useState<Point>({ x: 0, y: 0 });
-  const [zoom, setZoom] = useState(1);
+export default function PhotoCropper({ onPhotoSaved, onClose, labelUpload, labelCrop, labelDone, labelCancel, initialZoom = 1, initialPosition = { x: 0, y: 0 }, existingPhoto, existingOriginalPhoto, layout = "classic" }: Props) {
+  const [imageSrc, setImageSrc] = useState<string | null>(existingOriginalPhoto || existingPhoto || null);
+  const [crop, setCrop] = useState<Point>(initialPosition);
+  const [zoom, setZoom] = useState(initialZoom);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | null>(null);
-  const [step, setStep] = useState<"upload" | "crop">("upload");
+  const [step, setStep] = useState<"upload" | "crop">(existingOriginalPhoto || existingPhoto ? "crop" : "upload");
   const fileRef = useRef<HTMLInputElement>(null);
+
+  // Determine crop shape and aspect ratio based on layout
+  const cropShape = layout === "modern" ? "rect" : "round";
+  const aspectRatio = layout === "modern" ? 16 / 9 : 1;
 
   const onFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -59,8 +89,8 @@ export default function PhotoCropper({ onPhotoSaved, onClose, labelUpload, label
 
   const handleDone = async () => {
     if (!imageSrc || !croppedAreaPixels) return;
-    const cropped = await getCroppedImg(imageSrc, croppedAreaPixels);
-    onPhotoSaved(cropped);
+    const cropped = await getCroppedImg(imageSrc, croppedAreaPixels, layout === "modern");
+    onPhotoSaved(cropped, imageSrc, zoom, crop);
     onClose();
   };
 
@@ -107,9 +137,10 @@ export default function PhotoCropper({ onPhotoSaved, onClose, labelUpload, label
                 image={imageSrc!}
                 crop={crop}
                 zoom={zoom}
-                aspect={1}
-                cropShape="round"
+                aspect={aspectRatio}
+                cropShape={cropShape as "rect" | "round"}
                 showGrid={false}
+                restrictPosition={false}
                 onCropChange={setCrop}
                 onZoomChange={setZoom}
                 onCropComplete={onCropComplete}

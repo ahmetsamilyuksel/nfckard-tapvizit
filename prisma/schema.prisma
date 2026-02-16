@@ -8,28 +8,31 @@ datasource db {
 }
 
 model Card {
-  id           String   @id @default(cuid())
-  slug         String   @unique
-  firstName    String
-  lastName     String
-  title        String?
-  company      String?
-  email        String?
-  phone        String?
-  website      String?
-  linkedin     String?
-  twitter      String?
-  instagram    String?
-  address      String?
-  bio          String?
-  theme        String   @default("dark")
-  primaryColor String   @default("#0ea5e9")
-  photoUrl     String?
-  isActive     Boolean  @default(true)
-  viewCount    Int      @default(0)
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-  order        Order?
+  id                String   @id @default(cuid())
+  slug              String   @unique
+  firstName         String
+  lastName          String
+  title             String?
+  company           String?
+  email             String?
+  phone             String?
+  website           String?
+  linkedin          String?
+  twitter           String?
+  instagram         String?
+  address           String?
+  bio               String?
+  theme             String   @default("dark")
+  primaryColor      String   @default("#0ea5e9")
+  backgroundColor   String?
+  gradientIntensity Int?     @default(50)
+  layout            String?  @default("classic")
+  photoUrl          String?
+  isActive          Boolean  @default(true)
+  viewCount         Int      @default(0)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  order             Order?
 }
 
 model Order {

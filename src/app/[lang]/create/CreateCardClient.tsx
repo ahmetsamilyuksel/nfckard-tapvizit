@@ -14,16 +14,28 @@ interface Props { lang: string; t: T; }
 type Step = "design" | "order" | "success";
 
 const PRESET_COLORS = [
-  "#0ea5e9", // sky-600
-  "#3b82f6", // blue-600
-  "#8b5cf6", // violet-600
-  "#ec4899", // pink-600
-  "#f43f5e", // rose-600
-  "#f59e0b", // amber-600
-  "#10b981", // emerald-600
-  "#06b6d4", // cyan-600
-  "#6366f1", // indigo-600
-  "#a855f7", // purple-600
+  { id: "sky", gradient: "linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%)", primary: "#0ea5e9" },
+  { id: "blue", gradient: "linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)", primary: "#3b82f6" },
+  { id: "purple", gradient: "linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%)", primary: "#8b5cf6" },
+  { id: "pink", gradient: "linear-gradient(135deg, #ec4899 0%, #db2777 100%)", primary: "#ec4899" },
+  { id: "rose", gradient: "linear-gradient(135deg, #f43f5e 0%, #dc2626 100%)", primary: "#f43f5e" },
+  { id: "amber", gradient: "linear-gradient(135deg, #f59e0b 0%, #ea580c 100%)", primary: "#f59e0b" },
+  { id: "emerald", gradient: "linear-gradient(135deg, #10b981 0%, #16a34a 100%)", primary: "#10b981" },
+  { id: "cyan", gradient: "linear-gradient(135deg, #06b6d4 0%, #0891b2 100%)", primary: "#06b6d4" },
+  { id: "indigo", gradient: "linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)", primary: "#6366f1" },
+  { id: "violet", gradient: "linear-gradient(135deg, #a855f7 0%, #7c3aed 100%)", primary: "#a855f7" },
+  { id: "red", gradient: "linear-gradient(135deg, #ef4444 0%, #dc2626 100%)", primary: "#ef4444" },
+  { id: "orange", gradient: "linear-gradient(135deg, #f97316 0%, #ea580c 100%)", primary: "#f97316" },
+  { id: "yellow", gradient: "linear-gradient(135deg, #eab308 0%, #ca8a04 100%)", primary: "#eab308" },
+  { id: "lime", gradient: "linear-gradient(135deg, #84cc16 0%, #65a30d 100%)", primary: "#84cc16" },
+  { id: "green", gradient: "linear-gradient(135deg, #22c55e 0%, #16a34a 100%)", primary: "#22c55e" },
+  { id: "teal", gradient: "linear-gradient(135deg, #14b8a6 0%, #0d9488 100%)", primary: "#14b8a6" },
+  { id: "deepcyan", gradient: "linear-gradient(135deg, #0891b2 0%, #0e7490 100%)", primary: "#0891b2" },
+  { id: "royalblue", gradient: "linear-gradient(135deg, #2563eb 0%, #1e40af 100%)", primary: "#2563eb" },
+  { id: "grape", gradient: "linear-gradient(135deg, #7c3aed 0%, #5b21b6 100%)", primary: "#7c3aed" },
+  { id: "hotpink", gradient: "linear-gradient(135deg, #db2777 0%, #be185d 100%)", primary: "#db2777" },
+  { id: "charcoal", gradient: "linear-gradient(135deg, #171717 0%, #000000 100%)", primary: "#171717" },
+  { id: "white", gradient: "linear-gradient(135deg, #ffffff 0%, #f3f4f6 100%)", primary: "#ffffff" },
 ];
 
 const CARD_TYPES = [
@@ -37,7 +49,8 @@ export default function CreateCardClient({ lang, t }: Props) {
   const [cardData, setCardData] = useState<CardFormData>({
     firstName: "", lastName: "", title: "", company: "", email: "", phone: "",
     website: "", linkedin: "", twitter: "", instagram: "", address: "", bio: "",
-    theme: "dark", primaryColor: "#0ea5e9", photoUrl: ""
+    theme: "dark", primaryColor: "#0ea5e9", backgroundColor: "#ffffff", gradientIntensity: 50, photoUrl: "", layout: "classic",
+    photoZoom: 1, photoPosition: { x: 0, y: 0 }
   });
   const [orderData, setOrderData] = useState<OrderFormData>({
     cardType: "standard",
@@ -133,8 +146,8 @@ export default function CreateCardClient({ lang, t }: Props) {
     }
   };
 
-  const handlePhotoSaved = (photoDataUrl: string) => {
-    setCardData((prev) => ({ ...prev, photoUrl: photoDataUrl }));
+  const handlePhotoSaved = (croppedPhotoUrl: string, originalPhotoUrl: string, zoom: number, position: { x: number; y: number }) => {
+    setCardData((prev) => ({ ...prev, photoUrl: croppedPhotoUrl, originalPhotoUrl: originalPhotoUrl, photoZoom: zoom, photoPosition: position }));
     setShowCropper(false);
   };
 
@@ -214,8 +227,8 @@ export default function CreateCardClient({ lang, t }: Props) {
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
-      {/* Step Indicators */}
-      <div className="mb-8">
+      {/* Step Indicators - Sticky */}
+      <div className="sticky top-0 z-20 bg-gradient-to-b from-gray-50 to-transparent pb-6 mb-2">
         <div className="flex items-center justify-center space-x-4">
           <div className="flex items-center">
             <div className={`w-10 h-10 rounded-full flex items-center justify-center font-semibold ${
@@ -248,9 +261,9 @@ export default function CreateCardClient({ lang, t }: Props) {
             <div className="bg-white rounded-2xl shadow-lg p-6">
               <h2 className="text-2xl font-bold text-gray-900 mb-6">{t.designYourCard}</h2>
 
-              {/* Photo Upload Section - Large & Modern */}
-              <div className="mb-8">
-                <label className="block text-lg font-semibold text-gray-800 mb-4">
+              {/* Photo Upload Section - Compact */}
+              <div className="mb-6">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
                   {t.profilePhoto}
                 </label>
                 <div
@@ -259,28 +272,28 @@ export default function CreateCardClient({ lang, t }: Props) {
                 >
                   {cardData.photoUrl ? (
                     <div className="group relative">
-                      <div className="w-full aspect-square max-w-sm mx-auto rounded-3xl overflow-hidden shadow-2xl border-4 border-white">
+                      <div className="w-32 h-32 mx-auto rounded-2xl overflow-hidden shadow-lg border-2 border-gray-200">
                         <img src={cardData.photoUrl} alt="Profile" className="w-full h-full object-cover" />
                       </div>
-                      <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 transition-all flex items-center justify-center rounded-3xl max-w-sm mx-auto">
-                        <div className="opacity-0 group-hover:opacity-100 transition-opacity flex gap-3">
+                      <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all flex items-center justify-center rounded-2xl w-32 h-32 mx-auto">
+                        <div className="opacity-0 group-hover:opacity-100 transition-opacity flex gap-2">
                           <button
                             type="button"
                             onClick={() => setShowCropper(true)}
-                            className="bg-white text-gray-900 px-6 py-3 rounded-xl font-semibold shadow-lg hover:bg-gray-100 transition-colors flex items-center gap-2"
+                            className="bg-white text-gray-900 p-2 rounded-lg shadow-lg hover:bg-gray-100 transition-colors"
+                            title="Değiştir"
                           >
-                            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
                             </svg>
-                            Değiştir
                           </button>
                           <button
                             type="button"
                             onClick={handleRemovePhoto}
-                            className="bg-red-500 text-white p-3 rounded-xl font-semibold shadow-lg hover:bg-red-600 transition-colors"
+                            className="bg-red-500 text-white p-2 rounded-lg shadow-lg hover:bg-red-600 transition-colors"
                             title={t.removePhoto}
                           >
-                            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                             </svg>
                           </button>
@@ -288,19 +301,149 @@ export default function CreateCardClient({ lang, t }: Props) {
                       </div>
                     </div>
                   ) : (
-                    <div className="w-full max-w-sm mx-auto">
-                      <div className="border-4 border-dashed border-sky-300 rounded-3xl bg-gradient-to-br from-sky-50 via-blue-50 to-indigo-50 hover:from-sky-100 hover:via-blue-100 hover:to-indigo-100 transition-all aspect-square flex flex-col items-center justify-center p-8 group">
-                        <div className="w-28 h-28 bg-white rounded-full flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform">
-                          <svg className="w-16 h-16 text-sky-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                          </svg>
-                        </div>
-                        <p className="text-xl font-bold text-gray-800 mb-2">{t.uploadPhoto}</p>
-                        <p className="text-sm text-gray-500 text-center px-4">Tıklayın ve profil fotoğrafınızı yükleyin</p>
-                        <p className="text-xs text-gray-400 mt-2">JPG, PNG veya WEBP</p>
-                      </div>
+                    <div className="w-40 h-40 mx-auto border-2 border-dashed border-gray-300 rounded-2xl bg-gray-50 hover:bg-gray-100 transition-all flex flex-col items-center justify-center cursor-pointer">
+                      <svg className="w-12 h-12 text-gray-400 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                      </svg>
+                      <p className="text-sm text-gray-600 font-medium">{t.uploadPhoto}</p>
                     </div>
                   )}
+                </div>
+              </div>
+
+              {/* Layout Selector - Compact icons */}
+              <div className="mb-6">
+                <label className="block text-sm font-medium text-gray-700 mb-3">{t.layoutTitle}</label>
+                <div className="grid grid-cols-4 gap-2">
+                  {[
+                    { id: "classic", key: "layoutClassic" },
+                    { id: "modern", key: "layoutModern" },
+                    { id: "sidebar", key: "layoutSidebar" },
+                    { id: "minimal", key: "layoutMinimal" },
+                    { id: "bold", key: "layoutBold" },
+                    { id: "stylish", key: "layoutStylish" },
+                    { id: "elegant", key: "layoutElegant" },
+                    { id: "creative", key: "layoutCreative" }
+                  ].map((layout) => (
+                    <button
+                      key={layout.id}
+                      type="button"
+                      onClick={() => handleCardChange("layout", layout.id)}
+                      className={`group relative rounded-md border-2 transition-all hover:scale-105 overflow-hidden ${
+                        cardData.layout === layout.id
+                          ? "border-sky-500 shadow-lg ring-2 ring-sky-200"
+                          : "border-gray-300 hover:border-sky-400 hover:shadow-md"
+                      }`}
+                      title={t[layout.key as keyof T] as string}
+                    >
+                      {/* Layout name on top */}
+                      <div className={`px-1 py-0.5 text-center border-b transition-colors ${
+                        cardData.layout === layout.id
+                          ? "bg-sky-500 border-sky-600 text-white"
+                          : "bg-gray-50 border-gray-200 text-gray-600 group-hover:bg-sky-50 group-hover:text-sky-600"
+                      }`}>
+                        <span className="text-[7px] font-semibold leading-tight">{t[layout.key as keyof T] as string}</span>
+                      </div>
+                      {/* Mini preview cards */}
+                      <div className="aspect-[3/2] bg-gradient-to-br from-white to-gray-50 p-0.5 flex flex-col">
+                        {layout.id === "classic" && (
+                          <>
+                            <div className="h-px w-full bg-gradient-to-r from-sky-400 via-sky-500 to-sky-400 rounded mb-0.5"></div>
+                            <div className="flex flex-col items-center gap-px mb-0.5">
+                              <div className="w-4 h-4 rounded-full bg-gradient-to-br from-sky-400 to-sky-500"></div>
+                              <div className="w-5 h-px bg-gray-300 rounded"></div>
+                              <div className="w-3.5 h-px bg-gray-200 rounded"></div>
+                            </div>
+                            <div className="flex-1 flex flex-col gap-px px-0.5">
+                              <div className="w-full h-px bg-gray-200 rounded"></div>
+                              <div className="w-2/3 h-px bg-gray-200 rounded"></div>
+                            </div>
+                          </>
+                        )}
+                        {layout.id === "modern" && (
+                          <>
+                            <div className="h-5 w-full bg-gradient-to-br from-sky-400 to-sky-500 rounded-t mb-px"></div>
+                            <div className="h-px w-3/4 mx-auto bg-gradient-to-r from-transparent via-sky-400 to-transparent"></div>
+                            <div className="flex-1 px-0.5 pt-0.5 flex flex-col gap-px">
+                              <div className="w-5 h-px bg-gray-300 rounded"></div>
+                              <div className="w-3.5 h-px bg-gray-200 rounded"></div>
+                            </div>
+                          </>
+                        )}
+                        {layout.id === "sidebar" && (
+                          <div className="flex gap-px h-full">
+                            <div className="w-1/3 bg-gradient-to-br from-sky-100 to-sky-50 rounded flex items-center justify-center">
+                              <div className="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-sky-400 to-sky-500"></div>
+                            </div>
+                            <div className="flex-1 flex flex-col gap-px py-px">
+                              <div className="w-full h-px bg-gray-300 rounded"></div>
+                              <div className="w-2/3 h-px bg-gray-200 rounded"></div>
+                              <div className="flex-1"></div>
+                              <div className="w-full h-px bg-gray-200 rounded"></div>
+                            </div>
+                          </div>
+                        )}
+                        {layout.id === "minimal" && (
+                          <div className="flex flex-col gap-px p-px h-full">
+                            <div className="flex gap-px items-start">
+                              <div className="w-2 h-2 rounded bg-gradient-to-br from-sky-400 to-sky-500 flex-shrink-0"></div>
+                              <div className="flex-1 flex flex-col gap-px">
+                                <div className="w-full h-px bg-gray-300 rounded"></div>
+                                <div className="w-2/3 h-px bg-gray-200 rounded"></div>
+                              </div>
+                            </div>
+                            <div className="flex-1 flex flex-col gap-px">
+                              <div className="w-full h-px bg-gray-200 rounded"></div>
+                              <div className="w-3/4 h-px bg-gray-200 rounded"></div>
+                            </div>
+                          </div>
+                        )}
+                        {layout.id === "bold" && (
+                          <>
+                            <div className="h-6 w-full bg-gradient-to-br from-sky-400 to-sky-500 rounded-t mb-px relative">
+                              <div className="absolute inset-0 bg-gradient-to-t from-black/15 to-transparent rounded-t"></div>
+                            </div>
+                            <div className="flex-1 px-0.5 flex flex-col gap-px">
+                              <div className="w-5 h-px bg-gray-300 rounded"></div>
+                              <div className="w-3.5 h-px bg-gray-200 rounded"></div>
+                            </div>
+                          </>
+                        )}
+                        {layout.id === "stylish" && (
+                          <div className="flex h-full rounded-t overflow-hidden">
+                            <div className="w-3/5 bg-gradient-to-br from-sky-300 to-sky-400"></div>
+                            <div className="w-2/5 bg-gradient-to-b from-sky-500 to-sky-600 flex flex-col items-center justify-center gap-px">
+                              <div className="w-2.5 h-px bg-white/90 rounded"></div>
+                              <div className="w-2 h-px bg-white/70 rounded"></div>
+                            </div>
+                          </div>
+                        )}
+                        {layout.id === "elegant" && (
+                          <div className="relative h-full">
+                            <div className="absolute top-0 left-0 right-0 h-3 bg-gradient-to-b from-sky-500 via-sky-400 to-transparent rounded-t"></div>
+                            <div className="absolute top-0.5 left-1/2 transform -translate-x-1/2 w-3.5 h-3.5 rounded-full bg-gradient-to-br from-sky-400 to-sky-500 ring-1 ring-white/30"></div>
+                            <div className="absolute bottom-0 left-0 right-0 flex flex-col gap-px px-0.5 pb-px items-center">
+                              <div className="w-5 h-px bg-gray-300 rounded"></div>
+                              <div className="w-3.5 h-px bg-gray-200 rounded"></div>
+                            </div>
+                          </div>
+                        )}
+                        {layout.id === "creative" && (
+                          <>
+                            <div className="h-5 w-full bg-gradient-to-br from-sky-400 to-sky-500 rounded-t mb-px relative">
+                              <div className="absolute inset-0 bg-gradient-to-t from-black/15 to-transparent rounded-t"></div>
+                            </div>
+                            <div className="flex-1 px-0.5">
+                              <div className="border-b border-sky-400/50 pb-px mb-px">
+                                <div className="w-5 h-px bg-gray-300 rounded"></div>
+                              </div>
+                              <div className="w-full h-px bg-gray-200 rounded"></div>
+                            </div>
+                          </>
+                        )}
+                      </div>
+                    </button>
+                  ))}
                 </div>
               </div>
 
@@ -467,57 +610,234 @@ export default function CreateCardClient({ lang, t }: Props) {
                 />
               </div>
 
-              {/* Design Options */}
-              <div className="space-y-4 mb-6">
-                <h3 className="text-lg font-semibold text-gray-800">{t.designTitle}</h3>
+              {/* Theme Selector */}
+              <div className="mb-6">
+                <label className="block text-sm font-medium text-gray-700 mb-3">{t.theme}</label>
+                <div className="grid grid-cols-2 gap-2">
+                  {["dark", "light", "gradient", "modern", "elegant", "minimal", "vibrant", "professional"].map((theme) => (
+                    <button
+                      key={theme}
+                      type="button"
+                      onClick={() => handleCardChange("theme", theme)}
+                      className={`px-3 py-2.5 rounded-lg border-2 font-medium transition-all ${
+                        cardData.theme === theme
+                          ? "border-sky-600 bg-gradient-to-br from-sky-50 to-sky-100 text-sky-700 shadow-md"
+                          : "border-gray-200 bg-white text-gray-700 hover:border-sky-300 hover:bg-gray-50"
+                      }`}
+                    >
+                      <div className="flex items-center gap-2">
+                        <div className={`w-6 h-6 rounded flex-shrink-0 ${
+                          theme === "dark" ? "bg-gradient-to-br from-gray-900 to-gray-700" :
+                          theme === "light" ? "bg-gradient-to-br from-white to-gray-100 border border-gray-200" :
+                          theme === "gradient" ? "bg-gradient-to-br from-purple-500 to-pink-500" :
+                          theme === "modern" ? "bg-gradient-to-br from-blue-500 to-cyan-500" :
+                          theme === "elegant" ? "bg-gradient-to-br from-gray-800 to-gray-600" :
+                          theme === "minimal" ? "bg-gradient-to-br from-gray-100 to-gray-200 border border-gray-300" :
+                          theme === "vibrant" ? "bg-gradient-to-br from-orange-500 to-red-500" :
+                          "bg-gradient-to-br from-indigo-600 to-blue-600"
+                        }`}></div>
+                        <span className="text-xs font-semibold truncate">{t[`theme${theme.charAt(0).toUpperCase() + theme.slice(1)}` as keyof T] || theme}</span>
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              </div>
 
-                <div>
-                  <label className="block text-lg font-semibold text-gray-800 mb-4">{t.theme}</label>
-                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                    {["dark", "light", "gradient", "modern", "elegant", "minimal", "vibrant", "professional"].map((theme) => (
+              {/* Primary Color Picker - Gradient */}
+              <div className="mb-6">
+                <label className="block text-sm font-medium text-gray-700 mb-3">{t.primaryColor}</label>
+                <div className="space-y-3">
+                  {/* Gradient Color Picker - Click to select shade */}
+                  <div
+                    className="relative w-full h-16 rounded-xl border-2 border-gray-300 shadow-inner cursor-crosshair overflow-hidden group"
+                    style={{
+                      background: `linear-gradient(to right, #000000 0%, ${cardData.primaryColor} 50%, #ffffff 100%)`
+                    }}
+                    onClick={(e) => {
+                      const rect = e.currentTarget.getBoundingClientRect();
+                      const x = e.clientX - rect.left;
+                      const percentage = x / rect.width;
+
+                      // Convert current color to RGB
+                      const hex = cardData.primaryColor.replace('#', '');
+                      const r = parseInt(hex.substring(0, 2), 16);
+                      const g = parseInt(hex.substring(2, 4), 16);
+                      const b = parseInt(hex.substring(4, 6), 16);
+
+                      let newR, newG, newB;
+                      if (percentage < 0.5) {
+                        // Black to color (0% to 50%)
+                        const factor = percentage * 2;
+                        newR = Math.round(r * factor);
+                        newG = Math.round(g * factor);
+                        newB = Math.round(b * factor);
+                      } else {
+                        // Color to white (50% to 100%)
+                        const factor = (percentage - 0.5) * 2;
+                        newR = Math.round(r + (255 - r) * factor);
+                        newG = Math.round(g + (255 - g) * factor);
+                        newB = Math.round(b + (255 - b) * factor);
+                      }
+
+                      const newColor = `#${newR.toString(16).padStart(2, '0')}${newG.toString(16).padStart(2, '0')}${newB.toString(16).padStart(2, '0')}`;
+                      handleCardChange("primaryColor", newColor);
+                    }}
+                  >
+                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/10 pointer-events-none">
+                      <span className="text-white text-xs font-semibold drop-shadow-lg">Tıklayın ve ton seçin</span>
+                    </div>
+                  </div>
+                  {/* HTML5 Color Input */}
+                  <div className="flex items-center gap-3">
+                    <input
+                      type="color"
+                      value={cardData.primaryColor}
+                      onChange={(e) => handleCardChange("primaryColor", e.target.value)}
+                      className="w-16 h-16 rounded-lg cursor-pointer border-2 border-gray-300 shadow-sm"
+                    />
+                    <div className="flex-1">
+                      <input
+                        type="text"
+                        value={cardData.primaryColor}
+                        onChange={(e) => {
+                          const val = e.target.value;
+                          if (/^#[0-9A-Fa-f]{0,6}$/.test(val)) {
+                            handleCardChange("primaryColor", val);
+                          }
+                        }}
+                        className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg font-mono text-sm focus:border-sky-500 focus:outline-none"
+                        placeholder="#0ea5e9"
+                      />
+                    </div>
+                  </div>
+                  {/* Quick preset colors */}
+                  <div className="grid grid-cols-8 gap-2">
+                    {PRESET_COLORS.slice(0, 8).map((color) => (
                       <button
-                        key={theme}
+                        key={color.id}
                         type="button"
-                        onClick={() => handleCardChange("theme", theme)}
-                        className={`group relative px-4 py-6 rounded-xl border-2 font-semibold transition-all overflow-hidden ${
-                          cardData.theme === theme
-                            ? "border-sky-600 bg-sky-600 text-white shadow-lg scale-105"
-                            : "border-gray-200 bg-white text-gray-700 hover:border-sky-300 hover:shadow-md"
+                        onClick={() => handleCardChange("primaryColor", color.primary)}
+                        className={`w-full h-8 rounded-lg border-2 transition-all hover:scale-110 ${
+                          cardData.primaryColor === color.primary
+                            ? "border-gray-900 ring-2 ring-gray-400"
+                            : "border-gray-200"
                         }`}
-                      >
-                        <div className="flex flex-col items-center gap-2">
-                          <div className={`w-12 h-12 rounded-lg ${
-                            theme === "dark" ? "bg-gray-900" :
-                            theme === "light" ? "bg-white border-2 border-gray-200" :
-                            theme === "gradient" ? "bg-gradient-to-br from-purple-500 to-pink-500" :
-                            theme === "modern" ? "bg-gradient-to-br from-blue-500 to-cyan-500" :
-                            theme === "elegant" ? "bg-gradient-to-br from-gray-800 to-gray-600" :
-                            theme === "minimal" ? "bg-gray-100 border-2 border-gray-300" :
-                            theme === "vibrant" ? "bg-gradient-to-br from-orange-500 to-red-500" :
-                            "bg-gradient-to-br from-indigo-600 to-blue-600"
-                          } ${cardData.theme === theme ? "shadow-lg" : ""}`}></div>
-                          <span className="text-sm">{t[`theme${theme.charAt(0).toUpperCase() + theme.slice(1)}` as keyof T] || theme}</span>
-                        </div>
-                      </button>
+                        style={{ background: color.gradient }}
+                        title={color.id}
+                      />
                     ))}
                   </div>
                 </div>
+              </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">{t.primaryColor}</label>
-                  <div className="grid grid-cols-5 gap-3">
-                    {PRESET_COLORS.map((color) => (
+              {/* Background Color Picker - Gradient */}
+              <div className="mb-6">
+                <label className="block text-sm font-medium text-gray-700 mb-3">{t.backgroundColor}</label>
+                <div className="space-y-3">
+                  {/* Gradient Color Picker - Click to select shade */}
+                  <div
+                    className="relative w-full h-16 rounded-xl border-2 border-gray-300 shadow-inner cursor-crosshair overflow-hidden group"
+                    style={{
+                      background: `linear-gradient(to right, #000000 0%, ${cardData.backgroundColor || '#ffffff'} 50%, #ffffff 100%)`
+                    }}
+                    onClick={(e) => {
+                      const rect = e.currentTarget.getBoundingClientRect();
+                      const x = e.clientX - rect.left;
+                      const percentage = x / rect.width;
+
+                      // Convert current color to RGB
+                      const currentColor = cardData.backgroundColor || '#ffffff';
+                      const hex = currentColor.replace('#', '');
+                      const r = parseInt(hex.substring(0, 2), 16);
+                      const g = parseInt(hex.substring(2, 4), 16);
+                      const b = parseInt(hex.substring(4, 6), 16);
+
+                      let newR, newG, newB;
+                      if (percentage < 0.5) {
+                        // Black to color (0% to 50%)
+                        const factor = percentage * 2;
+                        newR = Math.round(r * factor);
+                        newG = Math.round(g * factor);
+                        newB = Math.round(b * factor);
+                      } else {
+                        // Color to white (50% to 100%)
+                        const factor = (percentage - 0.5) * 2;
+                        newR = Math.round(r + (255 - r) * factor);
+                        newG = Math.round(g + (255 - g) * factor);
+                        newB = Math.round(b + (255 - b) * factor);
+                      }
+
+                      const newColor = `#${newR.toString(16).padStart(2, '0')}${newG.toString(16).padStart(2, '0')}${newB.toString(16).padStart(2, '0')}`;
+                      handleCardChange("backgroundColor", newColor);
+                    }}
+                  >
+                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/10 pointer-events-none">
+                      <span className="text-white text-xs font-semibold drop-shadow-lg">Tıklayın ve ton seçin</span>
+                    </div>
+                  </div>
+                  {/* HTML5 Color Input */}
+                  <div className="flex items-center gap-3">
+                    <input
+                      type="color"
+                      value={cardData.backgroundColor || "#ffffff"}
+                      onChange={(e) => handleCardChange("backgroundColor", e.target.value)}
+                      className="w-16 h-16 rounded-lg cursor-pointer border-2 border-gray-300 shadow-sm"
+                    />
+                    <div className="flex-1">
+                      <input
+                        type="text"
+                        value={cardData.backgroundColor || "#ffffff"}
+                        onChange={(e) => {
+                          const val = e.target.value;
+                          if (/^#[0-9A-Fa-f]{0,6}$/.test(val)) {
+                            handleCardChange("backgroundColor", val);
+                          }
+                        }}
+                        className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg font-mono text-sm focus:border-sky-500 focus:outline-none"
+                        placeholder="#ffffff"
+                      />
+                    </div>
+                  </div>
+                  {/* Quick preset colors - Same as primary colors */}
+                  <div className="grid grid-cols-8 gap-2">
+                    {PRESET_COLORS.slice(0, 8).map((color) => (
                       <button
-                        key={color}
+                        key={color.id}
                         type="button"
-                        onClick={() => handleCardChange("primaryColor", color)}
-                        className={`w-full h-12 rounded-lg border-2 transition-all ${
-                          cardData.primaryColor === color ? "border-gray-900 scale-110" : "border-gray-200 hover:scale-105"
+                        onClick={() => handleCardChange("backgroundColor", color.primary)}
+                        className={`w-full h-8 rounded-lg border-2 transition-all hover:scale-110 ${
+                          cardData.backgroundColor === color.primary
+                            ? "border-gray-900 ring-2 ring-gray-400"
+                            : "border-gray-200"
                         }`}
-                        style={{ backgroundColor: color }}
-                        title={color}
+                        style={{ background: color.gradient }}
+                        title={color.id}
                       />
                     ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* Gradient Intensity Slider */}
+              <div className="mb-6">
+                <label className="block text-sm font-medium text-gray-700 mb-3">{t.gradientIntensity}</label>
+                <div className="space-y-3">
+                  <div className="flex items-center gap-4">
+                    <span className="text-xs text-gray-500 w-12">Yumuşak</span>
+                    <input
+                      type="range"
+                      min="0"
+                      max="100"
+                      value={cardData.gradientIntensity || 50}
+                      onChange={(e) => handleCardChange("gradientIntensity", e.target.value)}
+                      className="flex-1 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-sky-600"
+                    />
+                    <span className="text-xs text-gray-500 w-12">Sert</span>
+                  </div>
+                  <div className="text-center">
+                    <span className="inline-block px-3 py-1 bg-gray-100 rounded-lg text-sm font-medium text-gray-700">
+                      {cardData.gradientIntensity || 50}%
+                    </span>
                   </div>
                 </div>
               </div>
@@ -685,12 +1005,10 @@ export default function CreateCardClient({ lang, t }: Props) {
           )}
         </div>
 
-        {/* Preview Section */}
-        <div className="lg:sticky lg:top-8 h-fit">
-          <div className="bg-white rounded-2xl shadow-lg p-6">
-            <h3 className="text-xl font-bold text-gray-900 mb-4">{t.previewTitle}</h3>
-            <CardPreview card={cardData} lang={lang} t={t} />
-          </div>
+        {/* Preview Section - STICKY */}
+        <div className="sticky top-20 bg-white rounded-2xl shadow-lg p-6 z-10 self-start">
+          <h3 className="text-xl font-bold text-gray-900 mb-4">{t.previewTitle}</h3>
+          <CardPreview card={cardData} lang={lang} t={t} onPhotoClick={() => cardData.photoUrl && setShowCropper(true)} />
         </div>
       </div>
 
@@ -710,6 +1028,11 @@ export default function CreateCardClient({ lang, t }: Props) {
             labelCrop={t.cropPhoto}
             labelDone={t.cropDone}
             labelCancel={t.cropCancel}
+            initialZoom={cardData.photoZoom}
+            initialPosition={cardData.photoPosition}
+            existingPhoto={cardData.photoUrl}
+            existingOriginalPhoto={cardData.originalPhotoUrl}
+            layout={cardData.layout}
           />
         </Suspense>
       )}

@@ -1,4 +1,5 @@
 export type CardTheme = "dark" | "light" | "gradient" | "modern" | "elegant" | "minimal" | "vibrant" | "professional";
+export type CardLayout = "classic" | "modern" | "sidebar" | "minimal" | "bold" | "stylish" | "elegant" | "creative";
 
 export interface CardFormData {
   firstName: string;
@@ -15,7 +16,13 @@ export interface CardFormData {
   bio?: string;
   theme: CardTheme;
   primaryColor: string;
+  backgroundColor?: string; // Background color for text area
+  gradientIntensity?: number; // 0-100, controls gradient strength (default 50)
   photoUrl?: string;
+  layout?: CardLayout;
+  photoZoom?: number;
+  photoPosition?: { x: number; y: number };
+  originalPhotoUrl?: string; // Original uncropped photo for re-editing
 }
 
 export interface OrderFormData {
