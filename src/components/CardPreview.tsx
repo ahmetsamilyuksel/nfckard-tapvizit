@@ -511,13 +511,13 @@ export default function CardPreview({ card, t, onPhotoClick, fullScreen = false 
                     href={formatSocialUrl(card.vkmax, 'vkmax')}
                     target="_blank"
                     rel="noopener noreferrer"
-                    title="VK MAX"
+                    title="MAX"
                     className="w-9 h-9 rounded-lg flex items-center justify-center"
                     style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
                   >
                     <VKMaxIcon />
                   </a>
-                  <span className="text-[9px] text-gray-800 font-medium">VK MAX</span>
+                  <span className="text-[9px] text-gray-800 font-medium">MAX</span>
                 </div>
               )}
             </div>
@@ -833,13 +833,13 @@ function ModernLayout({ card, t, initials, onPhotoClick, textPrimaryColor, textS
                     href={formatSocialUrl(card.vkmax, 'vkmax')}
                     target="_blank"
                     rel="noopener noreferrer"
-                    title="VK MAX"
+                    title="MAX"
                     className="w-9 h-9 rounded-lg flex items-center justify-center"
                     style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
                   >
                     <VKMaxIcon />
                   </a>
-                  <span className="text-[9px] text-gray-800 font-medium">VK MAX</span>
+                  <span className="text-[9px] text-gray-800 font-medium">MAX</span>
                 </div>
               )}
             </div>
@@ -1231,8 +1231,9 @@ function SnapchatIcon() {
 
 function VKMaxIcon() {
   return (
-    <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
-      <path d="M15.684 0H8.316C1.592 0 0 1.592 0 8.316v7.368C0 22.408 1.592 24 8.316 24h7.368C22.408 24 24 22.408 24 15.684V8.316C24 1.592 22.391 0 15.684 0zM18.5 16.5h-1.5c-.711 0-.945-.563-2.25-1.875-1.125-1.125-1.594-1.266-1.875-1.266-.375 0-.484.094-.484.563v1.688c0 .469-.141.75-1.406.75-2.063 0-4.313-1.266-5.906-3.656C3.094 9.422 2.5 7.094 2.5 6.625c0-.281.094-.563.563-.563h1.5c.422 0 .563.188.75.656.938 2.625 2.531 4.922 3.187 4.922.234 0 .328-.094.328-.656V8.422c-.047-1.313-.75-1.406-.75-1.875 0-.234.188-.469.469-.469h2.344c.375 0 .516.188.516.609v3.047c0 .375.141.516.234.516.234 0 .422-.141.844-.562 1.313-1.5 2.25-3.75 2.25-3.75.141-.281.328-.563.75-.563h1.5c.469 0 .563.234.469.609-.234 1.078-2.438 4.266-2.438 4.266-.188.281-.234.422 0 .75.188.234.797.797 1.219 1.266.75.844 1.313 1.547 1.5 2.062.141.516-.094.75-.609.75z"/>
+    <svg className="w-4 h-4" viewBox="0 0 48 48" fill="none">
+      <circle cx="24" cy="24" r="22" fill="#C724B1"/>
+      <path d="M14 20h5v2h-3v4h3v2h-3v5h-2v-13zm10 0h5c2 0 3 1 3 3v7c0 2-1 3-3 3h-5v-13zm2 2v9h3c1 0 1.5-0.5 1.5-1.5v-6c0-1-0.5-1.5-1.5-1.5h-3zm10 0l3 6 3-6h2l-4 8v5h-2v-5l-4-8h2z" fill="white"/>
     </svg>
   );
 }
