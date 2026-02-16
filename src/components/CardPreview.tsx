@@ -17,10 +17,6 @@ interface LayoutProps {
   t: T;
   bgStyle?: React.CSSProperties;
   bgClass?: string;
-  textPrimary?: string;
-  textSecondary?: string;
-  dividerColor?: string;
-  iconBg?: string;
   initials: string;
   onPhotoClick?: () => void;
   textPrimaryColor?: string;
@@ -75,10 +71,6 @@ export default function CardPreview({ card, t, onPhotoClick }: Props) {
   // Theme-based styling logic
   let bgClass = "";
   let bgStyle = {};
-  let textPrimary = "";
-  let textSecondary = "";
-  let dividerColor = "";
-  let iconBg = "";
   let textPrimaryColor = "";
   let textSecondaryColor = "";
 
@@ -88,10 +80,6 @@ export default function CardPreview({ card, t, onPhotoClick }: Props) {
       bgStyle = {
         background: "linear-gradient(135deg, #1a1a2e 0%, #16213e 100%)",
       };
-      textPrimary = "text-white";
-      textSecondary = "text-gray-300";
-      dividerColor = "border-white/20";
-      iconBg = "bg-white/10";
       break;
 
     case "light":
@@ -99,10 +87,6 @@ export default function CardPreview({ card, t, onPhotoClick }: Props) {
       bgStyle = {
         background: "linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%)",
       };
-      textPrimary = "text-gray-900";
-      textSecondary = "text-gray-600";
-      dividerColor = "border-gray-200";
-      iconBg = "bg-gray-100";
       break;
 
     case "gradient":
@@ -110,10 +94,6 @@ export default function CardPreview({ card, t, onPhotoClick }: Props) {
       bgStyle = {
         background: `linear-gradient(135deg, ${card.primaryColor}dd 0%, ${card.primaryColor}88 100%)`,
       };
-      textPrimary = "text-white";
-      textSecondary = "text-white/90";
-      dividerColor = "border-white/20";
-      iconBg = "bg-white/15";
       break;
 
     case "modern":
@@ -121,10 +101,6 @@ export default function CardPreview({ card, t, onPhotoClick }: Props) {
       bgStyle = {
         background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
       };
-      textPrimary = "text-white";
-      textSecondary = "text-white/90";
-      dividerColor = "border-white/20";
-      iconBg = "bg-white/15";
       break;
 
     case "elegant":
@@ -132,10 +108,6 @@ export default function CardPreview({ card, t, onPhotoClick }: Props) {
       bgStyle = {
         background: "linear-gradient(135deg, #434343 0%, #000000 100%)",
       };
-      textPrimary = "text-white";
-      textSecondary = "text-gray-300";
-      dividerColor = "border-white/20";
-      iconBg = "bg-white/10";
       break;
 
     case "minimal":
@@ -143,10 +115,6 @@ export default function CardPreview({ card, t, onPhotoClick }: Props) {
       bgStyle = {
         background: "linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%)",
       };
-      textPrimary = "text-gray-900";
-      textSecondary = "text-gray-700";
-      dividerColor = "border-gray-300";
-      iconBg = "bg-white/50";
       break;
 
     case "vibrant":
@@ -154,10 +122,6 @@ export default function CardPreview({ card, t, onPhotoClick }: Props) {
       bgStyle = {
         background: "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)",
       };
-      textPrimary = "text-white";
-      textSecondary = "text-white/90";
-      dividerColor = "border-white/20";
-      iconBg = "bg-white/15";
       break;
 
     case "professional":
@@ -165,10 +129,6 @@ export default function CardPreview({ card, t, onPhotoClick }: Props) {
       bgStyle = {
         background: "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)",
       };
-      textPrimary = "text-white";
-      textSecondary = "text-white/90";
-      dividerColor = "border-white/20";
-      iconBg = "bg-white/15";
       break;
 
     default:
@@ -176,10 +136,6 @@ export default function CardPreview({ card, t, onPhotoClick }: Props) {
       bgStyle = {
         background: "linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%)",
       };
-      textPrimary = "text-gray-900";
-      textSecondary = "text-gray-600";
-      dividerColor = "border-gray-200";
-      iconBg = "bg-gray-100";
   }
 
   // Override text colors based on background color brightness
@@ -187,18 +143,10 @@ export default function CardPreview({ card, t, onPhotoClick }: Props) {
   if (hasCustomBg) {
     if (isDarkBg) {
       // Dark background = light text
-      textPrimary = "text-white";
-      textSecondary = "text-gray-300";
-      dividerColor = "border-white/20";
-      iconBg = "bg-white/10";
       textPrimaryColor = "#ffffff";
       textSecondaryColor = "#d1d5db";
     } else {
       // Light background = dark text
-      textPrimary = "text-gray-900";
-      textSecondary = "text-gray-600";
-      dividerColor = "border-gray-200";
-      iconBg = "bg-gray-100";
       textPrimaryColor = "#111827";
       textSecondaryColor = "#4b5563";
     }
@@ -208,31 +156,31 @@ export default function CardPreview({ card, t, onPhotoClick }: Props) {
 
   // Render different layouts
   if (layout === "modern") {
-    return <ModernLayout card={card} t={t} textPrimary={textPrimary} textSecondary={textSecondary} dividerColor={dividerColor} iconBg={iconBg} initials={initials} onPhotoClick={onPhotoClick} textPrimaryColor={textPrimaryColor} textSecondaryColor={textSecondaryColor} />;
+    return <ModernLayout card={card} t={t} initials={initials} onPhotoClick={onPhotoClick} textPrimaryColor={textPrimaryColor} textSecondaryColor={textSecondaryColor} />;
   }
 
   if (layout === "sidebar") {
-    return <SidebarLayout card={card} t={t} bgStyle={bgStyle} bgClass={bgClass} textPrimary={textPrimary} textSecondary={textSecondary} dividerColor={dividerColor} iconBg={iconBg} initials={initials} onPhotoClick={onPhotoClick} textPrimaryColor={textPrimaryColor} textSecondaryColor={textSecondaryColor} />;
+    return <SidebarLayout card={card} t={t} bgStyle={bgStyle} bgClass={bgClass} initials={initials} onPhotoClick={onPhotoClick} textPrimaryColor={textPrimaryColor} textSecondaryColor={textSecondaryColor} />;
   }
 
   if (layout === "minimal") {
-    return <MinimalLayout card={card} t={t} bgStyle={bgStyle} bgClass={bgClass} textPrimary={textPrimary} textSecondary={textSecondary} dividerColor={dividerColor} iconBg={iconBg} initials={initials} onPhotoClick={onPhotoClick} textPrimaryColor={textPrimaryColor} textSecondaryColor={textSecondaryColor} />;
+    return <MinimalLayout card={card} t={t} bgStyle={bgStyle} bgClass={bgClass} initials={initials} onPhotoClick={onPhotoClick} textPrimaryColor={textPrimaryColor} textSecondaryColor={textSecondaryColor} />;
   }
 
   if (layout === "bold") {
-    return <BoldLayout card={card} t={t} textPrimary={textPrimary} textSecondary={textSecondary} dividerColor={dividerColor} iconBg={iconBg} initials={initials} onPhotoClick={onPhotoClick} textPrimaryColor={textPrimaryColor} textSecondaryColor={textSecondaryColor} />;
+    return <BoldLayout card={card} t={t} initials={initials} onPhotoClick={onPhotoClick} textPrimaryColor={textPrimaryColor} textSecondaryColor={textSecondaryColor} />;
   }
 
   if (layout === "stylish") {
-    return <StylishLayout card={card} t={t} textPrimary={textPrimary} textSecondary={textSecondary} dividerColor={dividerColor} iconBg={iconBg} initials={initials} onPhotoClick={onPhotoClick} textPrimaryColor={textPrimaryColor} textSecondaryColor={textSecondaryColor} />;
+    return <StylishLayout card={card} t={t} initials={initials} onPhotoClick={onPhotoClick} textSecondaryColor={textSecondaryColor} />;
   }
 
   if (layout === "elegant") {
-    return <ElegantLayout card={card} t={t} textPrimary={textPrimary} textSecondary={textSecondary} dividerColor={dividerColor} iconBg={iconBg} initials={initials} onPhotoClick={onPhotoClick} textPrimaryColor={textPrimaryColor} textSecondaryColor={textSecondaryColor} />;
+    return <ElegantLayout card={card} t={t} initials={initials} onPhotoClick={onPhotoClick} textPrimaryColor={textPrimaryColor} textSecondaryColor={textSecondaryColor} />;
   }
 
   if (layout === "creative") {
-    return <CreativeLayout card={card} t={t} textPrimary={textPrimary} textSecondary={textSecondary} dividerColor={dividerColor} iconBg={iconBg} initials={initials} onPhotoClick={onPhotoClick} textPrimaryColor={textPrimaryColor} textSecondaryColor={textSecondaryColor} />;
+    return <CreativeLayout card={card} t={t} initials={initials} onPhotoClick={onPhotoClick} textPrimaryColor={textPrimaryColor} textSecondaryColor={textSecondaryColor} />;
   }
 
   // Classic layout (default)
@@ -273,11 +221,11 @@ export default function CardPreview({ card, t, onPhotoClick }: Props) {
 
           {/* Name and Title - Centered */}
           <div className="text-center">
-            <h2 className={`text-2xl font-bold mb-1 ${textPrimary}`} style={primaryStyle}>
+            <h2 className={`text-2xl font-bold mb-1 `} style={primaryStyle}>
               {card.firstName || t.previewFirstName} {card.lastName || t.previewLastName}
             </h2>
             {card.title && (
-              <p className={`text-base font-medium mb-1 ${textSecondary}`} style={secondaryStyle}>{card.title}</p>
+              <p className={`text-base font-medium mb-1 `} style={secondaryStyle}>{card.title}</p>
             )}
             {card.company && (
               <p className={`text-sm font-semibold`} style={{ color: card.primaryColor }}>
@@ -289,7 +237,7 @@ export default function CardPreview({ card, t, onPhotoClick }: Props) {
 
         {/* Bio */}
         {card.bio && (
-          <p className={`text-sm mb-4 leading-relaxed ${textSecondary}`} style={secondaryStyle}>{card.bio}</p>
+          <p className={`text-sm mb-4 leading-relaxed `} style={secondaryStyle}>{card.bio}</p>
         )}
 
         {/* Divider */}
@@ -305,7 +253,7 @@ export default function CardPreview({ card, t, onPhotoClick }: Props) {
               >
                 <PhoneIcon color={card.primaryColor} />
               </div>
-              <span className={`text-sm ${textSecondary}`} style={secondaryStyle}>{card.phone}</span>
+              <span className={`text-sm `} style={secondaryStyle}>{card.phone}</span>
             </div>
           )}
           {card.email && (
@@ -316,7 +264,7 @@ export default function CardPreview({ card, t, onPhotoClick }: Props) {
               >
                 <EmailIcon color={card.primaryColor} />
               </div>
-              <span className={`text-sm ${textSecondary} truncate`} style={secondaryStyle}>{card.email}</span>
+              <span className={`text-sm  truncate`} style={secondaryStyle}>{card.email}</span>
             </div>
           )}
           {card.website && (
@@ -327,7 +275,7 @@ export default function CardPreview({ card, t, onPhotoClick }: Props) {
               >
                 <WebIcon color={card.primaryColor} />
               </div>
-              <span className={`text-sm ${textSecondary} truncate`} style={secondaryStyle}>{card.website}</span>
+              <span className={`text-sm  truncate`} style={secondaryStyle}>{card.website}</span>
             </div>
           )}
           {card.address && (
@@ -338,7 +286,7 @@ export default function CardPreview({ card, t, onPhotoClick }: Props) {
               >
                 <LocationIcon color={card.primaryColor} />
               </div>
-              <span className={`text-sm ${textSecondary}`} style={secondaryStyle}>{card.address}</span>
+              <span className={`text-sm `} style={secondaryStyle}>{card.address}</span>
             </div>
           )}
         </div>
@@ -438,11 +386,11 @@ function ModernLayout({ card, t, initials, onPhotoClick, textPrimaryColor, textS
       <div className="p-6">
         {/* Name and Title */}
         <div className="mb-4">
-          <h2 className={`text-2xl font-bold mb-1 ${textPrimary}`} style={primaryStyle}>
+          <h2 className={`text-2xl font-bold mb-1 `} style={primaryStyle}>
             {card.firstName || t.previewFirstName} {card.lastName || t.previewLastName}
           </h2>
           {card.title && (
-            <p className={`text-base font-medium mb-1 ${textSecondary}`} style={secondaryStyle}>{card.title}</p>
+            <p className={`text-base font-medium mb-1 `} style={secondaryStyle}>{card.title}</p>
           )}
           {card.company && (
             <p className="text-sm font-semibold" style={{ color: card.primaryColor }}>
@@ -453,7 +401,7 @@ function ModernLayout({ card, t, initials, onPhotoClick, textPrimaryColor, textS
 
         {/* Bio */}
         {card.bio && (
-          <p className={`text-sm mb-4 leading-relaxed ${textSecondary}`} style={secondaryStyle}>{card.bio}</p>
+          <p className={`text-sm mb-4 leading-relaxed `} style={secondaryStyle}>{card.bio}</p>
         )}
 
         {/* Divider */}
@@ -469,7 +417,7 @@ function ModernLayout({ card, t, initials, onPhotoClick, textPrimaryColor, textS
               >
                 <PhoneIcon color={card.primaryColor} />
               </div>
-              <span className={`text-sm ${textSecondary}`} style={secondaryStyle}>{card.phone}</span>
+              <span className={`text-sm `} style={secondaryStyle}>{card.phone}</span>
             </div>
           )}
           {card.email && (
@@ -480,7 +428,7 @@ function ModernLayout({ card, t, initials, onPhotoClick, textPrimaryColor, textS
               >
                 <EmailIcon color={card.primaryColor} />
               </div>
-              <span className={`text-sm ${textSecondary} truncate`} style={secondaryStyle}>{card.email}</span>
+              <span className={`text-sm  truncate`} style={secondaryStyle}>{card.email}</span>
             </div>
           )}
           {card.website && (
@@ -491,7 +439,7 @@ function ModernLayout({ card, t, initials, onPhotoClick, textPrimaryColor, textS
               >
                 <WebIcon color={card.primaryColor} />
               </div>
-              <span className={`text-sm ${textSecondary} truncate`} style={secondaryStyle}>{card.website}</span>
+              <span className={`text-sm  truncate`} style={secondaryStyle}>{card.website}</span>
             </div>
           )}
           {card.address && (
@@ -502,7 +450,7 @@ function ModernLayout({ card, t, initials, onPhotoClick, textPrimaryColor, textS
               >
                 <LocationIcon color={card.primaryColor} />
               </div>
-              <span className={`text-sm ${textSecondary}`} style={secondaryStyle}>{card.address}</span>
+              <span className={`text-sm `} style={secondaryStyle}>{card.address}</span>
             </div>
           )}
         </div>
@@ -597,11 +545,11 @@ function SidebarLayout({ card, t, bgStyle, bgClass, initials, onPhotoClick, text
       <div className="flex-1 p-6">
         {/* Name and Title */}
         <div className="mb-4">
-          <h2 className={`text-xl font-bold mb-1 ${textPrimary}`} style={primaryStyle}>
+          <h2 className={`text-xl font-bold mb-1 `} style={primaryStyle}>
             {card.firstName || t.previewFirstName} {card.lastName || t.previewLastName}
           </h2>
           {card.title && (
-            <p className={`text-sm font-medium mb-1 ${textSecondary}`} style={secondaryStyle}>{card.title}</p>
+            <p className={`text-sm font-medium mb-1 `} style={secondaryStyle}>{card.title}</p>
           )}
           {card.company && (
             <p className={`text-xs font-semibold`} style={{ color: card.primaryColor }}>
@@ -612,7 +560,7 @@ function SidebarLayout({ card, t, bgStyle, bgClass, initials, onPhotoClick, text
 
         {/* Bio */}
         {card.bio && (
-          <p className={`text-xs mb-3 leading-relaxed ${textSecondary}`} style={secondaryStyle}>{card.bio}</p>
+          <p className={`text-xs mb-3 leading-relaxed `} style={secondaryStyle}>{card.bio}</p>
         )}
 
         {/* Contact Info */}
@@ -622,7 +570,7 @@ function SidebarLayout({ card, t, bgStyle, bgClass, initials, onPhotoClick, text
               <div className={`w-6 h-6 rounded flex items-center justify-center ${iconBg}`}>
                 <PhoneIcon color={card.primaryColor} />
               </div>
-              <span className={`text-xs ${textSecondary}`} style={secondaryStyle}>{card.phone}</span>
+              <span className={`text-xs `} style={secondaryStyle}>{card.phone}</span>
             </div>
           )}
           {card.email && (
@@ -630,7 +578,7 @@ function SidebarLayout({ card, t, bgStyle, bgClass, initials, onPhotoClick, text
               <div className={`w-6 h-6 rounded flex items-center justify-center ${iconBg}`}>
                 <EmailIcon color={card.primaryColor} />
               </div>
-              <span className={`text-xs ${textSecondary} truncate`} style={secondaryStyle}>{card.email}</span>
+              <span className={`text-xs  truncate`} style={secondaryStyle}>{card.email}</span>
             </div>
           )}
           {card.website && (
@@ -638,7 +586,7 @@ function SidebarLayout({ card, t, bgStyle, bgClass, initials, onPhotoClick, text
               <div className={`w-6 h-6 rounded flex items-center justify-center ${iconBg}`}>
                 <WebIcon color={card.primaryColor} />
               </div>
-              <span className={`text-xs ${textSecondary} truncate`} style={secondaryStyle}>{card.website}</span>
+              <span className={`text-xs  truncate`} style={secondaryStyle}>{card.website}</span>
             </div>
           )}
         </div>
@@ -708,11 +656,11 @@ function MinimalLayout({ card, t, bgStyle, bgClass, initials, onPhotoClick, text
           </div>
 
           <div className="flex-1">
-            <h2 className={`text-xl font-bold mb-0.5 ${textPrimary}`} style={primaryStyle}>
+            <h2 className={`text-xl font-bold mb-0.5 `} style={primaryStyle}>
               {card.firstName || t.previewFirstName} {card.lastName || t.previewLastName}
             </h2>
             {card.title && (
-              <p className={`text-sm font-medium ${textSecondary}`} style={secondaryStyle}>{card.title}</p>
+              <p className={`text-sm font-medium `} style={secondaryStyle}>{card.title}</p>
             )}
             {card.company && (
               <p className={`text-xs font-semibold mt-1`} style={{ color: card.primaryColor }}>
@@ -724,7 +672,7 @@ function MinimalLayout({ card, t, bgStyle, bgClass, initials, onPhotoClick, text
 
         {/* Bio */}
         {card.bio && (
-          <p className={`text-sm mb-5 leading-relaxed ${textSecondary}`} style={secondaryStyle}>{card.bio}</p>
+          <p className={`text-sm mb-5 leading-relaxed `} style={secondaryStyle}>{card.bio}</p>
         )}
 
         {/* Contact Info - Clean list */}
@@ -732,25 +680,25 @@ function MinimalLayout({ card, t, bgStyle, bgClass, initials, onPhotoClick, text
           {card.email && (
             <div className="flex items-center gap-3">
               <EmailIcon color={card.primaryColor} />
-              <span className={`text-sm ${textSecondary} truncate`} style={secondaryStyle}>{card.email}</span>
+              <span className={`text-sm  truncate`} style={secondaryStyle}>{card.email}</span>
             </div>
           )}
           {card.phone && (
             <div className="flex items-center gap-3">
               <PhoneIcon color={card.primaryColor} />
-              <span className={`text-sm ${textSecondary}`} style={secondaryStyle}>{card.phone}</span>
+              <span className={`text-sm `} style={secondaryStyle}>{card.phone}</span>
             </div>
           )}
           {card.website && (
             <div className="flex items-center gap-3">
               <WebIcon color={card.primaryColor} />
-              <span className={`text-sm ${textSecondary} truncate`} style={secondaryStyle}>{card.website}</span>
+              <span className={`text-sm  truncate`} style={secondaryStyle}>{card.website}</span>
             </div>
           )}
           {card.address && (
             <div className="flex items-center gap-3">
               <LocationIcon color={card.primaryColor} />
-              <span className={`text-sm ${textSecondary}`} style={secondaryStyle}>{card.address}</span>
+              <span className={`text-sm `} style={secondaryStyle}>{card.address}</span>
             </div>
           )}
         </div>
@@ -881,10 +829,10 @@ function BoldLayout({ card, t, initials, onPhotoClick, textPrimaryColor, textSec
       <div className="p-6">
         {/* Name and title */}
         <div className="mb-4">
-          <h2 className={`text-2xl font-bold mb-1 ${textPrimary}`} style={primaryStyle}>
+          <h2 className={`text-2xl font-bold mb-1 `} style={primaryStyle}>
             {card.firstName || t.previewFirstName} {card.lastName || t.previewLastName}
           </h2>
-          {card.title && <p className={`text-sm font-medium ${textSecondary}`} style={secondaryStyle}>{card.title}</p>}
+          {card.title && <p className={`text-sm font-medium `} style={secondaryStyle}>{card.title}</p>}
           {card.company && (
             <p className="text-xs font-semibold mt-1" style={{ color: card.primaryColor }}>
               {card.company}
@@ -894,7 +842,7 @@ function BoldLayout({ card, t, initials, onPhotoClick, textPrimaryColor, textSec
 
         {/* Bio */}
         {card.bio && (
-          <p className={`text-sm mb-4 leading-relaxed ${textSecondary}`} style={secondaryStyle}>{card.bio}</p>
+          <p className={`text-sm mb-4 leading-relaxed `} style={secondaryStyle}>{card.bio}</p>
         )}
 
         {/* Contact Info Grid */}
@@ -902,13 +850,13 @@ function BoldLayout({ card, t, initials, onPhotoClick, textPrimaryColor, textSec
           {card.phone && (
             <div className="flex items-center gap-2 p-3 rounded-xl" style={{ background: `linear-gradient(135deg, ${card.primaryColor}15 0%, ${card.primaryColor}08 100%)` }}>
               <PhoneIcon color={card.primaryColor} />
-              <span className={`text-xs ${textSecondary}`} style={secondaryStyle}>{card.phone}</span>
+              <span className={`text-xs `} style={secondaryStyle}>{card.phone}</span>
             </div>
           )}
           {card.email && (
             <div className="flex items-center gap-2 p-3 rounded-xl" style={{ background: `linear-gradient(135deg, ${card.primaryColor}15 0%, ${card.primaryColor}08 100%)` }}>
               <EmailIcon color={card.primaryColor} />
-              <span className={`text-xs ${textSecondary} truncate`} style={secondaryStyle}>{card.email}</span>
+              <span className={`text-xs  truncate`} style={secondaryStyle}>{card.email}</span>
             </div>
           )}
         </div>
@@ -989,7 +937,7 @@ function StylishLayout({ card, t, initials, onPhotoClick, textSecondaryColor }: 
       <div className="p-6">
         {/* Bio */}
         {card.bio && (
-          <p className={`text-sm mb-4 leading-relaxed ${textSecondary}`} style={secondaryStyle}>{card.bio}</p>
+          <p className={`text-sm mb-4 leading-relaxed `} style={secondaryStyle}>{card.bio}</p>
         )}
 
         {/* Contact Info - Vertical list */}
@@ -997,13 +945,13 @@ function StylishLayout({ card, t, initials, onPhotoClick, textSecondaryColor }: 
           {card.email && (
             <div className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-50 transition-colors">
               <EmailIcon color={card.primaryColor} />
-              <span className={`text-sm ${textSecondary} truncate`} style={secondaryStyle}>{card.email}</span>
+              <span className={`text-sm  truncate`} style={secondaryStyle}>{card.email}</span>
             </div>
           )}
           {card.phone && (
             <div className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-50 transition-colors">
               <PhoneIcon color={card.primaryColor} />
-              <span className={`text-sm ${textSecondary}`} style={secondaryStyle}>{card.phone}</span>
+              <span className={`text-sm `} style={secondaryStyle}>{card.phone}</span>
             </div>
           )}
         </div>
@@ -1071,10 +1019,10 @@ function ElegantLayout({ card, t, initials, onPhotoClick, textPrimaryColor, text
       <div className="p-6 pt-4">
         {/* Name and title */}
         <div className="text-center mb-4">
-          <h2 className={`text-2xl font-bold mb-1 ${textPrimary}`} style={primaryStyle}>
+          <h2 className={`text-2xl font-bold mb-1 `} style={primaryStyle}>
             {card.firstName || t.previewFirstName} {card.lastName || t.previewLastName}
           </h2>
-          {card.title && <p className={`text-sm font-medium ${textSecondary}`} style={secondaryStyle}>{card.title}</p>}
+          {card.title && <p className={`text-sm font-medium `} style={secondaryStyle}>{card.title}</p>}
           {card.company && (
             <p className="text-xs font-semibold mt-1" style={{ color: card.primaryColor }}>
               {card.company}
@@ -1084,7 +1032,7 @@ function ElegantLayout({ card, t, initials, onPhotoClick, textPrimaryColor, text
 
         {/* Bio */}
         {card.bio && (
-          <p className={`text-sm mb-4 leading-relaxed text-center ${textSecondary}`} style={secondaryStyle}>{card.bio}</p>
+          <p className={`text-sm mb-4 leading-relaxed text-center `} style={secondaryStyle}>{card.bio}</p>
         )}
 
         {/* Contact Info - Icon grid */}
@@ -1092,13 +1040,13 @@ function ElegantLayout({ card, t, initials, onPhotoClick, textPrimaryColor, text
           {card.email && (
             <div className="flex flex-col items-center gap-2 p-3 rounded-xl" style={{ background: `linear-gradient(135deg, ${card.primaryColor}15 0%, ${card.primaryColor}08 100%)` }}>
               <EmailIcon color={card.primaryColor} />
-              <span className={`text-xs ${textSecondary} truncate w-full text-center`} style={secondaryStyle}>{card.email}</span>
+              <span className={`text-xs  truncate w-full text-center`} style={secondaryStyle}>{card.email}</span>
             </div>
           )}
           {card.phone && (
             <div className="flex flex-col items-center gap-2 p-3 rounded-xl" style={{ background: `linear-gradient(135deg, ${card.primaryColor}15 0%, ${card.primaryColor}08 100%)` }}>
               <PhoneIcon color={card.primaryColor} />
-              <span className={`text-xs ${textSecondary}`} style={secondaryStyle}>{card.phone}</span>
+              <span className={`text-xs `} style={secondaryStyle}>{card.phone}</span>
             </div>
           )}
         </div>
@@ -1163,10 +1111,10 @@ function CreativeLayout({ card, t, initials, onPhotoClick, textPrimaryColor, tex
       <div className="p-6">
         {/* Name and title with accent border */}
         <div className="mb-4 pb-4" style={{ borderBottom: `3px solid ${card.primaryColor}` }}>
-          <h2 className={`text-2xl font-bold mb-1 ${textPrimary}`} style={primaryStyle}>
+          <h2 className={`text-2xl font-bold mb-1 `} style={primaryStyle}>
             {card.firstName || t.previewFirstName} {card.lastName || t.previewLastName}
           </h2>
-          {card.title && <p className={`text-sm font-medium ${textSecondary}`} style={secondaryStyle}>{card.title}</p>}
+          {card.title && <p className={`text-sm font-medium `} style={secondaryStyle}>{card.title}</p>}
           {card.company && (
             <p className="text-xs font-semibold mt-1" style={{ color: card.primaryColor }}>
               {card.company}
@@ -1176,7 +1124,7 @@ function CreativeLayout({ card, t, initials, onPhotoClick, textPrimaryColor, tex
 
         {/* Bio */}
         {card.bio && (
-          <p className={`text-sm mb-4 leading-relaxed ${textSecondary}`} style={secondaryStyle}>{card.bio}</p>
+          <p className={`text-sm mb-4 leading-relaxed `} style={secondaryStyle}>{card.bio}</p>
         )}
 
         {/* Contact buttons */}
@@ -1186,7 +1134,7 @@ function CreativeLayout({ card, t, initials, onPhotoClick, textPrimaryColor, tex
               <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}>
                 <EmailIcon color="#ffffff" />
               </div>
-              <span className={`text-sm font-medium ${textSecondary} truncate`} style={secondaryStyle}>{card.email}</span>
+              <span className={`text-sm font-medium  truncate`} style={secondaryStyle}>{card.email}</span>
             </button>
           )}
           {card.phone && (
@@ -1194,7 +1142,7 @@ function CreativeLayout({ card, t, initials, onPhotoClick, textPrimaryColor, tex
               <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}>
                 <PhoneIcon color="#ffffff" />
               </div>
-              <span className={`text-sm font-medium ${textSecondary}`} style={secondaryStyle}>{card.phone}</span>
+              <span className={`text-sm font-medium `} style={secondaryStyle}>{card.phone}</span>
             </button>
           )}
         </div>
