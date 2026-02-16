@@ -1324,7 +1324,7 @@ function SnapchatIcon() {
 
 function VKMaxIcon() {
   return (
-    <span className="text-white font-bold text-[10px]">MAX</span>
+    <span className="text-white font-bold text-xs tracking-wide">MAX</span>
   );
 }
 
