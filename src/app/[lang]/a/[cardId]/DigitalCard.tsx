@@ -98,19 +98,21 @@ export default function DigitalCard({ card, lang, t }: Props) {
 
   return (
     <div
-      className={`min-h-screen ${bgClass} flex flex-col items-center justify-center p-4`}
+      className={`min-h-screen ${bgClass} flex flex-col`}
       style={bgStyle}
     >
-      {/* Card Preview Component */}
-      <CardPreview
-        card={cardFormData}
-        lang={lang}
-        t={t}
-      />
+      {/* Card Preview Component - Full Screen */}
+      <div className="flex-1 flex items-center justify-center">
+        <CardPreview
+          card={cardFormData}
+          lang={lang}
+          t={t}
+        />
+      </div>
 
-      {/* Bottom Actions - Outside card */}
-      <div className="w-full max-w-sm mt-4">
-        <div className="grid grid-cols-3 gap-2">
+      {/* Bottom Actions - Fixed at bottom */}
+      <div className="w-full px-4 pb-4 pt-2 bg-gradient-to-t from-black/10 to-transparent">
+        <div className="grid grid-cols-3 gap-2 max-w-sm mx-auto">
           <button
             onClick={handleDownloadVCard}
             className="col-span-3 flex items-center justify-center gap-2 py-3 rounded-xl text-white text-sm font-semibold transition-opacity hover:opacity-90 shadow-lg"
@@ -154,16 +156,14 @@ export default function DigitalCard({ card, lang, t }: Props) {
         </div>
 
         {/* Footer */}
-        <div className="mt-4 text-center">
-          <p className={`text-xs ${isDark || isGradient ? "text-gray-400" : "text-gray-500"}`}>
-            {t.digitalCardBy}
-          </p>
+        <div className="mt-2 text-center max-w-sm mx-auto">
           <a
             href={`/${lang}/create`}
-            className="text-xs font-semibold mt-1 inline-block hover:underline"
-            style={{ color: card.primaryColor }}
+            className={`text-[10px] opacity-60 hover:opacity-100 transition-opacity inline-block ${
+              isDark || isGradient ? "text-gray-300" : "text-gray-600"
+            }`}
           >
-            nfckart.com
+            {t.digitalCardBy} nfckart.com
           </a>
         </div>
       </div>
