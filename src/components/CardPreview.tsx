@@ -248,7 +248,7 @@ export default function CardPreview({ card, t, onPhotoClick }: Props) {
           {card.phone && (
             <div className="flex items-center gap-3">
               <div
-                className={`w-8 h-8 rounded-lg flex items-center justify-center ${iconBg}`}
+                className={`w-8 h-8 rounded-lg flex items-center justify-center bg-white/10`}
                 style={{ background: `linear-gradient(135deg, ${card.primaryColor}22 0%, ${card.primaryColor}11 100%)` }}
               >
                 <PhoneIcon color={card.primaryColor} />
@@ -259,7 +259,7 @@ export default function CardPreview({ card, t, onPhotoClick }: Props) {
           {card.email && (
             <div className="flex items-center gap-3">
               <div
-                className={`w-8 h-8 rounded-lg flex items-center justify-center ${iconBg}`}
+                className={`w-8 h-8 rounded-lg flex items-center justify-center bg-white/10`}
                 style={{ background: `linear-gradient(135deg, ${card.primaryColor}22 0%, ${card.primaryColor}11 100%)` }}
               >
                 <EmailIcon color={card.primaryColor} />
@@ -270,7 +270,7 @@ export default function CardPreview({ card, t, onPhotoClick }: Props) {
           {card.website && (
             <div className="flex items-center gap-3">
               <div
-                className={`w-8 h-8 rounded-lg flex items-center justify-center ${iconBg}`}
+                className={`w-8 h-8 rounded-lg flex items-center justify-center bg-white/10`}
                 style={{ background: `linear-gradient(135deg, ${card.primaryColor}22 0%, ${card.primaryColor}11 100%)` }}
               >
                 <WebIcon color={card.primaryColor} />
@@ -281,7 +281,7 @@ export default function CardPreview({ card, t, onPhotoClick }: Props) {
           {card.address && (
             <div className="flex items-center gap-3">
               <div
-                className={`w-8 h-8 rounded-lg flex items-center justify-center ${iconBg}`}
+                className={`w-8 h-8 rounded-lg flex items-center justify-center bg-white/10`}
                 style={{ background: `linear-gradient(135deg, ${card.primaryColor}22 0%, ${card.primaryColor}11 100%)` }}
               >
                 <LocationIcon color={card.primaryColor} />
@@ -412,7 +412,7 @@ function ModernLayout({ card, t, initials, onPhotoClick, textPrimaryColor, textS
           {card.phone && (
             <div className="flex items-center gap-3">
               <div
-                className={`w-8 h-8 rounded-lg flex items-center justify-center ${iconBg}`}
+                className={`w-8 h-8 rounded-lg flex items-center justify-center bg-white/10`}
                 style={{ background: `linear-gradient(135deg, ${card.primaryColor}22 0%, ${card.primaryColor}11 100%)` }}
               >
                 <PhoneIcon color={card.primaryColor} />
@@ -423,7 +423,7 @@ function ModernLayout({ card, t, initials, onPhotoClick, textPrimaryColor, textS
           {card.email && (
             <div className="flex items-center gap-3">
               <div
-                className={`w-8 h-8 rounded-lg flex items-center justify-center ${iconBg}`}
+                className={`w-8 h-8 rounded-lg flex items-center justify-center bg-white/10`}
                 style={{ background: `linear-gradient(135deg, ${card.primaryColor}22 0%, ${card.primaryColor}11 100%)` }}
               >
                 <EmailIcon color={card.primaryColor} />
@@ -434,7 +434,7 @@ function ModernLayout({ card, t, initials, onPhotoClick, textPrimaryColor, textS
           {card.website && (
             <div className="flex items-center gap-3">
               <div
-                className={`w-8 h-8 rounded-lg flex items-center justify-center ${iconBg}`}
+                className={`w-8 h-8 rounded-lg flex items-center justify-center bg-white/10`}
                 style={{ background: `linear-gradient(135deg, ${card.primaryColor}22 0%, ${card.primaryColor}11 100%)` }}
               >
                 <WebIcon color={card.primaryColor} />
@@ -445,7 +445,7 @@ function ModernLayout({ card, t, initials, onPhotoClick, textPrimaryColor, textS
           {card.address && (
             <div className="flex items-center gap-3">
               <div
-                className={`w-8 h-8 rounded-lg flex items-center justify-center ${iconBg}`}
+                className={`w-8 h-8 rounded-lg flex items-center justify-center bg-white/10`}
                 style={{ background: `linear-gradient(135deg, ${card.primaryColor}22 0%, ${card.primaryColor}11 100%)` }}
               >
                 <LocationIcon color={card.primaryColor} />
@@ -567,7 +567,7 @@ function SidebarLayout({ card, t, bgStyle, bgClass, initials, onPhotoClick, text
         <div className="space-y-2">
           {card.phone && (
             <div className="flex items-center gap-2">
-              <div className={`w-6 h-6 rounded flex items-center justify-center ${iconBg}`}>
+              <div className={`w-6 h-6 rounded flex items-center justify-center bg-white/10`}>
                 <PhoneIcon color={card.primaryColor} />
               </div>
               <span className={`text-xs `} style={secondaryStyle}>{card.phone}</span>
@@ -575,7 +575,7 @@ function SidebarLayout({ card, t, bgStyle, bgClass, initials, onPhotoClick, text
           )}
           {card.email && (
             <div className="flex items-center gap-2">
-              <div className={`w-6 h-6 rounded flex items-center justify-center ${iconBg}`}>
+              <div className={`w-6 h-6 rounded flex items-center justify-center bg-white/10`}>
                 <EmailIcon color={card.primaryColor} />
               </div>
               <span className={`text-xs  truncate`} style={secondaryStyle}>{card.email}</span>
@@ -583,7 +583,7 @@ function SidebarLayout({ card, t, bgStyle, bgClass, initials, onPhotoClick, text
           )}
           {card.website && (
             <div className="flex items-center gap-2">
-              <div className={`w-6 h-6 rounded flex items-center justify-center ${iconBg}`}>
+              <div className={`w-6 h-6 rounded flex items-center justify-center bg-white/10`}>
                 <WebIcon color={card.primaryColor} />
               </div>
               <span className={`text-xs  truncate`} style={secondaryStyle}>{card.website}</span>
