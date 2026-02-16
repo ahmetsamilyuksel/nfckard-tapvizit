@@ -3,6 +3,7 @@
 import { useState, useCallback, useRef } from "react";
 import Cropper from "react-easy-crop";
 import type { Area, Point } from "react-easy-crop";
+import type { CardLayout } from "@/types";
 
 interface Props {
   onPhotoSaved: (croppedDataUrl: string, originalDataUrl: string, zoom: number, position: { x: number; y: number }) => void;
@@ -15,7 +16,7 @@ interface Props {
   initialPosition?: { x: number; y: number };
   existingPhoto?: string;
   existingOriginalPhoto?: string;
-  layout?: "classic" | "modern" | "sidebar" | "minimal";
+  layout?: CardLayout;
 }
 
 async function getCroppedImg(imageSrc: string, pixelCrop: Area, isRect: boolean = false): Promise<string> {
