@@ -171,7 +171,6 @@ export default function PhotoCropper({ onPhotoSaved, onClose, labelUpload, label
               ref={fileRef}
               type="file"
               accept="image/jpeg,image/jpg,image/png,image/webp,image/heic,image/heif"
-              capture="environment"
               className="hidden"
               onChange={onFileChange}
             />
