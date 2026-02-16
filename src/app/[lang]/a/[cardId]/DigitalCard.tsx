@@ -88,12 +88,12 @@ export default function DigitalCard({ card, lang, t }: Props) {
     instagram: card.instagram || undefined,
     address: card.address || undefined,
     bio: card.bio || undefined,
-    theme: card.theme as any,
+    theme: (card.theme as "light" | "dark") || "light",
     primaryColor: card.primaryColor,
     backgroundColor: card.backgroundColor || undefined,
     gradientIntensity: card.gradientIntensity || 50,
     photoUrl: card.photoUrl || undefined,
-    layout: (card.layout as any) || "classic",
+    layout: (card.layout as "classic" | "modern" | "sidebar" | "minimal" | "bold" | "stylish" | "elegant" | "creative") || "classic",
   };
 
   return (

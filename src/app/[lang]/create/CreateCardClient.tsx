@@ -273,6 +273,7 @@ export default function CreateCardClient({ lang, t }: Props) {
                   {cardData.photoUrl ? (
                     <div className="group relative">
                       <div className="w-32 h-32 mx-auto rounded-2xl overflow-hidden shadow-lg border-2 border-gray-200">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img src={cardData.photoUrl} alt="Profile" className="w-full h-full object-cover" />
                       </div>
                       <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all flex items-center justify-center rounded-2xl w-32 h-32 mx-auto">
