@@ -102,17 +102,18 @@ export default function DigitalCard({ card, lang, t }: Props) {
       style={bgStyle}
     >
       {/* Card Preview Component - Full Screen */}
-      <div className="flex-1 flex items-center justify-center">
+      <div className="flex-1 flex items-center justify-center w-full">
         <CardPreview
           card={cardFormData}
           lang={lang}
           t={t}
+          fullScreen={true}
         />
       </div>
 
       {/* Bottom Actions - Fixed at bottom */}
       <div className="w-full px-4 pb-4 pt-2 bg-gradient-to-t from-black/10 to-transparent">
-        <div className="grid grid-cols-3 gap-2 max-w-sm mx-auto">
+        <div className="grid grid-cols-3 gap-2">
           <button
             onClick={handleDownloadVCard}
             className="col-span-3 flex items-center justify-center gap-2 py-3 rounded-xl text-white text-sm font-semibold transition-opacity hover:opacity-90 shadow-lg"
@@ -156,7 +157,7 @@ export default function DigitalCard({ card, lang, t }: Props) {
         </div>
 
         {/* Footer */}
-        <div className="mt-2 text-center max-w-sm mx-auto">
+        <div className="mt-2 text-center">
           <a
             href={`/${lang}/create`}
             className={`text-[10px] opacity-60 hover:opacity-100 transition-opacity inline-block ${

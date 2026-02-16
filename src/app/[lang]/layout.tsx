@@ -1,6 +1,7 @@
 import { getTranslations, isValidLocale, defaultLocale, locales, localeNames } from "@/lib/i18n";
 import type { Metadata } from "next";
 import Link from "next/link";
+import { headers } from "next/headers";
 
 export async function generateMetadata({
   params,
@@ -25,6 +26,16 @@ export default async function LangLayout({
   const { lang } = await params;
   const locale = isValidLocale(lang) ? lang : defaultLocale;
   const t = getTranslations(locale);
+
+  // Check if we're on a card view page (hide header)
+  const headersList = await headers();
+  const pathname = headersList.get("x-pathname") || "";
+  const isCardView = pathname.includes("/a/");
+
+  // If card view, render without header
+  if (isCardView) {
+    return <>{children}</>;
+  }
 
   return (
     <div className="min-h-screen bg-gray-50">
