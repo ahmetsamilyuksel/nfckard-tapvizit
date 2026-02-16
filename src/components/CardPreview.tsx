@@ -1232,8 +1232,14 @@ function SnapchatIcon() {
 function VKMaxIcon() {
   return (
     <svg className="w-4 h-4" viewBox="0 0 48 48" fill="none">
-      <circle cx="24" cy="24" r="22" fill="#C724B1"/>
-      <path d="M14 20h5v2h-3v4h3v2h-3v5h-2v-13zm10 0h5c2 0 3 1 3 3v7c0 2-1 3-3 3h-5v-13zm2 2v9h3c1 0 1.5-0.5 1.5-1.5v-6c0-1-0.5-1.5-1.5-1.5h-3zm10 0l3 6 3-6h2l-4 8v5h-2v-5l-4-8h2z" fill="white"/>
+      <defs>
+        <linearGradient id="maxGradient" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stopColor="#FF1744"/>
+          <stop offset="100%" stopColor="#C724B1"/>
+        </linearGradient>
+      </defs>
+      <rect width="48" height="48" rx="10" fill="url(#maxGradient)"/>
+      <path d="M10 12h6l6 14 6-14h6v24h-5v-16l-5 12h-4l-5-12v16h-5v-24z" fill="white" fillOpacity="0.95"/>
     </svg>
   );
 }
