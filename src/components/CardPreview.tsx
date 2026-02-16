@@ -348,6 +348,7 @@ export default function CardPreview({ card, t, onPhotoClick, fullScreen = false 
                   href={formatSocialUrl(card.linkedin, 'linkedin')}
                   target="_blank"
                   rel="noopener noreferrer"
+                  title="LinkedIn"
                   className="w-9 h-9 rounded-lg flex items-center justify-center"
                   style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
                 >
@@ -359,6 +360,7 @@ export default function CardPreview({ card, t, onPhotoClick, fullScreen = false 
                   href={formatSocialUrl(card.twitter, 'twitter')}
                   target="_blank"
                   rel="noopener noreferrer"
+                  title="Twitter / X"
                   className="w-9 h-9 rounded-lg flex items-center justify-center"
                   style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
                 >
@@ -370,6 +372,7 @@ export default function CardPreview({ card, t, onPhotoClick, fullScreen = false 
                   href={formatSocialUrl(card.instagram, 'instagram')}
                   target="_blank"
                   rel="noopener noreferrer"
+                  title="Instagram"
                   className="w-9 h-9 rounded-lg flex items-center justify-center"
                   style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
                 >
@@ -381,6 +384,7 @@ export default function CardPreview({ card, t, onPhotoClick, fullScreen = false 
                   href={formatSocialUrl(card.whatsapp, 'whatsapp')}
                   target="_blank"
                   rel="noopener noreferrer"
+                  title="WhatsApp"
                   className="w-9 h-9 rounded-lg flex items-center justify-center"
                   style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
                 >
@@ -392,6 +396,7 @@ export default function CardPreview({ card, t, onPhotoClick, fullScreen = false 
                   href={formatSocialUrl(card.telegram, 'telegram')}
                   target="_blank"
                   rel="noopener noreferrer"
+                  title="Telegram"
                   className="w-9 h-9 rounded-lg flex items-center justify-center"
                   style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
                 >
@@ -403,6 +408,7 @@ export default function CardPreview({ card, t, onPhotoClick, fullScreen = false 
                   href={formatSocialUrl(card.vkontakte, 'vkontakte')}
                   target="_blank"
                   rel="noopener noreferrer"
+                  title="VKontakte"
                   className="w-9 h-9 rounded-lg flex items-center justify-center"
                   style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
                 >
@@ -414,6 +420,7 @@ export default function CardPreview({ card, t, onPhotoClick, fullScreen = false 
                   href={formatSocialUrl(card.tiktok, 'tiktok')}
                   target="_blank"
                   rel="noopener noreferrer"
+                  title="TikTok"
                   className="w-9 h-9 rounded-lg flex items-center justify-center"
                   style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
                 >
@@ -425,6 +432,7 @@ export default function CardPreview({ card, t, onPhotoClick, fullScreen = false 
                   href={formatSocialUrl(card.wechat, 'wechat')}
                   target="_blank"
                   rel="noopener noreferrer"
+                  title="WeChat"
                   className="w-9 h-9 rounded-lg flex items-center justify-center"
                   style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
                 >
@@ -436,6 +444,7 @@ export default function CardPreview({ card, t, onPhotoClick, fullScreen = false 
                   href={formatSocialUrl(card.youtube, 'youtube')}
                   target="_blank"
                   rel="noopener noreferrer"
+                  title="YouTube"
                   className="w-9 h-9 rounded-lg flex items-center justify-center"
                   style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
                 >
@@ -447,6 +456,7 @@ export default function CardPreview({ card, t, onPhotoClick, fullScreen = false 
                   href={formatSocialUrl(card.facebook, 'facebook')}
                   target="_blank"
                   rel="noopener noreferrer"
+                  title="Facebook"
                   className="w-9 h-9 rounded-lg flex items-center justify-center"
                   style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
                 >
@@ -458,6 +468,7 @@ export default function CardPreview({ card, t, onPhotoClick, fullScreen = false 
                   href={formatSocialUrl(card.snapchat, 'snapchat')}
                   target="_blank"
                   rel="noopener noreferrer"
+                  title="Snapchat"
                   className="w-9 h-9 rounded-lg flex items-center justify-center"
                   style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
                 >
@@ -469,6 +480,7 @@ export default function CardPreview({ card, t, onPhotoClick, fullScreen = false 
                   href={formatSocialUrl(card.vkmax, 'vkmax')}
                   target="_blank"
                   rel="noopener noreferrer"
+                  title="VK MAX"
                   className="w-9 h-9 rounded-lg flex items-center justify-center"
                   style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
                 >
@@ -480,6 +492,7 @@ export default function CardPreview({ card, t, onPhotoClick, fullScreen = false 
                   href={formatSocialUrl(card.wildberries, 'wildberries')}
                   target="_blank"
                   rel="noopener noreferrer"
+                  title="Wildberries"
                   className="w-9 h-9 rounded-lg flex items-center justify-center"
                   style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
                 >
@@ -491,6 +504,7 @@ export default function CardPreview({ card, t, onPhotoClick, fullScreen = false 
                   href={formatSocialUrl(card.ozon, 'ozon')}
                   target="_blank"
                   rel="noopener noreferrer"
+                  title="Ozon"
                   className="w-9 h-9 rounded-lg flex items-center justify-center"
                   style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
                 >
@@ -502,6 +516,7 @@ export default function CardPreview({ card, t, onPhotoClick, fullScreen = false 
                   href={formatSocialUrl(card.yandexmarket, 'yandexmarket')}
                   target="_blank"
                   rel="noopener noreferrer"
+                  title="Yandex Market"
                   className="w-9 h-9 rounded-lg flex items-center justify-center"
                   style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
                 >
@@ -655,6 +670,7 @@ function ModernLayout({ card, t, initials, onPhotoClick, textPrimaryColor, textS
                   href={formatSocialUrl(card.linkedin, 'linkedin')}
                   target="_blank"
                   rel="noopener noreferrer"
+                  title="LinkedIn"
                   className="w-9 h-9 rounded-lg flex items-center justify-center"
                   style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
                 >
@@ -666,6 +682,7 @@ function ModernLayout({ card, t, initials, onPhotoClick, textPrimaryColor, textS
                   href={formatSocialUrl(card.twitter, 'twitter')}
                   target="_blank"
                   rel="noopener noreferrer"
+                  title="Twitter / X"
                   className="w-9 h-9 rounded-lg flex items-center justify-center"
                   style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
                 >
@@ -677,6 +694,7 @@ function ModernLayout({ card, t, initials, onPhotoClick, textPrimaryColor, textS
                   href={formatSocialUrl(card.instagram, 'instagram')}
                   target="_blank"
                   rel="noopener noreferrer"
+                  title="Instagram"
                   className="w-9 h-9 rounded-lg flex items-center justify-center"
                   style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
                 >
@@ -688,6 +706,7 @@ function ModernLayout({ card, t, initials, onPhotoClick, textPrimaryColor, textS
                   href={formatSocialUrl(card.whatsapp, 'whatsapp')}
                   target="_blank"
                   rel="noopener noreferrer"
+                  title="WhatsApp"
                   className="w-9 h-9 rounded-lg flex items-center justify-center"
                   style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
                 >
@@ -699,6 +718,7 @@ function ModernLayout({ card, t, initials, onPhotoClick, textPrimaryColor, textS
                   href={formatSocialUrl(card.telegram, 'telegram')}
                   target="_blank"
                   rel="noopener noreferrer"
+                  title="Telegram"
                   className="w-9 h-9 rounded-lg flex items-center justify-center"
                   style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
                 >
@@ -710,6 +730,7 @@ function ModernLayout({ card, t, initials, onPhotoClick, textPrimaryColor, textS
                   href={formatSocialUrl(card.vkontakte, 'vkontakte')}
                   target="_blank"
                   rel="noopener noreferrer"
+                  title="VKontakte"
                   className="w-9 h-9 rounded-lg flex items-center justify-center"
                   style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
                 >
@@ -721,6 +742,7 @@ function ModernLayout({ card, t, initials, onPhotoClick, textPrimaryColor, textS
                   href={formatSocialUrl(card.tiktok, 'tiktok')}
                   target="_blank"
                   rel="noopener noreferrer"
+                  title="TikTok"
                   className="w-9 h-9 rounded-lg flex items-center justify-center"
                   style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
                 >
@@ -732,6 +754,7 @@ function ModernLayout({ card, t, initials, onPhotoClick, textPrimaryColor, textS
                   href={formatSocialUrl(card.wechat, 'wechat')}
                   target="_blank"
                   rel="noopener noreferrer"
+                  title="WeChat"
                   className="w-9 h-9 rounded-lg flex items-center justify-center"
                   style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
                 >
@@ -743,6 +766,7 @@ function ModernLayout({ card, t, initials, onPhotoClick, textPrimaryColor, textS
                   href={formatSocialUrl(card.youtube, 'youtube')}
                   target="_blank"
                   rel="noopener noreferrer"
+                  title="YouTube"
                   className="w-9 h-9 rounded-lg flex items-center justify-center"
                   style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
                 >
@@ -754,6 +778,7 @@ function ModernLayout({ card, t, initials, onPhotoClick, textPrimaryColor, textS
                   href={formatSocialUrl(card.facebook, 'facebook')}
                   target="_blank"
                   rel="noopener noreferrer"
+                  title="Facebook"
                   className="w-9 h-9 rounded-lg flex items-center justify-center"
                   style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
                 >
@@ -765,6 +790,7 @@ function ModernLayout({ card, t, initials, onPhotoClick, textPrimaryColor, textS
                   href={formatSocialUrl(card.snapchat, 'snapchat')}
                   target="_blank"
                   rel="noopener noreferrer"
+                  title="Snapchat"
                   className="w-9 h-9 rounded-lg flex items-center justify-center"
                   style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
                 >
@@ -776,6 +802,7 @@ function ModernLayout({ card, t, initials, onPhotoClick, textPrimaryColor, textS
                   href={formatSocialUrl(card.vkmax, 'vkmax')}
                   target="_blank"
                   rel="noopener noreferrer"
+                  title="VK MAX"
                   className="w-9 h-9 rounded-lg flex items-center justify-center"
                   style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
                 >
@@ -787,6 +814,7 @@ function ModernLayout({ card, t, initials, onPhotoClick, textPrimaryColor, textS
                   href={formatSocialUrl(card.wildberries, 'wildberries')}
                   target="_blank"
                   rel="noopener noreferrer"
+                  title="Wildberries"
                   className="w-9 h-9 rounded-lg flex items-center justify-center"
                   style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
                 >
@@ -798,6 +826,7 @@ function ModernLayout({ card, t, initials, onPhotoClick, textPrimaryColor, textS
                   href={formatSocialUrl(card.ozon, 'ozon')}
                   target="_blank"
                   rel="noopener noreferrer"
+                  title="Ozon"
                   className="w-9 h-9 rounded-lg flex items-center justify-center"
                   style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
                 >
@@ -809,6 +838,7 @@ function ModernLayout({ card, t, initials, onPhotoClick, textPrimaryColor, textS
                   href={formatSocialUrl(card.yandexmarket, 'yandexmarket')}
                   target="_blank"
                   rel="noopener noreferrer"
+                  title="Yandex Market"
                   className="w-9 h-9 rounded-lg flex items-center justify-center"
                   style={{ background: `linear-gradient(135deg, ${card.primaryColor} 0%, ${card.primaryColor}dd 100%)` }}
                 >
@@ -1212,25 +1242,30 @@ function VKMaxIcon() {
 
 function WildberriesIcon() {
   return (
-    <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 512 512">
-      <path d="M0 256C0 114.6 114.6 0 256 0s256 114.6 256 256-114.6 256-256 256S0 397.4 0 256zm256 192c106 0 192-86 192-192S362 64 256 64 64 150 64 256s86 192 192 192zm-80-280h32l32 80 32-80h32l-48 120v56h-32v-56l-48-120zm80 120v-24l64-96h32v96h16v24h-16v32h-32v-32h-64zm64-24v-48l-32 48h32z"/>
+    <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none">
+      <rect width="24" height="24" rx="4" fill="#CB11AB"/>
+      <path d="M6 7L8.5 14L10 7H11.5L13 14L15.5 7H17L14 17H12.5L11 10.5L9.5 17H8L5 7H6Z" fill="white"/>
+      <path d="M18 7H19.5V12H21V13.5H19.5V17H18V7Z" fill="white" opacity="0.9"/>
     </svg>
   );
 }
 
 function OzonIcon() {
   return (
-    <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
-      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 15c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
+    <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none">
+      <rect width="24" height="24" rx="4" fill="#005BFF"/>
+      <circle cx="12" cy="12" r="7" fill="white"/>
+      <circle cx="12" cy="12" r="5" fill="#005BFF"/>
+      <path d="M9 12C9 10.34 10.34 9 12 9C13.66 9 15 10.34 15 12C15 13.66 13.66 15 12 15C10.34 15 9 13.66 9 12Z" fill="white"/>
     </svg>
   );
 }
 
 function YandexMarketIcon() {
   return (
-    <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
-      <circle cx="12" cy="12" r="10"/>
-      <path fill="#FFE000" d="M12 7l-4 6h3v4h2v-4h3z"/>
+    <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none">
+      <rect width="24" height="24" rx="4" fill="#FF0000"/>
+      <path d="M7 8C7 7.44772 7.44772 7 8 7H16C16.5523 7 17 7.44772 17 8V12H15V9H9V15H15V13H17V16C17 16.5523 16.5523 17 16 17H8C7.44772 17 7 16.5523 7 16V8Z" fill="white"/>
     </svg>
   );
 }
