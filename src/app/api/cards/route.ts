@@ -79,20 +79,25 @@ export async function POST(req: NextRequest) {
     const errorMessage = error instanceof Error ? error.message : String(error);
 
     // Handle common validation errors with user-friendly messages
-    if (errorMessage.includes("Invalid") || errorMessage.includes("pattern") || errorMessage.includes("expected")) {
+    if (
+      errorMessage.includes("Invalid") ||
+      errorMessage.includes("pattern") ||
+      errorMessage.includes("expected") ||
+      errorMessage.includes("match") ||
+      errorMessage.includes("format")
+    ) {
+      console.error("Validation error detected:", errorMessage);
       return NextResponse.json({
         error: "VALIDATION_ERROR",
         message: "invalidFormat"
       }, { status: 400 });
     }
 
-    // Return detailed error in development, generic in production
-    const message = process.env.NODE_ENV === "development"
-      ? errorMessage
-      : "Internal server error";
+    // Return generic error
+    console.error("Server error:", errorMessage);
     return NextResponse.json({
       error: "SERVER_ERROR",
-      message: message
+      message: "serverError"
     }, { status: 500 });
   }
 }
