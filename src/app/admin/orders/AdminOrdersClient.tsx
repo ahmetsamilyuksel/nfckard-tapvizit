@@ -52,7 +52,28 @@ export default function AdminOrdersClient({ orders: initialOrders }: { orders: O
   const [updating, setUpdating] = useState<string | null>(null);
   const [filterStatus, setFilterStatus] = useState<string>("ALL");
   const [selectedOrder, setSelectedOrder] = useState<OrderWithCard | null>(null);
+  const [copiedField, setCopiedField] = useState<string | null>(null);
   const router = useRouter();
+
+  const BASE_URL = "https://tapvizit.ru";
+
+  const copyToClipboard = async (text: string, field: string) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopiedField(field);
+      setTimeout(() => setCopiedField(null), 2000);
+    } catch (err) {
+      // Fallback
+      const ta = document.createElement("textarea");
+      ta.value = text;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand("copy");
+      document.body.removeChild(ta);
+      setCopiedField(field);
+      setTimeout(() => setCopiedField(null), 2000);
+    }
+  };
 
   const filtered = filterStatus === "ALL" ? orders : orders.filter((o) => o.status === filterStatus);
 
@@ -226,6 +247,36 @@ export default function AdminOrdersClient({ orders: initialOrders }: { orders: O
                             <option key={s} value={s}>{STATUS_LABELS[s]}</option>
                           ))}
                         </select>
+                        {/* NFC URL Kopyala */}
+                        <button
+                          onClick={() => copyToClipboard(`${BASE_URL}/ru/a/${order.card.slug}`, `nfc-${order.id}`)}
+                          className={`p-1.5 rounded-lg transition-colors ${
+                            copiedField === `nfc-${order.id}` ? "bg-green-100" : "hover:bg-purple-100"
+                          }`}
+                          title={copiedField === `nfc-${order.id}` ? "Kopyalandı!" : "NFC URL Kopyala"}
+                        >
+                          {copiedField === `nfc-${order.id}` ? (
+                            <svg className="w-4 h-4 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                            </svg>
+                          ) : (
+                            <svg className="w-4 h-4 text-purple-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                            </svg>
+                          )}
+                        </button>
+                        {/* VCF İndir */}
+                        <a
+                          href={`/api/vcard/${order.card.slug}`}
+                          download
+                          className="p-1.5 rounded-lg hover:bg-blue-100 transition-colors"
+                          title="VCF İndir"
+                        >
+                          <svg className="w-4 h-4 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                          </svg>
+                        </a>
+                        {/* Kartı Görüntüle */}
                         <a
                           href={`/tr/a/${order.card.slug}`}
                           target="_blank"
@@ -237,6 +288,7 @@ export default function AdminOrdersClient({ orders: initialOrders }: { orders: O
                             <path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                           </svg>
                         </a>
+                        {/* Detaylar */}
                         <button
                           onClick={() => setSelectedOrder(order)}
                           className="p-1.5 rounded-lg hover:bg-gray-100 transition-colors"
@@ -319,6 +371,100 @@ export default function AdminOrdersClient({ orders: initialOrders }: { orders: O
                       {STATUS_LABELS[s]}
                     </button>
                   ))}
+                </div>
+              </div>
+
+              {/* NFC Tools Bölümü */}
+              <div className="bg-gradient-to-br from-purple-50 to-indigo-50 rounded-xl p-4 border border-purple-200">
+                <h3 className="text-xs font-semibold text-purple-700 uppercase tracking-wider mb-3 flex items-center gap-2">
+                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                  </svg>
+                  NFC Tools - Karta Yaz
+                </h3>
+
+                {/* NFC URL - Ana link */}
+                <div className="mb-3">
+                  <label className="text-[10px] font-medium text-purple-600 uppercase tracking-wider">NFC&apos;ye Yazilacak URL</label>
+                  <div className="mt-1 flex items-center gap-2">
+                    <input
+                      type="text"
+                      readOnly
+                      value={`${BASE_URL}/ru/a/${selectedOrder.card.slug}`}
+                      className="flex-1 text-xs font-mono bg-white border border-purple-200 rounded-lg px-3 py-2 text-gray-800 select-all focus:outline-none focus:ring-2 focus:ring-purple-400"
+                      onClick={(e) => (e.target as HTMLInputElement).select()}
+                    />
+                    <button
+                      onClick={() => copyToClipboard(`${BASE_URL}/ru/a/${selectedOrder.card.slug}`, "nfc-url")}
+                      className={`px-3 py-2 rounded-lg text-xs font-semibold transition-all flex-shrink-0 ${
+                        copiedField === "nfc-url"
+                          ? "bg-green-500 text-white"
+                          : "bg-purple-600 text-white hover:bg-purple-700"
+                      }`}
+                    >
+                      {copiedField === "nfc-url" ? "Kopyalandi!" : "Kopyala"}
+                    </button>
+                  </div>
+                </div>
+
+                {/* VCF Link */}
+                <div className="mb-3">
+                  <label className="text-[10px] font-medium text-purple-600 uppercase tracking-wider">VCF Dosyasi Linki</label>
+                  <div className="mt-1 flex items-center gap-2">
+                    <input
+                      type="text"
+                      readOnly
+                      value={`${BASE_URL}/api/vcard/${selectedOrder.card.slug}`}
+                      className="flex-1 text-xs font-mono bg-white border border-purple-200 rounded-lg px-3 py-2 text-gray-800 select-all focus:outline-none focus:ring-2 focus:ring-purple-400"
+                      onClick={(e) => (e.target as HTMLInputElement).select()}
+                    />
+                    <button
+                      onClick={() => copyToClipboard(`${BASE_URL}/api/vcard/${selectedOrder.card.slug}`, "vcf-url")}
+                      className={`px-3 py-2 rounded-lg text-xs font-semibold transition-all flex-shrink-0 ${
+                        copiedField === "vcf-url"
+                          ? "bg-green-500 text-white"
+                          : "bg-purple-600 text-white hover:bg-purple-700"
+                      }`}
+                    >
+                      {copiedField === "vcf-url" ? "Kopyalandi!" : "Kopyala"}
+                    </button>
+                  </div>
+                </div>
+
+                {/* Aksiyon Butonları */}
+                <div className="grid grid-cols-2 gap-2 mt-3">
+                  <a
+                    href={`/api/vcard/${selectedOrder.card.slug}`}
+                    download
+                    className="flex items-center justify-center gap-1.5 py-2.5 bg-white border border-purple-300 text-purple-700 rounded-xl text-xs font-semibold hover:bg-purple-50 transition-colors"
+                  >
+                    <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                    VCF Indir
+                  </a>
+                  <a
+                    href={`${BASE_URL}/ru/a/${selectedOrder.card.slug}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center gap-1.5 py-2.5 bg-white border border-purple-300 text-purple-700 rounded-xl text-xs font-semibold hover:bg-purple-50 transition-colors"
+                  >
+                    <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                    </svg>
+                    Karti Goruntule
+                  </a>
+                </div>
+
+                {/* NFC Tools Talimatları */}
+                <div className="mt-3 p-2.5 bg-white/70 rounded-lg border border-purple-100">
+                  <p className="text-[10px] font-semibold text-purple-800 mb-1">NFC Tools Kullanimi:</p>
+                  <div className="text-[10px] text-purple-600 space-y-0.5">
+                    <p>1. NFC Tools &gt; Write &gt; Add a record</p>
+                    <p>2. URL/URI secin</p>
+                    <p>3. Yukaridaki URL&apos;yi yapiştirin</p>
+                    <p>4. Write &gt; NFC karti yaklastirin</p>
+                  </div>
                 </div>
               </div>
 
