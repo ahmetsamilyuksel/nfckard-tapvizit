@@ -22,6 +22,18 @@ interface CardData {
   linkedin?: string | null;
   twitter?: string | null;
   instagram?: string | null;
+  whatsapp?: string | null;
+  telegram?: string | null;
+  vkontakte?: string | null;
+  vkmax?: string | null;
+  tiktok?: string | null;
+  wechat?: string | null;
+  youtube?: string | null;
+  facebook?: string | null;
+  snapchat?: string | null;
+  wildberries?: string | null;
+  ozon?: string | null;
+  yandexmarket?: string | null;
   address?: string | null;
   bio?: string | null;
   theme: string;
@@ -67,6 +79,17 @@ export default function DigitalCard({ card, lang, t }: Props) {
       card.linkedin ? `URL;TYPE=LinkedIn:${formatSocialLink("linkedin", card.linkedin)}` : '',
       card.twitter ? `URL;TYPE=Twitter:${formatSocialLink("twitter", card.twitter)}` : '',
       card.instagram ? `URL;TYPE=Instagram:${formatSocialLink("instagram", card.instagram)}` : '',
+      card.whatsapp ? `URL;TYPE=WhatsApp:https://wa.me/${card.whatsapp.replace(/[^\d+]/g, '')}` : '',
+      card.telegram ? `URL;TYPE=Telegram:${formatSocialLink("telegram", card.telegram)}` : '',
+      card.vkontakte ? `URL;TYPE=VKontakte:${formatSocialLink("vkontakte", card.vkontakte)}` : '',
+      card.vkmax ? `URL;TYPE=VKMax:${formatSocialLink("vkmax", card.vkmax)}` : '',
+      card.tiktok ? `URL;TYPE=TikTok:${formatSocialLink("tiktok", card.tiktok)}` : '',
+      card.youtube ? `URL;TYPE=YouTube:${formatSocialLink("youtube", card.youtube)}` : '',
+      card.facebook ? `URL;TYPE=Facebook:${formatSocialLink("facebook", card.facebook)}` : '',
+      card.snapchat ? `URL;TYPE=Snapchat:${formatSocialLink("snapchat", card.snapchat)}` : '',
+      card.wildberries ? `URL;TYPE=Wildberries:${formatSocialLink("wildberries", card.wildberries)}` : '',
+      card.ozon ? `URL;TYPE=Ozon:${formatSocialLink("ozon", card.ozon)}` : '',
+      card.yandexmarket ? `URL;TYPE=YandexMarket:${formatSocialLink("yandexmarket", card.yandexmarket)}` : '',
       'END:VCARD'
     ].filter(line => line !== '').join('\r\n');
 
@@ -141,6 +164,18 @@ export default function DigitalCard({ card, lang, t }: Props) {
     linkedin: card.linkedin || undefined,
     twitter: card.twitter || undefined,
     instagram: card.instagram || undefined,
+    whatsapp: card.whatsapp || undefined,
+    telegram: card.telegram || undefined,
+    vkontakte: card.vkontakte || undefined,
+    vkmax: card.vkmax || undefined,
+    tiktok: card.tiktok || undefined,
+    wechat: card.wechat || undefined,
+    youtube: card.youtube || undefined,
+    facebook: card.facebook || undefined,
+    snapchat: card.snapchat || undefined,
+    wildberries: card.wildberries || undefined,
+    ozon: card.ozon || undefined,
+    yandexmarket: card.yandexmarket || undefined,
     address: card.address || undefined,
     bio: card.bio || undefined,
     theme: (card.theme as CardTheme) || "light",
