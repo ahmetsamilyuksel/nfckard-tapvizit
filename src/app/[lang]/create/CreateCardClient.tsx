@@ -49,7 +49,7 @@ export default function CreateCardClient({ lang, t }: Props) {
   const [step, setStep] = useState<Step>("design");
   const [cardData, setCardData] = useState<CardFormData>({
     firstName: "", lastName: "", title: "", company: "", email: "", phone: "",
-    website: "", linkedin: "", twitter: "", instagram: "", whatsapp: "", telegram: "", vkontakte: "", vkmax: "", tiktok: "", wechat: "", youtube: "", facebook: "", snapchat: "", wildberries: "", ozon: "", yandexmarket: "", address: "", bio: "",
+    website: "", linkedin: "", twitter: "", instagram: "", whatsapp: "", telegram: "", vkontakte: "", max: "", tiktok: "", wechat: "", youtube: "", facebook: "", snapchat: "", wildberries: "", ozon: "", yandexmarket: "", address: "", bio: "",
     theme: "dark", primaryColor: "#0ea5e9", backgroundColor: "#ffffff", gradientIntensity: 50, photoUrl: "", layout: "classic",
     photoZoom: 1, photoPosition: { x: 0, y: 0 }
   });
@@ -182,7 +182,7 @@ export default function CreateCardClient({ lang, t }: Props) {
     setStep("design");
     setCardData({
       firstName: "", lastName: "", title: "", company: "", email: "", phone: "",
-      website: "", linkedin: "", twitter: "", instagram: "", whatsapp: "", telegram: "", vkontakte: "", vkmax: "", tiktok: "", wechat: "", youtube: "", facebook: "", snapchat: "", wildberries: "", ozon: "", yandexmarket: "", address: "", bio: "",
+      website: "", linkedin: "", twitter: "", instagram: "", whatsapp: "", telegram: "", vkontakte: "", max: "", tiktok: "", wechat: "", youtube: "", facebook: "", snapchat: "", wildberries: "", ozon: "", yandexmarket: "", address: "", bio: "",
       theme: "dark", primaryColor: "#0ea5e9", photoUrl: ""
     });
     setOrderData({
@@ -768,13 +768,13 @@ export default function CreateCardClient({ lang, t }: Props) {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">{t.vkmax}</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">{t.max}</label>
                   <input
                     type="text"
-                    value={cardData.vkmax}
-                    onChange={(e) => handleCardChange("vkmax", e.target.value)}
+                    value={cardData.max}
+                    onChange={(e) => handleCardChange("max", e.target.value)}
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent"
-                    placeholder={t.placeholderVkmax}
+                    placeholder={t.placeholderMax}
                   />
                 </div>
 

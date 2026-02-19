@@ -25,7 +25,7 @@ interface CardData {
   whatsapp?: string | null;
   telegram?: string | null;
   vkontakte?: string | null;
-  vkmax?: string | null;
+  max?: string | null;
   tiktok?: string | null;
   wechat?: string | null;
   youtube?: string | null;
@@ -82,7 +82,7 @@ export default function DigitalCard({ card, lang, t }: Props) {
       card.whatsapp ? `URL;TYPE=WhatsApp:https://wa.me/${card.whatsapp.replace(/[^\d+]/g, '')}` : '',
       card.telegram ? `URL;TYPE=Telegram:${formatSocialLink("telegram", card.telegram)}` : '',
       card.vkontakte ? `URL;TYPE=VKontakte:${formatSocialLink("vkontakte", card.vkontakte)}` : '',
-      card.vkmax ? `URL;TYPE=VKMax:${formatSocialLink("vkmax", card.vkmax)}` : '',
+      card.max ? `URL;TYPE=MAX:${formatSocialLink("max", card.max)}` : '',
       card.tiktok ? `URL;TYPE=TikTok:${formatSocialLink("tiktok", card.tiktok)}` : '',
       card.youtube ? `URL;TYPE=YouTube:${formatSocialLink("youtube", card.youtube)}` : '',
       card.facebook ? `URL;TYPE=Facebook:${formatSocialLink("facebook", card.facebook)}` : '',
@@ -167,7 +167,7 @@ export default function DigitalCard({ card, lang, t }: Props) {
     whatsapp: card.whatsapp || undefined,
     telegram: card.telegram || undefined,
     vkontakte: card.vkontakte || undefined,
-    vkmax: card.vkmax || undefined,
+    max: card.max || undefined,
     tiktok: card.tiktok || undefined,
     wechat: card.wechat || undefined,
     youtube: card.youtube || undefined,

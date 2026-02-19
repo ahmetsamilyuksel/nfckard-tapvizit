@@ -44,7 +44,7 @@ export async function POST(req: NextRequest) {
         whatsapp: cardData.whatsapp?.trim() || null,
         telegram: cardData.telegram?.trim() || null,
         vkontakte: cardData.vkontakte?.trim() || null,
-        vkmax: cardData.vkmax?.trim() || null,
+        max: cardData.max?.trim() || null,
         tiktok: cardData.tiktok?.trim() || null,
         wechat: cardData.wechat?.trim() || null,
         youtube: cardData.youtube?.trim() || null,

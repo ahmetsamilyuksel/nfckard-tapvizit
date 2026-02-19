@@ -83,13 +83,13 @@ export function formatVKontakteLink(value: string): string {
 }
 
 /**
- * Format VKMax link
+ * Format MAX (max.ru) link - Russian messaging app
  */
-export function formatVKMaxLink(value: string): string {
+export function formatMaxLink(value: string): string {
   if (!value) return "";
   if (isFullUrl(value)) return value;
 
-  return `https://vk.com/${normalizeUsername(value)}`;
+  return `https://max.ru/${normalizeUsername(value)}`;
 }
 
 /**
@@ -233,8 +233,8 @@ export function formatSocialLink(platform: string, value: string): string {
       return formatTikTokLink(value);
     case "vkontakte":
       return formatVKontakteLink(value);
-    case "vkmax":
-      return formatVKMaxLink(value);
+    case "max":
+      return formatMaxLink(value);
     case "wechat":
       return formatWeChatLink(value);
     case "youtube":

@@ -15,7 +15,7 @@ export interface CardFormData {
   whatsapp?: string;
   telegram?: string;
   vkontakte?: string;
-  vkmax?: string;
+  max?: string;
   tiktok?: string;
   wechat?: string;
   youtube?: string;
@@ -71,7 +71,7 @@ export interface CardWithOrder {
   whatsapp?: string | null;
   telegram?: string | null;
   vkontakte?: string | null;
-  vkmax?: string | null;
+  max?: string | null;
   tiktok?: string | null;
   wechat?: string | null;
   youtube?: string | null;

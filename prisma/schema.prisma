@@ -23,7 +23,7 @@ model Card {
   whatsapp          String?
   telegram          String?
   vkontakte         String?
-  vkmax             String?
+  max               String?  @map("vkmax")
   tiktok            String?
   wechat            String?
   youtube           String?
