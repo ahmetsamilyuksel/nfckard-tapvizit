@@ -4,7 +4,7 @@ import { QRCodeSVG } from "qrcode.react";
 import type { CardFormData, OrderFormData } from "@/types";
 import type { translations } from "@/lib/i18n";
 import CardPreview from "@/components/CardPreview";
-import { COUNTRY_CODES, getCountryCode } from "@/lib/phoneUtils";
+import { COUNTRY_CODES, getCountryCode, formatPhoneInput, unformatPhoneInput } from "@/lib/phoneUtils";
 // Icons removed - using inline SVG instead
 
 const PhotoCropper = lazy(() => import("@/components/PhotoCropper"));
@@ -63,7 +63,7 @@ export default function CreateCardClient({ lang, t }: Props) {
     notes: "",
   });
   const [createdSlug, setCreatedSlug] = useState("");
-  const [countryCode, setCountryCode] = useState("+90");
+  const [countryCode, setCountryCode] = useState("+7");
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [showCropper, setShowCropper] = useState(false);
@@ -575,13 +575,13 @@ export default function CreateCardClient({ lang, t }: Props) {
                     </select>
                     <input
                       type="tel"
-                      value={cardData.phone ? cardData.phone.slice(countryCode.length) : ""}
+                      value={cardData.phone ? formatPhoneInput(cardData.phone.slice(countryCode.length)) : ""}
                       onChange={(e) => {
-                        const value = e.target.value.replace(/[^\d]/g, '');
-                        handleCardChange("phone", value ? countryCode + value : "");
+                        const rawDigits = unformatPhoneInput(e.target.value).slice(0, 10);
+                        handleCardChange("phone", rawDigits ? countryCode + rawDigits : "");
                       }}
                       className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent"
-                      placeholder={t.placeholderPhone}
+                      placeholder="(982) 945 69 03"
                     />
                   </div>
                 </div>
