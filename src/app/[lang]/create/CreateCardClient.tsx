@@ -1199,14 +1199,15 @@ export default function CreateCardClient({ lang, t }: Props) {
       {step === "design" && (
         <button
           onClick={() => setShowMobilePreview(true)}
-          className="lg:hidden fixed bottom-6 right-6 z-30 w-14 h-14 rounded-full shadow-2xl flex items-center justify-center transition-all active:scale-95 hover:shadow-3xl"
-          style={{ background: `linear-gradient(135deg, ${cardData.primaryColor} 0%, ${cardData.primaryColor}cc 100%)` }}
+          className="lg:hidden fixed bottom-6 right-6 z-30 rounded-full shadow-[0_8px_30px_rgba(0,0,0,0.3)] flex items-center gap-2 pl-4 pr-5 py-3 transition-all active:scale-95 animate-bounce-slow"
+          style={{ background: `linear-gradient(135deg, ${cardData.primaryColor} 0%, ${cardData.primaryColor}dd 100%)` }}
           aria-label={t.previewTitle}
         >
-          <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+          <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
             <path strokeLinecap="round" strokeLinejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
           </svg>
+          <span className="text-white font-semibold text-sm">{t.previewTitle}</span>
         </button>
       )}
 
