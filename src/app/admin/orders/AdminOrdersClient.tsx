@@ -55,7 +55,7 @@ export default function AdminOrdersClient({ orders: initialOrders }: { orders: O
   const [copiedField, setCopiedField] = useState<string | null>(null);
   const router = useRouter();
 
-  const BASE_URL = "https://tapvizit.ru";
+  const BASE_URL = "https://vizit.life";
 
   const copyToClipboard = async (text: string, field: string) => {
     try {
