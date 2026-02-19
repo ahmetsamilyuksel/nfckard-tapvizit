@@ -67,6 +67,7 @@ export default function CreateCardClient({ lang, t }: Props) {
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [showCropper, setShowCropper] = useState(false);
+  const [showMobilePreview, setShowMobilePreview] = useState(false);
 
   // Auto-detect country code from existing phone number
   useEffect(() => {
@@ -1193,6 +1194,50 @@ export default function CreateCardClient({ lang, t }: Props) {
           <CardPreview card={cardData} lang={lang} t={t} onPhotoClick={() => cardData.photoUrl && setShowCropper(true)} />
         </div>
       </div>
+
+      {/* Mobile Preview Button - Only visible on mobile, floats with scroll */}
+      {step === "design" && (
+        <button
+          onClick={() => setShowMobilePreview(true)}
+          className="lg:hidden fixed bottom-6 right-6 z-30 w-14 h-14 rounded-full shadow-2xl flex items-center justify-center transition-all active:scale-95 hover:shadow-3xl"
+          style={{ background: `linear-gradient(135deg, ${cardData.primaryColor} 0%, ${cardData.primaryColor}cc 100%)` }}
+          aria-label={t.previewTitle}
+        >
+          <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+            <path strokeLinecap="round" strokeLinejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+          </svg>
+        </button>
+      )}
+
+      {/* Mobile Preview Modal */}
+      {showMobilePreview && (
+        <div
+          className="lg:hidden fixed inset-0 z-50 flex items-center justify-center"
+          onClick={(e) => { if (e.target === e.currentTarget) setShowMobilePreview(false); }}
+        >
+          {/* Backdrop */}
+          <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
+
+          {/* Modal Content */}
+          <div className="relative w-full max-w-sm mx-4 max-h-[85vh] overflow-y-auto rounded-2xl shadow-2xl bg-white">
+            {/* Close Button */}
+            <button
+              onClick={() => setShowMobilePreview(false)}
+              className="absolute top-3 right-3 z-10 w-8 h-8 rounded-full bg-black/20 backdrop-blur-sm flex items-center justify-center text-white hover:bg-black/40 transition-colors"
+            >
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+
+            {/* Card Preview */}
+            <div className="p-4">
+              <CardPreview card={cardData} lang={lang} t={t} />
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Photo Cropper Modal */}
       {showCropper && (
