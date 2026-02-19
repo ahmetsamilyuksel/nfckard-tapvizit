@@ -68,6 +68,7 @@ export default function CreateCardClient({ lang, t }: Props) {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [showCropper, setShowCropper] = useState(false);
   const [showMobilePreview, setShowMobilePreview] = useState(false);
+  const [whatsappCountryCode, setWhatsappCountryCode] = useState("+7");
 
   // Auto-detect country code from existing phone number
   useEffect(() => {
@@ -76,6 +77,14 @@ export default function CreateCardClient({ lang, t }: Props) {
       setCountryCode(detectedCode);
     }
   }, [cardData.phone]);
+
+  // Auto-detect country code from existing WhatsApp number
+  useEffect(() => {
+    if (cardData.whatsapp) {
+      const detectedCode = getCountryCode(cardData.whatsapp);
+      setWhatsappCountryCode(detectedCode);
+    }
+  }, [cardData.whatsapp]);
 
   const handleCardChange = (field: keyof CardFormData, value: string) => {
     setCardData((prev) => ({ ...prev, [field]: value }));
@@ -649,13 +658,37 @@ export default function CreateCardClient({ lang, t }: Props) {
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">{t.whatsapp}</label>
-                  <input
-                    type="text"
-                    value={cardData.whatsapp}
-                    onChange={(e) => handleCardChange("whatsapp", e.target.value)}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent"
-                    placeholder={t.placeholderWhatsapp}
-                  />
+                  <div className="flex gap-2">
+                    <select
+                      value={whatsappCountryCode}
+                      onChange={(e) => {
+                        const newCode = e.target.value;
+                        setWhatsappCountryCode(newCode);
+                        if (cardData.whatsapp) {
+                          const oldCode = getCountryCode(cardData.whatsapp);
+                          const numberPart = cardData.whatsapp.slice(oldCode.length);
+                          handleCardChange("whatsapp", newCode + numberPart);
+                        }
+                      }}
+                      className="w-28 px-2 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent text-sm"
+                    >
+                      {COUNTRY_CODES.map((country) => (
+                        <option key={country.code} value={country.code}>
+                          {country.flag} {country.code}
+                        </option>
+                      ))}
+                    </select>
+                    <input
+                      type="tel"
+                      value={cardData.whatsapp ? formatPhoneInput(cardData.whatsapp.slice(whatsappCountryCode.length)) : ""}
+                      onChange={(e) => {
+                        const rawDigits = unformatPhoneInput(e.target.value).slice(0, 10);
+                        handleCardChange("whatsapp", rawDigits ? whatsappCountryCode + rawDigits : "");
+                      }}
+                      className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent"
+                      placeholder="(982) 945 69 03"
+                    />
+                  </div>
                 </div>
 
                 <div>
