@@ -591,7 +591,7 @@ export default function CreateCardClient({ lang, t }: Props) {
                         handleCardChange("phone", rawDigits ? countryCode + rawDigits : "");
                       }}
                       className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent"
-                      placeholder="(982) 945 69 03"
+                      placeholder="(500) 123 45 67"
                     />
                   </div>
                 </div>
@@ -686,7 +686,7 @@ export default function CreateCardClient({ lang, t }: Props) {
                         handleCardChange("whatsapp", rawDigits ? whatsappCountryCode + rawDigits : "");
                       }}
                       className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent"
-                      placeholder="(982) 945 69 03"
+                      placeholder="(500) 123 45 67"
                     />
                   </div>
                 </div>
