@@ -81,24 +81,30 @@ function formatSocialUrl(
 }
 
 // Helper function to create radial gradient based on intensity
-// intensity: 0-100 (0=very soft/nearly white, 100=very sharp/full color)
+// intensity: 0-100 (0=very subtle gradient, 100=more pronounced gradient)
+// Uses fully opaque color blending instead of transparency
 function createRadialGradient(color: string, intensity: number = 50): string {
-  // Convert intensity (0-100) to opacity values
-  // 0 = almost white everywhere (very transparent)
-  // 100 = full color everywhere (solid)
+  const hex = color.replace('#', '');
+  const r = parseInt(hex.substring(0, 2), 16);
+  const g = parseInt(hex.substring(2, 4), 16);
+  const b = parseInt(hex.substring(4, 6), 16);
 
   const intensityFactor = intensity / 100;
+  const variation = intensityFactor * 0.12; // max 12% variation for subtle effect
 
-  // Center: always starts with some color, but affected by intensity
-  const centerOpacity = Math.round(255 * (0.2 + intensityFactor * 0.8)).toString(16).padStart(2, '0'); // 20% -> 100%
+  const toHex = (n: number) => Math.max(0, Math.min(255, Math.round(n))).toString(16).padStart(2, '0');
 
-  // Mid point: heavily affected by intensity
-  const midOpacity = Math.round(255 * (0.1 + intensityFactor * 0.8)).toString(16).padStart(2, '0'); // 10% -> 90%
+  // Center: slightly lighter (blend toward white)
+  const cR = r + (255 - r) * variation * 0.5;
+  const cG = g + (255 - g) * variation * 0.5;
+  const cB = b + (255 - b) * variation * 0.5;
 
-  // Edge: most affected by intensity, can go almost white
-  const edgeOpacity = Math.round(255 * (0.03 + intensityFactor * 0.87)).toString(16).padStart(2, '0'); // 3% -> 90%
+  // Edge: slightly darker
+  const eR = r * (1 - variation);
+  const eG = g * (1 - variation);
+  const eB = b * (1 - variation);
 
-  return `radial-gradient(ellipse at center, ${color}${centerOpacity} 0%, ${color}${midOpacity} 50%, ${color}${edgeOpacity} 100%)`;
+  return `radial-gradient(ellipse at center, #${toHex(cR)}${toHex(cG)}${toHex(cB)} 0%, ${color} 50%, #${toHex(eR)}${toHex(eG)}${toHex(eB)} 100%)`;
 }
 
 export default function CardPreview({ card, t, onPhotoClick, fullScreen = false }: Props) {
@@ -109,11 +115,6 @@ export default function CardPreview({ card, t, onPhotoClick, fullScreen = false 
   // Check if custom background color is dark
   const hasCustomBg = !!card.backgroundColor;
   const isDarkBg = hasCustomBg ? isColorDark(card.backgroundColor!) : false;
-
-  // Debug log
-  if (hasCustomBg) {
-    console.log('🎨 Background Color:', card.backgroundColor, 'Is Dark:', isDarkBg);
-  }
 
   // Theme-based styling logic
   let bgClass = "";
@@ -203,7 +204,7 @@ export default function CardPreview({ card, t, onPhotoClick, fullScreen = false 
 
   // Render different layouts
   if (layout === "modern") {
-    return <ModernLayout card={card} t={t} initials={initials} onPhotoClick={onPhotoClick} textPrimaryColor={textPrimaryColor} textSecondaryColor={textSecondaryColor} containerClass={containerClass} />;
+    return <ModernLayout card={card} t={t} bgStyle={bgStyle} bgClass={bgClass} initials={initials} onPhotoClick={onPhotoClick} textPrimaryColor={textPrimaryColor} textSecondaryColor={textSecondaryColor} containerClass={containerClass} />;
   }
 
   if (layout === "sidebar") {
@@ -215,19 +216,19 @@ export default function CardPreview({ card, t, onPhotoClick, fullScreen = false 
   }
 
   if (layout === "bold") {
-    return <BoldLayout card={card} t={t} initials={initials} onPhotoClick={onPhotoClick} textPrimaryColor={textPrimaryColor} textSecondaryColor={textSecondaryColor} containerClass={containerClass} />;
+    return <BoldLayout card={card} t={t} bgStyle={bgStyle} bgClass={bgClass} initials={initials} onPhotoClick={onPhotoClick} textPrimaryColor={textPrimaryColor} textSecondaryColor={textSecondaryColor} containerClass={containerClass} />;
   }
 
   if (layout === "stylish") {
-    return <StylishLayout card={card} t={t} initials={initials} onPhotoClick={onPhotoClick} textSecondaryColor={textSecondaryColor} containerClass={containerClass} />;
+    return <StylishLayout card={card} t={t} bgStyle={bgStyle} bgClass={bgClass} initials={initials} onPhotoClick={onPhotoClick} textSecondaryColor={textSecondaryColor} containerClass={containerClass} />;
   }
 
   if (layout === "elegant") {
-    return <ElegantLayout card={card} t={t} initials={initials} onPhotoClick={onPhotoClick} textPrimaryColor={textPrimaryColor} textSecondaryColor={textSecondaryColor} containerClass={containerClass} />;
+    return <ElegantLayout card={card} t={t} bgStyle={bgStyle} bgClass={bgClass} initials={initials} onPhotoClick={onPhotoClick} textPrimaryColor={textPrimaryColor} textSecondaryColor={textSecondaryColor} containerClass={containerClass} />;
   }
 
   if (layout === "creative") {
-    return <CreativeLayout card={card} t={t} initials={initials} onPhotoClick={onPhotoClick} textPrimaryColor={textPrimaryColor} textSecondaryColor={textSecondaryColor} containerClass={containerClass} />;
+    return <CreativeLayout card={card} t={t} bgStyle={bgStyle} bgClass={bgClass} initials={initials} onPhotoClick={onPhotoClick} textPrimaryColor={textPrimaryColor} textSecondaryColor={textSecondaryColor} containerClass={containerClass} />;
   }
 
   // Classic layout (default)
@@ -599,16 +600,17 @@ export default function CardPreview({ card, t, onPhotoClick, fullScreen = false 
 }
 
 // LAYOUT 2: Modern - Full width photo with elegant line
-function ModernLayout({ card, t, initials, onPhotoClick, textPrimaryColor, textSecondaryColor, containerClass = "w-full max-w-lg mx-auto" }: LayoutProps) {
-  const bgColor = card.backgroundColor || "#ffffff";
-  const bgGradient = createRadialGradient(bgColor, card.gradientIntensity || 50);
+function ModernLayout({ card, t, bgStyle, bgClass, initials, onPhotoClick, textPrimaryColor, textSecondaryColor, containerClass = "w-full max-w-lg mx-auto" }: LayoutProps) {
+  const finalBgStyle = card.backgroundColor
+    ? { background: createRadialGradient(card.backgroundColor, card.gradientIntensity || 50) }
+    : bgStyle;
 
   // If we have inline colors, use them; otherwise fallback to classes
   const primaryStyle = textPrimaryColor ? { color: textPrimaryColor } : {};
   const secondaryStyle = textSecondaryColor ? { color: textSecondaryColor } : {};
 
   return (
-    <div className={`rounded-2xl overflow-hidden shadow-xl ${containerClass}`} style={{ background: bgGradient }}>
+    <div className={`rounded-2xl overflow-hidden shadow-xl ${containerClass} ${bgClass}`} style={finalBgStyle}>
       {/* Full width photo */}
       <div className="relative h-64 w-full overflow-hidden cursor-pointer hover:opacity-95 transition-opacity rounded-t-2xl" onClick={onPhotoClick}>
         {card.photoUrl ? (
@@ -1348,15 +1350,16 @@ function YandexMarketIcon() {
 
 
 // LAYOUT 5: Bold - Large diagonal photo with overlapping content
-function BoldLayout({ card, t, initials, onPhotoClick, textPrimaryColor, textSecondaryColor, containerClass = "w-full max-w-lg mx-auto" }: LayoutProps) {
-  const bgColor = card.backgroundColor || "#ffffff";
-  const bgGradient = createRadialGradient(bgColor, card.gradientIntensity || 50);
+function BoldLayout({ card, t, bgStyle, bgClass, initials, onPhotoClick, textPrimaryColor, textSecondaryColor, containerClass = "w-full max-w-lg mx-auto" }: LayoutProps) {
+  const finalBgStyle = card.backgroundColor
+    ? { background: createRadialGradient(card.backgroundColor, card.gradientIntensity || 50) }
+    : bgStyle;
 
   const primaryStyle = textPrimaryColor ? { color: textPrimaryColor } : {};
   const secondaryStyle = textSecondaryColor ? { color: textSecondaryColor } : {};
 
   return (
-    <div className={`rounded-2xl overflow-hidden shadow-2xl ${containerClass}`} style={{ background: bgGradient }}>
+    <div className={`rounded-2xl overflow-hidden shadow-2xl ${containerClass} ${bgClass}`} style={finalBgStyle}>
       {/* Diagonal full-width photo */}
       <div className="relative h-72 w-full overflow-hidden cursor-pointer group rounded-t-2xl" onClick={onPhotoClick}>
         {card.photoUrl ? (
@@ -1439,14 +1442,15 @@ function BoldLayout({ card, t, initials, onPhotoClick, textPrimaryColor, textSec
 }
 
 // LAYOUT 6: Stylish - Magazine style with split photo
-function StylishLayout({ card, t, initials, onPhotoClick, textSecondaryColor, containerClass = "w-full max-w-lg mx-auto" }: LayoutProps) {
-  const bgColor = card.backgroundColor || "#ffffff";
-  const bgGradient = createRadialGradient(bgColor, card.gradientIntensity || 50);
+function StylishLayout({ card, t, bgStyle, bgClass, initials, onPhotoClick, textSecondaryColor, containerClass = "w-full max-w-lg mx-auto" }: LayoutProps) {
+  const finalBgStyle = card.backgroundColor
+    ? { background: createRadialGradient(card.backgroundColor, card.gradientIntensity || 50) }
+    : bgStyle;
 
   const secondaryStyle = textSecondaryColor ? { color: textSecondaryColor } : {};
 
   return (
-    <div className={`rounded-2xl overflow-hidden shadow-2xl ${containerClass}`} style={{ background: bgGradient }}>
+    <div className={`rounded-2xl overflow-hidden shadow-2xl ${containerClass} ${bgClass}`} style={finalBgStyle}>
       {/* Magazine style with blended photo */}
       <div className="relative h-80 w-full rounded-t-2xl overflow-hidden">
         {/* Full-width photo as background */}
@@ -1534,19 +1538,20 @@ function StylishLayout({ card, t, initials, onPhotoClick, textSecondaryColor, co
 }
 
 // LAYOUT 7: Elegant - Circular photo with arc design
-function ElegantLayout({ card, t, initials, onPhotoClick, textPrimaryColor, textSecondaryColor, containerClass = "w-full max-w-lg mx-auto" }: LayoutProps) {
-  const bgColor = card.backgroundColor || "#ffffff";
-  const bgGradient = createRadialGradient(bgColor, card.gradientIntensity || 50);
+function ElegantLayout({ card, t, bgStyle, bgClass, initials, onPhotoClick, textPrimaryColor, textSecondaryColor, containerClass = "w-full max-w-lg mx-auto" }: LayoutProps) {
+  const finalBgStyle = card.backgroundColor
+    ? { background: createRadialGradient(card.backgroundColor, card.gradientIntensity || 50) }
+    : bgStyle;
 
   const primaryStyle = textPrimaryColor ? { color: textPrimaryColor } : {};
   const secondaryStyle = textSecondaryColor ? { color: textSecondaryColor } : {};
 
   return (
-    <div className={`rounded-2xl overflow-hidden shadow-2xl ${containerClass}`} style={{ background: bgGradient }}>
+    <div className={`rounded-2xl overflow-hidden shadow-2xl ${containerClass} ${bgClass}`} style={finalBgStyle}>
       {/* Arc background with centered circular photo */}
       <div className="relative h-72 w-full rounded-t-2xl" style={{ background: `linear-gradient(180deg, ${card.primaryColor} 0%, ${card.primaryColor}ee 60%, ${card.primaryColor}cc 85%, transparent 100%)` }}>
         {/* Decorative arc shape with blur effect */}
-        <div className="absolute bottom-0 left-0 right-0 h-28 rounded-t-[50%]" style={{ background: bgGradient, filter: 'blur(1px)' }} />
+        <div className="absolute bottom-0 left-0 right-0 h-28 rounded-t-[50%]" style={{ ...(card.backgroundColor ? { background: createRadialGradient(card.backgroundColor, card.gradientIntensity || 50) } : bgStyle), filter: 'blur(1px)' }} />
 
         {/* Large circular photo */}
         <div className="absolute top-8 left-1/2 transform -translate-x-1/2">
@@ -1629,15 +1634,16 @@ function ElegantLayout({ card, t, initials, onPhotoClick, textPrimaryColor, text
 }
 
 // LAYOUT 8: Creative - Asymmetric photo with angled content
-function CreativeLayout({ card, t, initials, onPhotoClick, textPrimaryColor, textSecondaryColor, containerClass = "w-full max-w-lg mx-auto" }: LayoutProps) {
-  const bgColor = card.backgroundColor || "#ffffff";
-  const bgGradient = createRadialGradient(bgColor, card.gradientIntensity || 50);
+function CreativeLayout({ card, t, bgStyle, bgClass, initials, onPhotoClick, textPrimaryColor, textSecondaryColor, containerClass = "w-full max-w-lg mx-auto" }: LayoutProps) {
+  const finalBgStyle = card.backgroundColor
+    ? { background: createRadialGradient(card.backgroundColor, card.gradientIntensity || 50) }
+    : bgStyle;
 
   const primaryStyle = textPrimaryColor ? { color: textPrimaryColor } : {};
   const secondaryStyle = textSecondaryColor ? { color: textSecondaryColor } : {};
 
   return (
-    <div className={`rounded-2xl overflow-hidden shadow-2xl ${containerClass}`} style={{ background: bgGradient }}>
+    <div className={`rounded-2xl overflow-hidden shadow-2xl ${containerClass} ${bgClass}`} style={finalBgStyle}>
       {/* Angled photo header with soft edges */}
       <div className="relative h-64 w-full overflow-hidden cursor-pointer group rounded-t-2xl" onClick={onPhotoClick}>
         {card.photoUrl ? (

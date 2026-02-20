@@ -56,11 +56,37 @@ export default function DigitalCard({ card, lang, t }: Props) {
   const isDark = card.theme === "dark";
   const isGradient = card.theme === "gradient";
 
-  const bgStyle = isGradient
-    ? { background: `linear-gradient(135deg, ${card.primaryColor}ee 0%, ${card.primaryColor}99 100%)` }
-    : {};
+  // Determine page background based on card settings
+  // If card has a custom backgroundColor, match the page to it
+  let pageBgStyle: React.CSSProperties = {};
+  let pageBgClass = "";
 
-  const bgClass = isDark ? "bg-gray-900" : isGradient ? "" : "bg-gray-50";
+  if (card.backgroundColor) {
+    // Match page background to card's backgroundColor for seamless look
+    pageBgStyle = { backgroundColor: card.backgroundColor };
+  } else if (isGradient) {
+    pageBgStyle = { background: `linear-gradient(135deg, ${card.primaryColor}ee 0%, ${card.primaryColor}99 100%)` };
+  } else if (isDark) {
+    pageBgClass = "bg-gray-900";
+  } else {
+    // Match page bg based on theme
+    switch (card.theme) {
+      case "modern":
+        pageBgStyle = { background: "linear-gradient(135deg, #667eea22 0%, #764ba222 100%)" };
+        break;
+      case "elegant":
+        pageBgClass = "bg-gray-900";
+        break;
+      case "vibrant":
+        pageBgStyle = { background: "linear-gradient(135deg, #f093fb22 0%, #f5576c22 100%)" };
+        break;
+      case "professional":
+        pageBgStyle = { background: "linear-gradient(135deg, #4facfe22 0%, #00f2fe22 100%)" };
+        break;
+      default:
+        pageBgClass = "bg-gray-50";
+    }
+  }
 
   const handleDownloadVCard = async () => {
     // Generate vCard content with proper line breaks for mobile compatibility
@@ -188,8 +214,8 @@ export default function DigitalCard({ card, lang, t }: Props) {
 
   return (
     <div
-      className={`min-h-screen ${bgClass} flex flex-col`}
-      style={bgStyle}
+      className={`min-h-screen ${pageBgClass} flex flex-col`}
+      style={pageBgStyle}
     >
       {/* Card Preview Component - Modern padding on all devices */}
       <div className="flex-1 flex items-center justify-center w-full px-4 py-6 sm:px-6 md:px-8">
@@ -254,7 +280,7 @@ export default function DigitalCard({ card, lang, t }: Props) {
               isDark || isGradient ? "text-gray-300" : "text-gray-600"
             }`}
           >
-            {t.digitalCardBy} nfckart.com
+            {t.digitalCardBy} vizit.life
           </a>
         </div>
       </div>
