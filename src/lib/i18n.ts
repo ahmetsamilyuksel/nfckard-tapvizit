@@ -166,6 +166,26 @@ export const translations = {
     layoutCreative: "Yaratıcı",
     invalidFormat: "Lütfen e-posta ve telefon numaralarının doğru formatta olduğundan emin olun",
     serverError: "Sunucu hatası. Lütfen tekrar deneyin.",
+    // Legal & Consent
+    legalOffer: "Hizmet Sözleşmesi",
+    legalPrivacy: "Gizlilik Politikası",
+    legalRefund: "İade Politikası",
+    consentOffer: "Hizmet sözleşmesini okudum ve kabul ediyorum",
+    consentPrivacy: "Kişisel verilerimin işlenmesine onay veriyorum",
+    consentRequired: "Devam etmek için sözleşmeleri kabul etmeniz gerekiyor",
+    // Delivery
+    deliveryMethod: "Teslimat Yöntemi",
+    deliveryCdek: "СДЭК (3-7 iş günü)",
+    deliveryPostRu: "Почта России (5-14 iş günü)",
+    deliveryOzon: "Ozon Teslimat (2-5 iş günü)",
+    deliveryYandex: "Yandex Teslimat (1-3 iş günü)",
+    deliveryInfo: "Tahmini teslimat süresi bölgeye göre değişiklik gösterebilir",
+    // Footer
+    footerRights: "Tüm hakları saklıdır",
+    footerContact: "İletişim",
+    footerLegal: "Yasal",
+    footerAbout: "Hakkımızda",
+    footerDescription: "Profesyonel NFC dijital kartvizitler. Tasarla, sipariş ver, hemen kullanmaya başla.",
   },
   en: {
     siteName: "NFC Business Card",
@@ -324,6 +344,26 @@ export const translations = {
     layoutCreative: "Creative",
     invalidFormat: "Please ensure email and phone numbers are in the correct format",
     serverError: "Server error. Please try again.",
+    // Legal & Consent
+    legalOffer: "Terms of Service",
+    legalPrivacy: "Privacy Policy",
+    legalRefund: "Refund Policy",
+    consentOffer: "I have read and accept the Terms of Service",
+    consentPrivacy: "I consent to the processing of my personal data",
+    consentRequired: "You must accept the agreements to continue",
+    // Delivery
+    deliveryMethod: "Delivery Method",
+    deliveryCdek: "CDEK (3-7 business days)",
+    deliveryPostRu: "Russian Post (5-14 business days)",
+    deliveryOzon: "Ozon Delivery (2-5 business days)",
+    deliveryYandex: "Yandex Delivery (1-3 business days)",
+    deliveryInfo: "Estimated delivery time may vary by region",
+    // Footer
+    footerRights: "All rights reserved",
+    footerContact: "Contact",
+    footerLegal: "Legal",
+    footerAbout: "About",
+    footerDescription: "Professional NFC digital business cards. Design, order, start using right away.",
   },
   ru: {
     siteName: "NFC Визитка",
@@ -482,6 +522,26 @@ export const translations = {
     layoutCreative: "Креативный",
     invalidFormat: "Пожалуйста, убедитесь, что email и номера телефонов имеют правильный формат",
     serverError: "Ошибка сервера. Пожалуйста, попробуйте снова.",
+    // Legal & Consent
+    legalOffer: "Договор оферты",
+    legalPrivacy: "Политика конфиденциальности",
+    legalRefund: "Политика возврата",
+    consentOffer: "Я принимаю условия договора оферты",
+    consentPrivacy: "Я даю согласие на обработку персональных данных",
+    consentRequired: "Для продолжения необходимо принять условия",
+    // Delivery
+    deliveryMethod: "Способ доставки",
+    deliveryCdek: "СДЭК (3-7 рабочих дней)",
+    deliveryPostRu: "Почта России (5-14 рабочих дней)",
+    deliveryOzon: "Ozon Доставка (2-5 рабочих дней)",
+    deliveryYandex: "Яндекс Доставка (1-3 рабочих дня)",
+    deliveryInfo: "Сроки доставки могут варьироваться в зависимости от региона",
+    // Footer
+    footerRights: "Все права защищены",
+    footerContact: "Контакты",
+    footerLegal: "Документы",
+    footerAbout: "О нас",
+    footerDescription: "Профессиональные NFC цифровые визитки. Создайте, закажите и начните пользоваться прямо сейчас.",
   },
 };
 

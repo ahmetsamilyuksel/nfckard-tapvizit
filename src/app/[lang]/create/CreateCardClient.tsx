@@ -61,6 +61,9 @@ export default function CreateCardClient({ lang, t }: Props) {
     customerPhone: "",
     shippingAddress: "",
     notes: "",
+    deliveryMethod: "cdek",
+    consentOffer: false,
+    consentPrivacy: false,
   });
   const [createdSlug, setCreatedSlug] = useState("");
   const [countryCode, setCountryCode] = useState("+7");
@@ -128,6 +131,9 @@ export default function CreateCardClient({ lang, t }: Props) {
       newErrors.customerEmail = t.invalidEmail;
     }
     if (!orderData.shippingAddress.trim()) newErrors.shippingAddress = t.required;
+    if (!orderData.consentOffer || !orderData.consentPrivacy) {
+      newErrors.consent = t.consentRequired;
+    }
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -203,6 +209,9 @@ export default function CreateCardClient({ lang, t }: Props) {
       customerPhone: "",
       shippingAddress: "",
       notes: "",
+      deliveryMethod: "cdek",
+      consentOffer: false,
+      consentPrivacy: false,
     });
     setCreatedSlug("");
     setErrors({});
@@ -1190,6 +1199,38 @@ export default function CreateCardClient({ lang, t }: Props) {
                 </div>
               </div>
 
+              {/* Delivery Method */}
+              <div className="space-y-4 mb-6">
+                <h3 className="text-lg font-semibold text-gray-800">{t.deliveryMethod}</h3>
+                <div className="space-y-2">
+                  {[
+                    { id: "cdek", label: t.deliveryCdek, icon: "M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" },
+                    { id: "post_ru", label: t.deliveryPostRu, icon: "M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" },
+                    { id: "ozon", label: t.deliveryOzon, icon: "M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" },
+                    { id: "yandex", label: t.deliveryYandex, icon: "M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0" },
+                  ].map((method) => (
+                    <button
+                      key={method.id}
+                      type="button"
+                      onClick={() => handleOrderChange("deliveryMethod", method.id)}
+                      className={`w-full p-3 rounded-lg border-2 text-left transition-all flex items-center gap-3 ${
+                        orderData.deliveryMethod === method.id
+                          ? "border-sky-600 bg-sky-50"
+                          : "border-gray-200 bg-white hover:border-gray-300"
+                      }`}
+                    >
+                      <svg className={`w-5 h-5 flex-shrink-0 ${orderData.deliveryMethod === method.id ? "text-sky-600" : "text-gray-400"}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d={method.icon} />
+                      </svg>
+                      <span className={`text-sm font-medium ${orderData.deliveryMethod === method.id ? "text-sky-700" : "text-gray-700"}`}>
+                        {method.label}
+                      </span>
+                    </button>
+                  ))}
+                </div>
+                <p className="text-xs text-gray-500">{t.deliveryInfo}</p>
+              </div>
+
               {/* Total */}
               <div className="mb-6 p-4 bg-gray-50 rounded-lg">
                 <div className="flex justify-between items-center text-lg">
@@ -1198,6 +1239,55 @@ export default function CreateCardClient({ lang, t }: Props) {
                     ${(CARD_TYPES.find((t) => t.id === orderData.cardType)?.price || 0) * orderData.quantity}
                   </span>
                 </div>
+              </div>
+
+              {/* Consent Checkboxes */}
+              <div className="mb-6 space-y-3">
+                <label className="flex items-start gap-3 cursor-pointer group">
+                  <input
+                    type="checkbox"
+                    checked={orderData.consentOffer || false}
+                    onChange={(e) => {
+                      setOrderData((prev) => ({ ...prev, consentOffer: e.target.checked }));
+                      if (errors.consent) {
+                        setErrors((prev) => { const n = { ...prev }; delete n.consent; return n; });
+                      }
+                    }}
+                    className="mt-0.5 w-4 h-4 text-sky-600 border-gray-300 rounded focus:ring-sky-500 flex-shrink-0"
+                  />
+                  <span className="text-sm text-gray-700 group-hover:text-gray-900">
+                    {t.consentOffer}{" "}
+                    <a href={`/${lang}/legal/offer`} target="_blank" rel="noopener noreferrer" className="text-sky-600 hover:text-sky-700 underline">
+                      {t.legalOffer}
+                    </a>
+                    {" & "}
+                    <a href={`/${lang}/legal/refund`} target="_blank" rel="noopener noreferrer" className="text-sky-600 hover:text-sky-700 underline">
+                      {t.legalRefund}
+                    </a>
+                  </span>
+                </label>
+                <label className="flex items-start gap-3 cursor-pointer group">
+                  <input
+                    type="checkbox"
+                    checked={orderData.consentPrivacy || false}
+                    onChange={(e) => {
+                      setOrderData((prev) => ({ ...prev, consentPrivacy: e.target.checked }));
+                      if (errors.consent) {
+                        setErrors((prev) => { const n = { ...prev }; delete n.consent; return n; });
+                      }
+                    }}
+                    className="mt-0.5 w-4 h-4 text-sky-600 border-gray-300 rounded focus:ring-sky-500 flex-shrink-0"
+                  />
+                  <span className="text-sm text-gray-700 group-hover:text-gray-900">
+                    {t.consentPrivacy}{" "}
+                    <a href={`/${lang}/legal/privacy`} target="_blank" rel="noopener noreferrer" className="text-sky-600 hover:text-sky-700 underline">
+                      {t.legalPrivacy}
+                    </a>
+                  </span>
+                </label>
+                {errors.consent && (
+                  <p className="text-red-500 text-xs">{errors.consent}</p>
+                )}
               </div>
 
               <div className="flex gap-3">

@@ -59,6 +59,8 @@ model Order {
   customerPhone   String?
   shippingAddress String
   notes           String?
+  deliveryMethod  String?  @default("cdek")
+  trackingNumber  String?
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
   card            Card     @relation(fields: [cardId], references: [id])
@@ -70,4 +72,17 @@ model Admin {
   password  String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model Consent {
+  id              String   @id @default(cuid())
+  orderId         String
+  customerEmail   String
+  customerName    String
+  customerIp      String?
+  offerAccepted   Boolean  @default(false)
+  privacyAccepted Boolean  @default(false)
+  refundAccepted  Boolean  @default(false)
+  userAgent       String?
+  createdAt       DateTime @default(now())
 }

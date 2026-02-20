@@ -25,19 +25,32 @@ export function getPriceByCardType(cardType: string): number {
 
 export function formatPrice(price: number, lang: string): string {
   if (lang === "en") {
-    return `€${(price / 28).toFixed(0)}`;
+    return `$${price.toFixed(2)}`;
   }
-  return `${price}₺`;
+  if (lang === "ru") {
+    return `${price.toFixed(0)} ₽`;
+  }
+  return `$${price.toFixed(2)}`;
+}
+
+export function getDeliveryLabel(method: string): string {
+  const labels: Record<string, string> = {
+    cdek: "СДЭК",
+    post_ru: "Почта России",
+    ozon: "Ozon Доставка",
+    yandex: "Яндекс Доставка",
+  };
+  return labels[method] || method;
 }
 
 export function getStatusLabel(status: string, lang: string): string {
   const labels: Record<string, Record<string, string>> = {
-    PENDING: { tr: "Bekliyor", en: "Pending" },
-    CONFIRMED: { tr: "Onaylandı", en: "Confirmed" },
-    PROCESSING: { tr: "Hazırlanıyor", en: "Processing" },
-    SHIPPED: { tr: "Kargoya Verildi", en: "Shipped" },
-    DELIVERED: { tr: "Teslim Edildi", en: "Delivered" },
-    CANCELLED: { tr: "İptal Edildi", en: "Cancelled" },
+    PENDING: { tr: "Bekliyor", en: "Pending", ru: "Ожидает" },
+    CONFIRMED: { tr: "Onaylandı", en: "Confirmed", ru: "Подтверждён" },
+    PROCESSING: { tr: "Hazırlanıyor", en: "Processing", ru: "В обработке" },
+    SHIPPED: { tr: "Kargoya Verildi", en: "Shipped", ru: "Отправлен" },
+    DELIVERED: { tr: "Teslim Edildi", en: "Delivered", ru: "Доставлен" },
+    CANCELLED: { tr: "İptal Edildi", en: "Cancelled", ru: "Отменён" },
   };
   return labels[status]?.[lang] ?? status;
 }

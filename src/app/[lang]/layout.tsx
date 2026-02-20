@@ -2,6 +2,7 @@ import { getTranslations, isValidLocale, defaultLocale, locales, localeNames } f
 import type { Metadata } from "next";
 import Link from "next/link";
 import { headers } from "next/headers";
+import Footer from "@/components/Footer";
 
 export async function generateMetadata({
   params,
@@ -38,7 +39,7 @@ export default async function LangLayout({
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 flex flex-col">
       <header className="bg-white shadow-sm border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
@@ -46,7 +47,7 @@ export default async function LangLayout({
               <div className="w-8 h-8 bg-gradient-to-br from-sky-500 to-indigo-600 rounded-lg flex items-center justify-center">
                 <span className="text-white font-bold text-sm">N</span>
               </div>
-              <span className="font-bold text-gray-900 text-lg">NFC Kart</span>
+              <span className="font-bold text-gray-900 text-lg">TapVizit</span>
             </Link>
 
             <div className="flex items-center gap-3">
@@ -71,7 +72,8 @@ export default async function LangLayout({
           </div>
         </div>
       </header>
-      <main>{children}</main>
+      <main className="flex-1">{children}</main>
+      <Footer lang={locale} t={t} />
     </div>
   );
 }

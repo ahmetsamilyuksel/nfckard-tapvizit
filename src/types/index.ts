@@ -45,6 +45,9 @@ export interface OrderFormData {
   customerPhone?: string;
   shippingAddress: string;
   notes?: string;
+  deliveryMethod?: "cdek" | "post_ru" | "ozon" | "yandex";
+  consentOffer?: boolean;
+  consentPrivacy?: boolean;
 }
 
 export type OrderStatus =

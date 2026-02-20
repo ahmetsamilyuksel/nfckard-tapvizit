@@ -16,6 +16,10 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Customer info and shipping address are required" }, { status: 400 });
     }
 
+    if (!orderData.consentOffer || !orderData.consentPrivacy) {
+      return NextResponse.json({ error: "Consent to terms is required" }, { status: 400 });
+    }
+
     // Generate unique slug
     let slug = generateSlug(cardData.firstName, cardData.lastName);
     let attempts = 0;
@@ -27,6 +31,12 @@ export async function POST(req: NextRequest) {
     }
 
     const price = getPriceByCardType(orderData.cardType) * (orderData.quantity || 1);
+
+    // Get client IP for consent logging
+    const clientIp = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim()
+      || req.headers.get("x-real-ip")
+      || "unknown";
+    const userAgent = req.headers.get("user-agent") || "unknown";
 
     const card = await prisma.card.create({
       data: {
@@ -72,11 +82,28 @@ export async function POST(req: NextRequest) {
             customerPhone: orderData.customerPhone?.trim() || null,
             shippingAddress: orderData.shippingAddress.trim(),
             notes: orderData.notes?.trim() || null,
+            deliveryMethod: orderData.deliveryMethod || "cdek",
           },
         },
       },
       include: { order: true },
     });
+
+    // Record consent acceptance
+    if (card.order) {
+      await prisma.consent.create({
+        data: {
+          orderId: card.order.id,
+          customerEmail: orderData.customerEmail.trim(),
+          customerName: orderData.customerName.trim(),
+          customerIp: clientIp,
+          offerAccepted: true,
+          privacyAccepted: true,
+          refundAccepted: true,
+          userAgent: userAgent,
+        },
+      });
+    }
 
     return NextResponse.json({
       success: true,

@@ -186,12 +186,15 @@ export default function AdminPanel() {
             <p className="text-sm text-gray-600">Tüm siparişleri görüntüle ve yönet</p>
           </a>
 
-          {/* Cards Card */}
-          <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 opacity-50 cursor-not-allowed">
+          {/* Consents Card */}
+          <a
+            href="/admin/consents"
+            className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 hover:shadow-md transition-all group"
+          >
             <div className="flex items-center justify-between mb-4">
-              <div className="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center">
+              <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center group-hover:bg-green-200 transition-colors">
                 <svg
-                  className="w-6 h-6 text-indigo-600"
+                  className="w-6 h-6 text-green-600"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -200,14 +203,27 @@ export default function AdminPanel() {
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     strokeWidth={2}
-                    d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
                   />
                 </svg>
               </div>
+              <svg
+                className="w-5 h-5 text-gray-400 group-hover:text-green-600 transition-colors"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M9 5l7 7-7 7"
+                />
+              </svg>
             </div>
-            <h3 className="text-lg font-semibold text-gray-900 mb-1">Kartlar</h3>
-            <p className="text-sm text-gray-600">Tüm dijital kartları yönet (Yakında)</p>
-          </div>
+            <h3 className="text-lg font-semibold text-gray-900 mb-1">Onay Kayitlari</h3>
+            <p className="text-sm text-gray-600">Sozlesme onaylarini goruntule</p>
+          </a>
 
           {/* Analytics Card */}
           <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 opacity-50 cursor-not-allowed">

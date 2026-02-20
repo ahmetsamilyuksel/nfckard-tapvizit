@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { getStatusColor, formatPrice } from "@/lib/utils";
+import { getStatusColor, formatPrice, getDeliveryLabel } from "@/lib/utils";
 
 type OrderWithCard = {
   id: string;
@@ -15,6 +15,8 @@ type OrderWithCard = {
   customerPhone: string | null;
   shippingAddress: string;
   notes: string | null;
+  deliveryMethod: string | null;
+  trackingNumber: string | null;
   createdAt: Date;
   card: {
     id: string;
@@ -351,6 +353,8 @@ export default function AdminOrdersClient({ orders: initialOrders }: { orders: O
                 <Row label="Kart Tipi" value={CARD_TYPE_LABELS[selectedOrder.cardType] ?? selectedOrder.cardType} />
                 <Row label="Adet" value={`${selectedOrder.quantity}`} />
                 <Row label="Toplam" value={formatPrice(selectedOrder.totalPrice, "tr")} />
+                <Row label="Teslimat" value={selectedOrder.deliveryMethod ? getDeliveryLabel(selectedOrder.deliveryMethod) : "Belirtilmedi"} />
+                {selectedOrder.trackingNumber && <Row label="Takip No" value={selectedOrder.trackingNumber} />}
                 <Row label="Tarih" value={new Date(selectedOrder.createdAt).toLocaleString("tr-TR")} />
               </Section>
 
