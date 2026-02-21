@@ -39,11 +39,28 @@ const PRESET_COLORS = [
   { id: "white", gradient: "linear-gradient(135deg, #ffffff 0%, #f3f4f6 100%)", primary: "#ffffff" },
 ];
 
-const CARD_TYPES = [
-  { id: "standard", price: 49.99 },
-  { id: "premium", price: 79.99 },
-  { id: "metal", price: 129.99 },
-];
+const PRICES: Record<string, { standard: number; premium: number; metal: number; currency: string; symbol: string }> = {
+  ru: { standard: 500, premium: 850, metal: 1700, currency: "RUB", symbol: "₽" },
+  tr: { standard: 150, premium: 250, metal: 500, currency: "TRY", symbol: "₺" },
+  en: { standard: 5, premium: 9, metal: 18, currency: "EUR", symbol: "€" },
+};
+
+const PAYMENT_METHODS = {
+  ru: [
+    { id: "card", icon: "M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" },
+    { id: "transfer", icon: "M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z" },
+    { id: "cash", icon: "M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" },
+  ],
+  tr: [
+    { id: "card", icon: "M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" },
+    { id: "transfer", icon: "M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z" },
+    { id: "cash", icon: "M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" },
+  ],
+  en: [
+    { id: "card", icon: "M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" },
+    { id: "transfer", icon: "M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z" },
+  ],
+};
 
 export default function CreateCardClient({ lang, t }: Props) {
   const [step, setStep] = useState<Step>("design");
@@ -62,7 +79,10 @@ export default function CreateCardClient({ lang, t }: Props) {
     shippingAddress: "",
     notes: "",
   });
+  const [paymentMethod, setPaymentMethod] = useState("card");
+  const pricing = PRICES[lang] || PRICES.ru;
   const [createdSlug, setCreatedSlug] = useState("");
+  const [orderId, setOrderId] = useState("");
   const [countryCode, setCountryCode] = useState("+7");
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -144,10 +164,19 @@ export default function CreateCardClient({ lang, t }: Props) {
 
     setLoading(true);
     try {
+      const pricePerCard = pricing[orderData.cardType as keyof typeof pricing] as number;
+      const totalPrice = pricePerCard * orderData.quantity;
+
       const response = await fetch("/api/cards", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ cardData, orderData }),
+        body: JSON.stringify({
+          cardData,
+          orderData,
+          paymentMethod,
+          currency: pricing.currency,
+          totalPrice,
+        }),
       });
 
       if (!response.ok) {
@@ -169,6 +198,7 @@ export default function CreateCardClient({ lang, t }: Props) {
 
       const result = await response.json();
       setCreatedSlug(result.slug);
+      setOrderId(result.orderId || "");
       setStep("success");
       window.scrollTo({ top: 0, behavior: "smooth" });
     } catch (error) {
@@ -237,6 +267,16 @@ export default function CreateCardClient({ lang, t }: Props) {
             </a>
           </div>
 
+          {/* Order ID */}
+          {orderId && (
+            <div className="bg-gray-50 rounded-xl p-4 mb-6">
+              <p className="text-sm text-gray-600 mb-1">
+                {lang === "ru" ? "Номер заказа" : lang === "en" ? "Order Number" : "Sipariş Numarası"}:
+              </p>
+              <p className="font-mono font-bold text-gray-900 text-lg">{orderId}</p>
+            </div>
+          )}
+
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
               href={cardUrl}
@@ -246,6 +286,14 @@ export default function CreateCardClient({ lang, t }: Props) {
             >
               {t.viewCardButton}
             </a>
+            {orderId && (
+              <a
+                href={`/${lang}/track?id=${orderId}`}
+                className="px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors font-medium"
+              >
+                {lang === "ru" ? "Отследить заказ" : lang === "en" ? "Track Order" : "Siparişi Takip Et"}
+              </a>
+            )}
             <button
               onClick={handleNewCard}
               className="px-6 py-3 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors font-medium"
@@ -1076,30 +1124,33 @@ export default function CreateCardClient({ lang, t }: Props) {
               <div className="mb-6">
                 <label className="block text-sm font-medium text-gray-700 mb-3">{t.cardType}</label>
                 <div className="space-y-3">
-                  {CARD_TYPES.map((type) => (
-                    <button
-                      key={type.id}
-                      type="button"
-                      onClick={() => handleOrderChange("cardType", type.id)}
-                      className={`w-full p-4 rounded-lg border-2 text-left transition-all ${
-                        orderData.cardType === type.id
-                          ? "border-sky-600 bg-sky-50"
-                          : "border-gray-200 bg-white hover:border-gray-300"
-                      }`}
-                    >
-                      <div className="flex justify-between items-center">
-                        <div>
-                          <p className="font-semibold text-gray-900 capitalize">
-                            {t[`cardType${type.id.charAt(0).toUpperCase() + type.id.slice(1)}` as keyof T] || type.id}
-                          </p>
-                          <p className="text-sm text-gray-600">
-                            {t[`cardType${type.id.charAt(0).toUpperCase() + type.id.slice(1)}Desc` as keyof T] || ""}
-                          </p>
+                  {(["standard", "premium", "metal"] as const).map((typeId) => {
+                    const price = pricing[typeId];
+                    return (
+                      <button
+                        key={typeId}
+                        type="button"
+                        onClick={() => handleOrderChange("cardType", typeId)}
+                        className={`w-full p-4 rounded-xl border-2 text-left transition-all ${
+                          orderData.cardType === typeId
+                            ? "border-sky-600 bg-sky-50 shadow-md"
+                            : "border-gray-200 bg-white hover:border-gray-300"
+                        }`}
+                      >
+                        <div className="flex justify-between items-center">
+                          <div>
+                            <p className="font-semibold text-gray-900">
+                              {t[`cardType${typeId.charAt(0).toUpperCase() + typeId.slice(1)}` as keyof T] || typeId}
+                            </p>
+                            <p className="text-sm text-gray-600">
+                              {t[`cardType${typeId.charAt(0).toUpperCase() + typeId.slice(1)}Desc` as keyof T] || ""}
+                            </p>
+                          </div>
+                          <p className="text-xl font-bold text-sky-600">{price}{pricing.symbol}</p>
                         </div>
-                        <p className="text-xl font-bold text-sky-600">${type.price}</p>
-                      </div>
-                    </button>
-                  ))}
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
 
@@ -1190,15 +1241,46 @@ export default function CreateCardClient({ lang, t }: Props) {
                 </div>
               </div>
 
+              {/* Payment Method */}
+              <div className="mb-6">
+                <label className="block text-sm font-medium text-gray-700 mb-3">{t.checkoutPayment}</label>
+                <div className="grid grid-cols-1 gap-2">
+                  {(PAYMENT_METHODS[lang as keyof typeof PAYMENT_METHODS] || PAYMENT_METHODS.ru).map((method) => (
+                    <button
+                      key={method.id}
+                      type="button"
+                      onClick={() => setPaymentMethod(method.id)}
+                      className={`flex items-center gap-3 p-4 rounded-xl border-2 text-left transition-all ${
+                        paymentMethod === method.id
+                          ? "border-sky-600 bg-sky-50"
+                          : "border-gray-200 bg-white hover:border-gray-300"
+                      }`}
+                    >
+                      <svg className={`w-6 h-6 ${paymentMethod === method.id ? "text-sky-600" : "text-gray-400"}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d={method.icon} />
+                      </svg>
+                      <span className="font-medium text-gray-900">
+                        {t[`checkout${method.id.charAt(0).toUpperCase() + method.id.slice(1)}` as keyof T] || method.id}
+                      </span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+
               {/* Total */}
-              <div className="mb-6 p-4 bg-gray-50 rounded-lg">
+              <div className="mb-4 p-4 bg-gradient-to-br from-sky-50 to-indigo-50 rounded-xl border border-sky-200">
                 <div className="flex justify-between items-center text-lg">
                   <span className="font-semibold text-gray-700">{t.total}:</span>
                   <span className="font-bold text-sky-600 text-2xl">
-                    ${(CARD_TYPES.find((t) => t.id === orderData.cardType)?.price || 0) * orderData.quantity}
+                    {(pricing[orderData.cardType as keyof typeof pricing] as number) * orderData.quantity}{pricing.symbol}
                   </span>
                 </div>
               </div>
+
+              {/* Agreement */}
+              <p className="text-xs text-gray-500 mb-4 text-center">
+                {t.checkoutAgreement}
+              </p>
 
               <div className="flex gap-3">
                 <button

@@ -55,11 +55,16 @@ model Order {
   cardType        String   @default("standard")
   status          String   @default("PENDING")
   totalPrice      Float
+  currency        String   @default("RUB")
+  paymentMethod   String   @default("card")
+  paymentStatus   String   @default("PENDING")
+  paymentId       String?
   customerName    String
   customerEmail   String
   customerPhone   String?
   shippingAddress String
   notes           String?
+  trackingNumber  String?
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
   card            Card     @relation(fields: [cardId], references: [id])

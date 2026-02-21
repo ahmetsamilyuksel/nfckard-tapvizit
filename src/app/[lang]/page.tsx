@@ -244,6 +244,7 @@ export default async function LandingPage({
                 <li><Link href={`/${locale}`} className="hover:text-white transition-colors">{t.navHome}</Link></li>
                 <li><Link href={`/${locale}/create`} className="hover:text-white transition-colors">{t.navCreate}</Link></li>
                 <li><Link href={`/${locale}/about`} className="hover:text-white transition-colors">{t.navAbout}</Link></li>
+                <li><Link href={`/${locale}/track`} className="hover:text-white transition-colors">{locale === "ru" ? "Отслеживание заказа" : locale === "en" ? "Track Order" : "Sipariş Takip"}</Link></li>
               </ul>
             </div>
             <div>
@@ -256,7 +257,7 @@ export default async function LandingPage({
             </div>
           </div>
           <div className="border-t border-gray-800 pt-8 text-center text-sm">
-            <p>&copy; 2024 vizit.life. {t.footerRights}</p>
+            <p>&copy; 2025 vizit.life. {t.footerRights}</p>
           </div>
         </div>
       </footer>
