@@ -39,10 +39,10 @@ const PRESET_COLORS = [
   { id: "white", gradient: "linear-gradient(135deg, #ffffff 0%, #f3f4f6 100%)", primary: "#ffffff" },
 ];
 
-const PRICES: Record<string, { standard: number; premium: number; metal: number; currency: string; symbol: string }> = {
-  ru: { standard: 500, premium: 850, metal: 1700, currency: "RUB", symbol: "₽" },
-  tr: { standard: 150, premium: 250, metal: 500, currency: "TRY", symbol: "₺" },
-  en: { standard: 5, premium: 9, metal: 18, currency: "EUR", symbol: "€" },
+const PRICES: Record<string, { online: number; standard: number; premium: number; metal: number; currency: string; symbol: string }> = {
+  ru: { online: 100, standard: 500, premium: 850, metal: 1700, currency: "RUB", symbol: "₽" },
+  tr: { online: 30, standard: 150, premium: 250, metal: 500, currency: "TRY", symbol: "₺" },
+  en: { online: 1, standard: 5, premium: 9, metal: 18, currency: "EUR", symbol: "€" },
 };
 
 const PAYMENT_METHODS = {
@@ -89,6 +89,9 @@ export default function CreateCardClient({ lang, t }: Props) {
   const [showCropper, setShowCropper] = useState(false);
   const [showMobilePreview, setShowMobilePreview] = useState(false);
   const [whatsappCountryCode, setWhatsappCountryCode] = useState("+7");
+  const [acceptTerms, setAcceptTerms] = useState(false);
+  const [acceptPrivacy, setAcceptPrivacy] = useState(false);
+  const [consentError, setConsentError] = useState(false);
 
   // Auto-detect country code from existing phone number
   useEffect(() => {
@@ -139,15 +142,31 @@ export default function CreateCardClient({ lang, t }: Props) {
     return Object.keys(newErrors).length === 0;
   };
 
+  const isOnlineOrder = orderData.cardType === "online";
+
   const validateOrderStep = () => {
     const newErrors: Record<string, string> = {};
-    if (!orderData.customerName.trim()) newErrors.customerName = t.required;
-    if (!orderData.customerEmail.trim()) {
-      newErrors.customerEmail = t.required;
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(orderData.customerEmail)) {
-      newErrors.customerEmail = t.invalidEmail;
+    if (!isOnlineOrder) {
+      if (!orderData.customerName.trim()) newErrors.customerName = t.required;
+      if (!orderData.customerEmail.trim()) {
+        newErrors.customerEmail = t.required;
+      } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(orderData.customerEmail)) {
+        newErrors.customerEmail = t.invalidEmail;
+      }
+      if (!orderData.shippingAddress.trim()) newErrors.shippingAddress = t.required;
+    } else {
+      if (!orderData.customerEmail.trim()) {
+        newErrors.customerEmail = t.required;
+      } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(orderData.customerEmail)) {
+        newErrors.customerEmail = t.invalidEmail;
+      }
     }
-    if (!orderData.shippingAddress.trim()) newErrors.shippingAddress = t.required;
+    if (!acceptTerms || !acceptPrivacy) {
+      setConsentError(true);
+      setErrors(newErrors);
+      return false;
+    }
+    setConsentError(false);
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -165,15 +184,19 @@ export default function CreateCardClient({ lang, t }: Props) {
     setLoading(true);
     try {
       const pricePerCard = pricing[orderData.cardType as keyof typeof pricing] as number;
-      const totalPrice = pricePerCard * orderData.quantity;
+      const totalPrice = pricePerCard * (isOnlineOrder ? 1 : orderData.quantity);
+
+      const submitOrderData = isOnlineOrder
+        ? { ...orderData, quantity: 1, customerName: orderData.customerName || "-", shippingAddress: "Online" }
+        : orderData;
 
       const response = await fetch("/api/cards", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           cardData,
-          orderData,
-          paymentMethod,
+          orderData: submitOrderData,
+          paymentMethod: isOnlineOrder ? "online" : paymentMethod,
           currency: pricing.currency,
           totalPrice,
         }),
@@ -1124,7 +1147,7 @@ export default function CreateCardClient({ lang, t }: Props) {
               <div className="mb-6">
                 <label className="block text-sm font-medium text-gray-700 mb-3">{t.cardType}</label>
                 <div className="space-y-3">
-                  {(["standard", "premium", "metal"] as const).map((typeId) => {
+                  {(["online", "standard", "premium", "metal"] as const).map((typeId) => {
                     const price = pricing[typeId];
                     return (
                       <button
@@ -1133,7 +1156,7 @@ export default function CreateCardClient({ lang, t }: Props) {
                         onClick={() => handleOrderChange("cardType", typeId)}
                         className={`w-full p-4 rounded-xl border-2 text-left transition-all ${
                           orderData.cardType === typeId
-                            ? "border-sky-600 bg-sky-50 shadow-md"
+                            ? typeId === "online" ? "border-emerald-600 bg-emerald-50 shadow-md" : "border-sky-600 bg-sky-50 shadow-md"
                             : "border-gray-200 bg-white hover:border-gray-300"
                         }`}
                       >
@@ -1146,7 +1169,7 @@ export default function CreateCardClient({ lang, t }: Props) {
                               {t[`cardType${typeId.charAt(0).toUpperCase() + typeId.slice(1)}Desc` as keyof T] || ""}
                             </p>
                           </div>
-                          <p className="text-xl font-bold text-sky-600">{price}{pricing.symbol}</p>
+                          <p className={`text-xl font-bold ${typeId === "online" ? "text-emerald-600" : "text-sky-600"}`}>{price}{pricing.symbol}</p>
                         </div>
                       </button>
                     );
@@ -1154,37 +1177,51 @@ export default function CreateCardClient({ lang, t }: Props) {
                 </div>
               </div>
 
-              {/* Quantity */}
-              <div className="mb-6">
-                <label className="block text-sm font-medium text-gray-700 mb-1">{t.quantity}</label>
-                <input
-                  type="number"
-                  min="1"
-                  value={orderData.quantity}
-                  onChange={(e) => handleOrderChange("quantity", parseInt(e.target.value) || 1)}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent"
-                />
-              </div>
+              {/* Online card note */}
+              {isOnlineOrder && (
+                <div className="mb-6 p-3 bg-emerald-50 border border-emerald-200 rounded-xl">
+                  <p className="text-sm text-emerald-700 flex items-center gap-2">
+                    <svg className="w-5 h-5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                    {t.onlineCardNote}
+                  </p>
+                </div>
+              )}
+
+              {/* Quantity - only for physical cards */}
+              {!isOnlineOrder && (
+                <div className="mb-6">
+                  <label className="block text-sm font-medium text-gray-700 mb-1">{t.quantity}</label>
+                  <input
+                    type="number"
+                    min="1"
+                    value={orderData.quantity}
+                    onChange={(e) => handleOrderChange("quantity", parseInt(e.target.value) || 1)}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent"
+                  />
+                </div>
+              )}
 
               {/* Customer Information */}
               <div className="space-y-4 mb-6">
                 <h3 className="text-lg font-semibold text-gray-800">{t.customerInfo}</h3>
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    {t.name} <span className="text-red-500">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    value={orderData.customerName}
-                    onChange={(e) => handleOrderChange("customerName", e.target.value)}
-                    className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent ${
-                      errors.customerName ? "border-red-500" : "border-gray-300"
-                    }`}
-                    placeholder={t.placeholderCustomerName}
-                  />
-                  {errors.customerName && <p className="text-red-500 text-xs mt-1">{errors.customerName}</p>}
-                </div>
+                {!isOnlineOrder && (
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      {t.name} <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      value={orderData.customerName}
+                      onChange={(e) => handleOrderChange("customerName", e.target.value)}
+                      className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent ${
+                        errors.customerName ? "border-red-500" : "border-gray-300"
+                      }`}
+                      placeholder={t.placeholderCustomerName}
+                    />
+                    {errors.customerName && <p className="text-red-500 text-xs mt-1">{errors.customerName}</p>}
+                  </div>
+                )}
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -1202,85 +1239,115 @@ export default function CreateCardClient({ lang, t }: Props) {
                   {errors.customerEmail && <p className="text-red-500 text-xs mt-1">{errors.customerEmail}</p>}
                 </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">{t.phone}</label>
-                  <input
-                    type="tel"
-                    value={orderData.customerPhone}
-                    onChange={(e) => handleOrderChange("customerPhone", e.target.value)}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent"
-                    placeholder={t.placeholderPhone}
-                  />
-                </div>
+                {!isOnlineOrder && (
+                  <>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">{t.phone}</label>
+                      <input
+                        type="tel"
+                        value={orderData.customerPhone}
+                        onChange={(e) => handleOrderChange("customerPhone", e.target.value)}
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent"
+                        placeholder={t.placeholderPhone}
+                      />
+                    </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    {t.shippingAddress} <span className="text-red-500">*</span>
-                  </label>
-                  <textarea
-                    value={orderData.shippingAddress}
-                    onChange={(e) => handleOrderChange("shippingAddress", e.target.value)}
-                    rows={3}
-                    className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent resize-none ${
-                      errors.shippingAddress ? "border-red-500" : "border-gray-300"
-                    }`}
-                    placeholder={t.placeholderShippingAddress}
-                  />
-                  {errors.shippingAddress && <p className="text-red-500 text-xs mt-1">{errors.shippingAddress}</p>}
-                </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                        {t.shippingAddress} <span className="text-red-500">*</span>
+                      </label>
+                      <textarea
+                        value={orderData.shippingAddress}
+                        onChange={(e) => handleOrderChange("shippingAddress", e.target.value)}
+                        rows={3}
+                        className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent resize-none ${
+                          errors.shippingAddress ? "border-red-500" : "border-gray-300"
+                        }`}
+                        placeholder={t.placeholderShippingAddress}
+                      />
+                      {errors.shippingAddress && <p className="text-red-500 text-xs mt-1">{errors.shippingAddress}</p>}
+                    </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">{t.notes}</label>
-                  <textarea
-                    value={orderData.notes}
-                    onChange={(e) => handleOrderChange("notes", e.target.value)}
-                    rows={3}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent resize-none"
-                    placeholder={t.placeholderNotes}
-                  />
-                </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">{t.notes}</label>
+                      <textarea
+                        value={orderData.notes}
+                        onChange={(e) => handleOrderChange("notes", e.target.value)}
+                        rows={3}
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent resize-none"
+                        placeholder={t.placeholderNotes}
+                      />
+                    </div>
+                  </>
+                )}
               </div>
 
-              {/* Payment Method */}
-              <div className="mb-6">
-                <label className="block text-sm font-medium text-gray-700 mb-3">{t.checkoutPayment}</label>
-                <div className="grid grid-cols-1 gap-2">
-                  {(PAYMENT_METHODS[lang as keyof typeof PAYMENT_METHODS] || PAYMENT_METHODS.ru).map((method) => (
-                    <button
-                      key={method.id}
-                      type="button"
-                      onClick={() => setPaymentMethod(method.id)}
-                      className={`flex items-center gap-3 p-4 rounded-xl border-2 text-left transition-all ${
-                        paymentMethod === method.id
-                          ? "border-sky-600 bg-sky-50"
-                          : "border-gray-200 bg-white hover:border-gray-300"
-                      }`}
-                    >
-                      <svg className={`w-6 h-6 ${paymentMethod === method.id ? "text-sky-600" : "text-gray-400"}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d={method.icon} />
-                      </svg>
-                      <span className="font-medium text-gray-900">
-                        {t[`checkout${method.id.charAt(0).toUpperCase() + method.id.slice(1)}` as keyof T] || method.id}
-                      </span>
-                    </button>
-                  ))}
+              {/* Payment Method - only for physical cards */}
+              {!isOnlineOrder && (
+                <div className="mb-6">
+                  <label className="block text-sm font-medium text-gray-700 mb-3">{t.checkoutPayment}</label>
+                  <div className="grid grid-cols-1 gap-2">
+                    {(PAYMENT_METHODS[lang as keyof typeof PAYMENT_METHODS] || PAYMENT_METHODS.ru).map((method) => (
+                      <button
+                        key={method.id}
+                        type="button"
+                        onClick={() => setPaymentMethod(method.id)}
+                        className={`flex items-center gap-3 p-4 rounded-xl border-2 text-left transition-all ${
+                          paymentMethod === method.id
+                            ? "border-sky-600 bg-sky-50"
+                            : "border-gray-200 bg-white hover:border-gray-300"
+                        }`}
+                      >
+                        <svg className={`w-6 h-6 ${paymentMethod === method.id ? "text-sky-600" : "text-gray-400"}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                          <path strokeLinecap="round" strokeLinejoin="round" d={method.icon} />
+                        </svg>
+                        <span className="font-medium text-gray-900">
+                          {t[`checkout${method.id.charAt(0).toUpperCase() + method.id.slice(1)}` as keyof T] || method.id}
+                        </span>
+                      </button>
+                    ))}
+                  </div>
                 </div>
-              </div>
+              )}
 
               {/* Total */}
               <div className="mb-4 p-4 bg-gradient-to-br from-sky-50 to-indigo-50 rounded-xl border border-sky-200">
                 <div className="flex justify-between items-center text-lg">
                   <span className="font-semibold text-gray-700">{t.total}:</span>
                   <span className="font-bold text-sky-600 text-2xl">
-                    {(pricing[orderData.cardType as keyof typeof pricing] as number) * orderData.quantity}{pricing.symbol}
+                    {(pricing[orderData.cardType as keyof typeof pricing] as number) * (isOnlineOrder ? 1 : orderData.quantity)}{pricing.symbol}
                   </span>
                 </div>
               </div>
 
-              {/* Agreement */}
-              <p className="text-xs text-gray-500 mb-4 text-center">
-                {t.checkoutAgreement}
-              </p>
+              {/* Consent Checkboxes */}
+              <div className="mb-4 space-y-3">
+                <label className="flex items-start gap-3 cursor-pointer group">
+                  <input
+                    type="checkbox"
+                    checked={acceptTerms}
+                    onChange={(e) => { setAcceptTerms(e.target.checked); setConsentError(false); }}
+                    className="mt-0.5 w-4 h-4 text-sky-600 border-gray-300 rounded focus:ring-sky-500 cursor-pointer"
+                  />
+                  <span className="text-sm text-gray-700 group-hover:text-gray-900">
+                    {t.checkboxTerms}
+                  </span>
+                </label>
+                <label className="flex items-start gap-3 cursor-pointer group">
+                  <input
+                    type="checkbox"
+                    checked={acceptPrivacy}
+                    onChange={(e) => { setAcceptPrivacy(e.target.checked); setConsentError(false); }}
+                    className="mt-0.5 w-4 h-4 text-sky-600 border-gray-300 rounded focus:ring-sky-500 cursor-pointer"
+                  />
+                  <span className="text-sm text-gray-700 group-hover:text-gray-900">
+                    {t.checkboxPrivacy}
+                  </span>
+                </label>
+                {consentError && (
+                  <p className="text-red-500 text-xs">{t.consentRequired}</p>
+                )}
+              </div>
 
               <div className="flex gap-3">
                 <button

@@ -11,10 +11,10 @@ export default async function LandingPage({
   const t = getTranslations(locale);
 
   const prices = locale === "ru"
-    ? { standard: "500₽", premium: "850₽", metal: "1700₽" }
+    ? { online: "100₽", standard: "500₽", premium: "850₽", metal: "1700₽" }
     : locale === "en"
-    ? { standard: "€5", premium: "€9", metal: "€18" }
-    : { standard: "150₺", premium: "250₺", metal: "500₺" };
+    ? { online: "€1", standard: "€5", premium: "€9", metal: "€18" }
+    : { online: "30₺", standard: "150₺", premium: "250₺", metal: "500₺" };
 
   return (
     <div className="min-h-screen">
@@ -129,7 +129,24 @@ export default async function LandingPage({
             <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-4">{t.pricingTitle}</h2>
             <p className="text-lg text-gray-600">{t.pricingSubtitle}</p>
           </div>
-          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+            {/* Online QR */}
+            <div className="bg-emerald-50 border-2 border-emerald-300 rounded-2xl p-8 hover:border-emerald-500 transition-colors">
+              <h3 className="text-xl font-bold text-gray-900 mb-2">{t.cardTypeOnline}</h3>
+              <p className="text-sm text-gray-500 mb-4">{t.cardTypeOnlineDesc}</p>
+              <p className="text-4xl font-extrabold text-emerald-600 mb-6">{prices.online}</p>
+              <ul className="space-y-3 mb-8">
+                {[t.pricingFeature1, t.pricingFeature3, t.pricingFeature4].map((f, i) => (
+                  <li key={i} className="flex items-center text-sm text-gray-600">
+                    <svg className="w-5 h-5 text-emerald-500 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
+                    {f}
+                  </li>
+                ))}
+              </ul>
+              <Link href={`/${locale}/create`} className="block w-full text-center py-3 bg-emerald-500 text-white rounded-xl font-semibold hover:bg-emerald-600 transition-colors">
+                {t.pricingSelect}
+              </Link>
+            </div>
             {/* Standard */}
             <div className="bg-white border-2 border-gray-200 rounded-2xl p-8 hover:border-sky-300 transition-colors">
               <h3 className="text-xl font-bold text-gray-900 mb-2">{t.cardTypeStandard}</h3>
@@ -182,6 +199,13 @@ export default async function LandingPage({
                 {t.pricingSelect}
               </Link>
             </div>
+          </div>
+          {/* Physical delivery notice */}
+          <div className="mt-8 text-center">
+            <p className="inline-flex items-center gap-2 px-6 py-3 bg-amber-50 border border-amber-200 rounded-xl text-sm text-amber-800">
+              <svg className="w-5 h-5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+              {t.physicalDeliveryNotice}
+            </p>
           </div>
         </div>
       </section>

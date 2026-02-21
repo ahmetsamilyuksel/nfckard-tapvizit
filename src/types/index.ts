@@ -39,7 +39,7 @@ export interface CardFormData {
 
 export interface OrderFormData {
   quantity: number;
-  cardType: "standard" | "premium" | "metal";
+  cardType: "online" | "standard" | "premium" | "metal";
   customerName: string;
   customerEmail: string;
   customerPhone?: string;

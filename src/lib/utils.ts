@@ -16,6 +16,7 @@ export function generateSlug(firstName: string, lastName: string): string {
 
 export function getPriceByCardType(cardType: string): number {
   const prices: Record<string, number> = {
+    online: 30,
     standard: 150,
     premium: 250,
     metal: 500,

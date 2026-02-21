@@ -18,8 +18,12 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "First and last name are required" }, { status: 400 });
     }
 
-    if (!orderData.customerEmail?.trim() || !orderData.customerName?.trim() || !orderData.shippingAddress?.trim()) {
+    const isOnlineOrder = orderData.cardType === "online";
+    if (!isOnlineOrder && (!orderData.customerEmail?.trim() || !orderData.customerName?.trim() || !orderData.shippingAddress?.trim())) {
       return NextResponse.json({ error: "Customer info and shipping address are required" }, { status: 400 });
+    }
+    if (isOnlineOrder && !orderData.customerEmail?.trim()) {
+      return NextResponse.json({ error: "Email is required" }, { status: 400 });
     }
 
     // Generate unique slug
