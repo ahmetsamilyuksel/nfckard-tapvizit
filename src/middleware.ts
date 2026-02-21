@@ -43,7 +43,7 @@ export function middleware(request: NextRequest) {
   );
 
   if (!pathnameHasLocale && pathname === "/") {
-    return NextResponse.redirect(new URL(`/${defaultLocale}/create`, request.url));
+    return NextResponse.redirect(new URL(`/ru`, request.url));
   }
 
   // Add pathname to headers for layout to check

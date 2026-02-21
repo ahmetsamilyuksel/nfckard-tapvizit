@@ -44,12 +44,35 @@ export async function GET(
 
   const order = await prisma.order.findUnique({
     where: { id: orderId },
-    include: { card: true },
+    include: {
+      card: {
+        select: {
+          slug: true,
+          firstName: true,
+          lastName: true,
+        },
+      },
+    },
   });
 
   if (!order) {
     return NextResponse.json({ error: "Order not found" }, { status: 404 });
   }
 
-  return NextResponse.json(order);
+  // Return public data only (use type assertion for new fields that may not exist in older records)
+  const orderData = order as Record<string, unknown>;
+  return NextResponse.json({
+    id: order.id,
+    status: order.status,
+    cardType: order.cardType,
+    quantity: order.quantity,
+    totalPrice: order.totalPrice,
+    currency: orderData.currency || "RUB",
+    paymentMethod: orderData.paymentMethod || "card",
+    paymentStatus: orderData.paymentStatus || "PENDING",
+    customerName: order.customerName,
+    trackingNumber: orderData.trackingNumber || null,
+    createdAt: order.createdAt,
+    card: order.card,
+  });
 }

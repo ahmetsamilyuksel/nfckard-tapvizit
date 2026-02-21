@@ -6,7 +6,13 @@ import type { CardFormData, OrderFormData } from "@/types";
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { cardData, orderData }: { cardData: CardFormData; orderData: OrderFormData } = body;
+    const { cardData, orderData, paymentMethod, currency, totalPrice: clientTotalPrice }: {
+      cardData: CardFormData;
+      orderData: OrderFormData;
+      paymentMethod?: string;
+      currency?: string;
+      totalPrice?: number;
+    } = body;
 
     if (!cardData.firstName?.trim() || !cardData.lastName?.trim()) {
       return NextResponse.json({ error: "First and last name are required" }, { status: 400 });
@@ -66,7 +72,10 @@ export async function POST(req: NextRequest) {
             quantity: orderData.quantity || 1,
             cardType: orderData.cardType || "standard",
             status: "PENDING",
-            totalPrice: price,
+            totalPrice: clientTotalPrice || price,
+            currency: currency || "RUB",
+            paymentMethod: paymentMethod || "card",
+            paymentStatus: "PENDING",
             customerName: orderData.customerName.trim(),
             customerEmail: orderData.customerEmail.trim(),
             customerPhone: orderData.customerPhone?.trim() || null,

@@ -31,23 +31,42 @@ export default async function LangLayout({
   const headersList = await headers();
   const pathname = headersList.get("x-pathname") || "";
   const isCardView = pathname.includes("/a/");
+  const isLandingPage = pathname === `/${locale}` || pathname === `/${locale}/`;
 
-  // If card view, render without header
+  // If card view, render without header/footer
   if (isCardView) {
     return <>{children}</>;
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <header className="bg-white shadow-sm border-b border-gray-200">
+    <div className="min-h-screen bg-gray-50 flex flex-col">
+      <header className="bg-white/80 backdrop-blur-lg shadow-sm border-b border-gray-200/50 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
-            <Link href={`/${locale}/create`} className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-gradient-to-br from-sky-500 to-indigo-600 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-sm">N</span>
+            <Link href={`/${locale}`} className="flex items-center gap-2 group">
+              <div className="w-9 h-9 bg-gradient-to-br from-sky-500 to-indigo-600 rounded-lg flex items-center justify-center shadow-md group-hover:shadow-lg transition-shadow">
+                <span className="text-white font-extrabold text-sm">N</span>
               </div>
-              <span className="font-bold text-gray-900 text-lg">NFC Kart</span>
+              <span className="font-bold text-gray-900 text-lg">vizit.life</span>
             </Link>
+
+            <nav className="hidden md:flex items-center gap-1">
+              <Link href={`/${locale}`} className="px-4 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50 transition-colors">
+                {t.navHome}
+              </Link>
+              <Link href={`/${locale}/create`} className="px-4 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50 transition-colors">
+                {t.navCreate}
+              </Link>
+              <Link href={`/${locale}#pricing`} className="px-4 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50 transition-colors">
+                {t.navPricing}
+              </Link>
+              <Link href={`/${locale}/about`} className="px-4 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50 transition-colors">
+                {t.navAbout}
+              </Link>
+              <Link href={`/${locale}/track`} className="px-4 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50 transition-colors">
+                {t.navTrack || (locale === "ru" ? "Отслеживание" : locale === "en" ? "Track Order" : "Sipariş Takip")}
+              </Link>
+            </nav>
 
             <div className="flex items-center gap-3">
               {/* Language Switcher */}
@@ -55,7 +74,7 @@ export default async function LangLayout({
                 {locales.map((l) => (
                   <Link
                     key={l}
-                    href={`/${l}/create`}
+                    href={`/${l}`}
                     className={`px-2.5 py-1 rounded-lg text-xs font-semibold transition-all ${
                       l === locale
                         ? "bg-white text-gray-900 shadow-sm"
@@ -63,15 +82,45 @@ export default async function LangLayout({
                     }`}
                     title={localeNames[l]}
                   >
-                    {l === "tr" ? "🇹🇷" : l === "en" ? "🇬🇧" : "🇷🇺"} {l.toUpperCase()}
+                    {l.toUpperCase()}
                   </Link>
                 ))}
               </div>
+              <Link
+                href={`/${locale}/create`}
+                className="hidden sm:inline-flex items-center px-4 py-2 bg-sky-500 text-white text-sm font-semibold rounded-lg hover:bg-sky-600 transition-colors shadow-sm"
+              >
+                {t.heroButton}
+              </Link>
             </div>
           </div>
         </div>
       </header>
-      <main>{children}</main>
+
+      <main className="flex-1">{children}</main>
+
+      {/* Footer - shown on all pages except landing (landing has its own) */}
+      {!isLandingPage && (
+        <footer className="bg-gray-900 text-gray-400 py-8">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+              <div className="flex items-center gap-2">
+                <div className="w-6 h-6 bg-gradient-to-br from-sky-500 to-indigo-600 rounded flex items-center justify-center">
+                  <span className="text-white font-bold text-xs">N</span>
+                </div>
+                <span className="font-semibold text-white text-sm">vizit.life</span>
+              </div>
+              <div className="flex flex-wrap items-center gap-4 text-sm">
+                <Link href={`/${locale}/terms`} className="hover:text-white transition-colors">{t.footerTerms}</Link>
+                <Link href={`/${locale}/privacy`} className="hover:text-white transition-colors">{t.footerPrivacy}</Link>
+                <Link href={`/${locale}/about`} className="hover:text-white transition-colors">{t.footerAbout}</Link>
+                <a href="mailto:info@vizit.life" className="hover:text-white transition-colors">info@vizit.life</a>
+              </div>
+              <p className="text-xs">&copy; 2025 vizit.life</p>
+            </div>
+          </div>
+        </footer>
+      )}
     </div>
   );
 }
